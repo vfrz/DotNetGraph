@@ -25,7 +25,7 @@ namespace DotNetGraph
         public string TargetNodeName { get; }
 
         [DotAttribute("arrowhead", DotArrowShape.Normal)]
-        public DotArrowShape ArrowHeadShape { get; set; }
+        public DotArrowShape ArrowHeadShape { get; set; } = DotArrowShape.Normal;
 
         public DotArrow(string startNodeName, string targetNodeName)
         {

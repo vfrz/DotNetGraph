@@ -39,7 +39,7 @@ namespace DotNetGraph
             _elements = new List<DotElement>();
         }
 
-        public string CompileCode(bool minified = true)
+        public string Compile(bool minified = true)
         {
             var builder = new StringBuilder();
 

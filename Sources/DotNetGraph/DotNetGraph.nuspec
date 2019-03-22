@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>VFRZ.DotNetGraph</id>
-    <version>1.0.0.0</version>
+    <id>DotNetGraph</id>
+    <version>1.0.2</version>
     <title>DotNetGraph</title>
     <authors>VFRZ</authors>
     <owners>VFRZ</owners>
@@ -10,8 +10,8 @@
     <projectUrl>https://github.com/vfrz/DotNetGraph</projectUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Create DOT diagram / graph using C#/.Net</description>
-    <releaseNotes>First upload.</releaseNotes>
-    <copyright>Copyright 2017</copyright>
+    <releaseNotes>Add FontColor and ArrowColor properties to DotArrow</releaseNotes>
+    <copyright>Copyright 2019</copyright>
     <tags>DOT Graphviz</tags>
   </metadata>
   <files>

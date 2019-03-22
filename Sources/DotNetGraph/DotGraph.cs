@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2017 DotNetGraph https://github.com/vfrz/DotNetGraph
+ * Copyright (c) 2019 DotNetGraph https://github.com/vfrz/DotNetGraph
  *  This file is part of DotNetGraph.
  *
  *     DotNetGraph is free software: you can redistribute it and/or modify
@@ -48,13 +48,9 @@ namespace DotNetGraph
             foreach (var element in _elements)
             {
                 if (element is DotNode node)
-                {
                     builder.Append((minified ? "" : "\t") + node.Name + " [ ");
-                }
                 else if (element is DotArrow arrow)
-                {
                     builder.Append((minified ? "" : "\t") + arrow.StartNodeName + "->" + arrow.TargetNodeName + " [ ");
-                }
 
                 foreach (var p in element.GetType().GetProperties())
                 {
@@ -67,22 +63,15 @@ namespace DotNetGraph
                         var value = p.GetValue(element);
 
                         if (value.Equals(attribute?.DefaultValue))
-                        {
                             continue;
-                        }
 
                         var isEnum = value.GetType().IsEnum;
                         var isString = value is string;
                         var isFloat = value is float;
 
-                        var valueString = isEnum
-                            ? value.ToString().ToLower()
-                            : (isFloat
-                                ? Convert.ToSingle(value).ToString(CultureInfo.InvariantCulture)
-                                : value);
+                        var valueString = isEnum ? value.ToString().ToLower() : (isFloat ? Convert.ToSingle(value).ToString(CultureInfo.InvariantCulture) : value);
 
-                        builder.Append(attribute?.Name + "=" + (isString ? "\"" : "") +
-                                       valueString + (isString ? "\" " : " "));
+                        builder.Append(attribute?.Name + "=" + (isString ? "\"" : "") + valueString + (isString ? "\" " : " "));
                     }
                 }
 

@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2017 DotNetGraph https://github.com/vfrz/DotNetGraph
+ * Copyright (c) 2019 DotNetGraph https://github.com/vfrz/DotNetGraph
  *  This file is part of DotNetGraph.
  *
  *     DotNetGraph is free software: you can redistribute it and/or modify

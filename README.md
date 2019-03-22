@@ -51,10 +51,10 @@ graph.Add(myArrow);
 
 ```csharp
 // Indented version
-var dot = graph.Compile();
+var dot = graph.Compile(false);
 
 // Minified version
-var dot = graph.Compile(true);
+var dot = graph.Compile();
 
 // Save it to a file
 File.WriteAllText("myFile.dot", dot);

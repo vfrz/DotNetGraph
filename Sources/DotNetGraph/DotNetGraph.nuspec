@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<package xmlns="https://raw.githubusercontent.com/NuGet/NuGet.Client/dev/src/NuGet.Core/NuGet.Packaging/compiler/resources/nuspec.xsd">
+<package
+        xmlns="https://raw.githubusercontent.com/NuGet/NuGet.Client/dev/src/NuGet.Core/NuGet.Packaging/compiler/resources/nuspec.xsd">
     <metadata>
         <id>DotNetGraph</id>
         <version>1.0.3</version>
@@ -7,10 +8,13 @@
         <authors>VFRZ</authors>
         <owners>VFRZ</owners>
         <projectUrl>https://github.com/vfrz/DotNetGraph</projectUrl>
+        <repository type="git" url="https://github.com/vfrz/DotNetGraph.git"/>
         <description>Create DOT diagram / graph using C#/.Net</description>
-        <releaseNotes>Add FontColor and ArrowColor properties to DotArrow</releaseNotes>
+        <releaseNotes>Fix undirected diagram (by andreabodo)</releaseNotes>
         <copyright>Copyright 2019</copyright>
         <tags>DOT Graphviz</tags>
+        <requireLicenseAcceptance>true</requireLicenseAcceptance>
+        <license type="file">LICENSE.txt</license>
         <frameworkReferences>netstandard2.0</frameworkReferences>
         <dependencies>
             <group targetFramework="netstandard2.0">
@@ -19,5 +23,6 @@
     </metadata>
     <files>
         <file src="bin\Release\netstandard2.0\DotNetGraph.dll" target="lib\netstandard2.0\DotNetGraph.dll"/>
+        <file src="..\..\LICENSE.txt" target="LICENSE.txt"/>
     </files>
 </package>

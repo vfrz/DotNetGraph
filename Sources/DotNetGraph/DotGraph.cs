@@ -50,7 +50,10 @@ namespace DotNetGraph
                 if (element is DotNode node)
                     builder.Append((minified ? "" : "\t") + node.Name + " [ ");
                 else if (element is DotArrow arrow)
-                    builder.Append((minified ? "" : "\t") + arrow.StartNodeName + "->" + arrow.TargetNodeName + " [ ");
+                    if (Directed == true)
+                        builder.Append((minified ? "" : "\t") + arrow.StartNodeName + "->" + arrow.TargetNodeName + " [ ");
+                    else
+                        builder.Append((minified ? "" : "\t") + arrow.StartNodeName + "--" + arrow.TargetNodeName + " [ ");
 
                 foreach (var p in element.GetType().GetProperties())
                 {

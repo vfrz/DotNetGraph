@@ -39,5 +39,24 @@ namespace DotNetGraph.Tests.Node
 
             Check.That(compiled).HasSameValueAs("graph TestGraph { TestNode [color=\"#FF0000\"]; }");
         }
+
+        [Fact]
+        public void NodeWithShape()
+        {
+            var graph = new DotGraph("TestGraph")
+            {
+                Elements =
+                {
+                    new DotNode("TestNode")
+                    {
+                        Shape = DotNodeShape.Square
+                    }
+                }
+            };
+
+            var compiled = graph.Compile();
+
+            Check.That(compiled).HasSameValueAs("graph TestGraph { TestNode [shape=square]; }");
+        }
     }
 }

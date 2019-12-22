@@ -58,5 +58,24 @@ namespace DotNetGraph.Tests.Node
 
             Check.That(compiled).HasSameValueAs("graph TestGraph { TestNode [shape=square]; }");
         }
+
+        [Fact]
+        public void NodeWithStyle()
+        {
+            var graph = new DotGraph("TestGraph")
+            {
+                Elements =
+                {
+                    new DotNode("TestNode")
+                    {
+                        Style = DotNodeStyle.Dashed
+                    }
+                }
+            };
+
+            var compiled = graph.Compile();
+
+            Check.That(compiled).HasSameValueAs("graph TestGraph { TestNode [style=dashed]; }");
+        }
     }
 }

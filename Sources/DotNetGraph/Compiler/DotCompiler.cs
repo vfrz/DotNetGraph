@@ -106,6 +106,10 @@ namespace DotNetGraph.Compiler
                 {
                     attributeValues.Add($"shape={nodeShapeAttribute.Shape.ToString().ToLowerInvariant()}");
                 }
+                else if (attribute is DotNodeStyleAttribute nodeStyleAttribute)
+                {
+                    attributeValues.Add($"style={nodeStyleAttribute.Style.ToString().ToLowerInvariant()}");
+                }
                 else
                 {
                     throw new DotException($"Attribute type not supported: {attribute.GetType()}");

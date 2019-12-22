@@ -77,5 +77,43 @@ namespace DotNetGraph.Tests.Node
 
             Check.That(compiled).HasSameValueAs("graph TestGraph { TestNode [style=dashed]; }");
         }
+
+        [Fact]
+        public void NodeWithFontColor()
+        {
+            var graph = new DotGraph("TestGraph")
+            {
+                Elements =
+                {
+                    new DotNode("TestNode")
+                    {
+                        FontColor = Color.Red
+                    }
+                }
+            };
+
+            var compiled = graph.Compile();
+
+            Check.That(compiled).HasSameValueAs("graph TestGraph { TestNode [fontcolor=\"#FF0000\"]; }");
+        }
+
+        [Fact]
+        public void NodeWithFillColor()
+        {
+            var graph = new DotGraph("TestGraph")
+            {
+                Elements =
+                {
+                    new DotNode("TestNode")
+                    {
+                        FillColor = Color.Red
+                    }
+                }
+            };
+
+            var compiled = graph.Compile();
+
+            Check.That(compiled).HasSameValueAs("graph TestGraph { TestNode [fillcolor=\"#FF0000\"]; }");
+        }
     }
 }

@@ -3,7 +3,7 @@ using DotNetGraph.Node;
 
 namespace DotNetGraph.Attributes
 {
-    public class DotNodeStyleAttribute : IDotAttribute
+    public class DotNodeStyleAttribute : DotColorAttribute
     {
         public DotNodeStyle Style { get; set; }
 

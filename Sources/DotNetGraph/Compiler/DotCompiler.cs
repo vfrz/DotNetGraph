@@ -98,17 +98,25 @@ namespace DotNetGraph.Compiler
             
             foreach (var attribute in attributes)
             {
-                if (attribute is DotColorAttribute colorAttribute)
-                {
-                    attributeValues.Add($"color=\"{colorAttribute.ToHex()}\"");
-                }
-                else if (attribute is DotNodeShapeAttribute nodeShapeAttribute)
+                if (attribute is DotNodeShapeAttribute nodeShapeAttribute)
                 {
                     attributeValues.Add($"shape={nodeShapeAttribute.Shape.ToString().ToLowerInvariant()}");
                 }
                 else if (attribute is DotNodeStyleAttribute nodeStyleAttribute)
                 {
                     attributeValues.Add($"style={nodeStyleAttribute.Style.ToString().ToLowerInvariant()}");
+                }
+                else if (attribute is DotFontColorAttribute fontColorAttribute)
+                {
+                    attributeValues.Add($"fontcolor=\"{fontColorAttribute.ToHex()}\"");
+                }
+                else if (attribute is DotFillColorAttribute fillColorAttribute)
+                {
+                    attributeValues.Add($"fillcolor=\"{fillColorAttribute.ToHex()}\"");
+                }
+                else if (attribute is DotColorAttribute colorAttribute)
+                {
+                    attributeValues.Add($"color=\"{colorAttribute.ToHex()}\"");
                 }
                 else
                 {

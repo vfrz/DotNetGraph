@@ -12,6 +12,18 @@ namespace DotNetGraph.Node
             get => GetAttribute<DotColorAttribute>();
             set => SetAttribute(value);
         }
+        
+        public DotFontColorAttribute FontColor
+        {
+            get => GetAttribute<DotFontColorAttribute>();
+            set => SetAttribute(value);
+        }
+        
+        public DotFillColorAttribute FillColor
+        {
+            get => GetAttribute<DotFillColorAttribute>();
+            set => SetAttribute(value);
+        }
 
         public DotNodeShapeAttribute Shape
         {

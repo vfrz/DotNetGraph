@@ -1,8 +1,10 @@
 # DotNetGraph
 
-Create **DOT/GraphViz graph** using **C# / .Net**
+Create **GraphViz DOT graph** with **.NET**
 
 Available on NuGet: [![#](https://img.shields.io/nuget/v/DotNetGraph.svg)](https://www.nuget.org/packages/DotNetGraph/)
+
+Compatible with **.NET Standard 2.0** and higher
 
 # Documentation
 

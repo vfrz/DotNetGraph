@@ -1,8 +1,7 @@
-﻿namespace DotNetGraph
+namespace DotNetGraph.Node
 {
     public enum DotNodeStyle
     {
-        Default = -1,
         Solid,
         Dashed,
         Dotted,

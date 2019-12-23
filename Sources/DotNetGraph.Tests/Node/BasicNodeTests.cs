@@ -25,6 +25,27 @@ namespace DotNetGraph.Tests.Node
         }
 
         [Fact]
+        public void NodeWithMultipleAttributes()
+        {
+            var graph = new DotGraph("TestGraph")
+            {
+                Elements =
+                {
+                    new DotNode("TestNode")
+                    {
+                        Color = Color.Blue,
+                        Label = "Test",
+                        Shape = DotNodeShape.Box
+                    }
+                }
+            };
+            
+            var compiled = graph.Compile();
+
+            Check.That(compiled).HasSameValueAs("graph TestGraph { TestNode [color=\"#0000FF\",label=\"Test\",shape=box]; }");
+        }
+
+        [Fact]
         public void NodeWithColor()
         {
             var graph = new DotGraph("TestGraph")
@@ -114,6 +135,25 @@ namespace DotNetGraph.Tests.Node
             var compiled = graph.Compile();
 
             Check.That(compiled).HasSameValueAs("graph TestGraph { TestNode [fillcolor=\"#FF0000\"]; }");
+        }
+
+        [Fact]
+        public void NodeWithLabel()
+        {
+            var graph = new DotGraph("TestGraph")
+            {
+                Elements =
+                {
+                    new DotNode("TestNode")
+                    {
+                        Label = "Hello, \"world\"!"
+                    }
+                }
+            };
+
+            var compiled = graph.Compile();
+
+            Check.That(compiled).HasSameValueAs("graph TestGraph { TestNode [label=\"Hello, \\\"world\\\"!\"]; }");
         }
     }
 }

@@ -36,6 +36,12 @@ namespace DotNetGraph.Node
             get => GetAttribute<DotNodeStyleAttribute>();
             set => SetAttribute(value);
         }
+
+        public DotLabelAttribute Label
+        {
+            get => GetAttribute<DotLabelAttribute>();
+            set => SetAttribute(value);
+        }
         
         public DotNode(string identifier = null, DotColorAttribute color = null)
         {

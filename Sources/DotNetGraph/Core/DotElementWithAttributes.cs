@@ -26,9 +26,9 @@ namespace DotNetGraph.Core
         protected void SetAttribute<T>(T value) where T : IDotAttribute
         {
             if (value != null)
-                _attributes[nameof(DotColorAttribute)] = value;
-            else if (_attributes.ContainsKey(nameof(DotColorAttribute)))
-                _attributes.Remove(nameof(DotColorAttribute));
+                _attributes[typeof(T).Name] = value;
+            else if (_attributes.ContainsKey(typeof(T).Name))
+                _attributes.Remove(typeof(T).Name);
         }
     }
 }

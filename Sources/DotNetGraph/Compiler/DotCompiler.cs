@@ -118,6 +118,11 @@ namespace DotNetGraph.Compiler
                 {
                     attributeValues.Add($"color=\"{colorAttribute.ToHex()}\"");
                 }
+                else if (attribute is DotLabelAttribute labelAttribute)
+                {
+                    var text = FormatString(labelAttribute.Text);
+                    attributeValues.Add($"label=\"{text}\"");
+                }
                 else
                 {
                     throw new DotException($"Attribute type not supported: {attribute.GetType()}");
@@ -127,6 +132,13 @@ namespace DotNetGraph.Compiler
             builder.Append(string.Join(",", attributeValues));
             
             builder.Append("]");
+        }
+
+        private static string FormatString(string value)
+        {
+            var result = value.Replace("\"", "\\\"");
+
+            return result;
         }
     }
 }

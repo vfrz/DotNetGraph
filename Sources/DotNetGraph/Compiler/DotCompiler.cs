@@ -6,6 +6,7 @@ using DotNetGraph.Core;
 using DotNetGraph.Edge;
 using DotNetGraph.Extensions;
 using DotNetGraph.Node;
+using DotNetGraph.SubGraph;
 
 namespace DotNetGraph.Compiler
 {
@@ -46,6 +47,10 @@ namespace DotNetGraph.Compiler
                 {
                     CompileNode(builder, node);
                 }
+                else if (element is DotSubGraph subGraph)
+                {
+                    CompileSubGraph(builder, subGraph);
+                }
                 else
                 {
                     throw new DotException($"Graph body can't contain element of type: {element.GetType()}");
@@ -53,6 +58,62 @@ namespace DotNetGraph.Compiler
             }
 
             builder.Append("}");
+        }
+
+        private void CompileSubGraph(StringBuilder builder, DotSubGraph subGraph)
+        {
+            builder.Append($"subgraph {subGraph.Identifier} {{ ");
+            
+            CompileSubGraphAttributes(builder, subGraph.Attributes);
+            
+            foreach (var element in subGraph.Elements)
+            {
+                if (element is DotEdge edge)
+                {
+                    CompileEdge(builder, edge);
+                }
+                else if (element is DotNode node)
+                {
+                    CompileNode(builder, node);
+                }
+                else if (element is DotSubGraph subSubGraph)
+                {
+                    CompileSubGraph(builder, subSubGraph);
+                }
+                else
+                {
+                    throw new DotException($"Subgraph body can't contain element of type: {element.GetType()}");
+                }
+            }
+            
+            builder.Append("} ");
+        }
+
+        private void CompileSubGraphAttributes(StringBuilder builder, ReadOnlyCollection<IDotAttribute> attributes)
+        {
+            if (attributes.Count == 0)
+                return;
+            
+            foreach (var attribute in attributes)
+            {
+                if (attribute is DotSubGraphStyleAttribute subGraphStyleAttribute)
+                {
+                    builder.Append($"style={subGraphStyleAttribute.Style.ToString().ToLowerInvariant()}; ");
+                }
+                else if (attribute is DotColorAttribute colorAttribute)
+                {
+                    builder.Append($"color=\"{colorAttribute.ToHex()}\"; ");
+                }
+                else if (attribute is DotLabelAttribute labelAttribute)
+                {
+                    var text = FormatString(labelAttribute.Text);
+                    builder.Append($"label=\"{text}\"; ");
+                }
+                else
+                {
+                    throw new DotException($"Attribute type not supported: {attribute.GetType()}");
+                }
+            }
         }
 
         private void CompileEdge(StringBuilder builder, DotEdge edge)

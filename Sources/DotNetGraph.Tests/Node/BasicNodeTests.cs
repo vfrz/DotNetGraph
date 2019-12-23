@@ -155,5 +155,24 @@ namespace DotNetGraph.Tests.Node
 
             Check.That(compiled).HasSameValueAs("graph TestGraph { TestNode [label=\"Hello, \\\"world\\\"!\"]; }");
         }
+        
+        [Fact]
+        public void NodeWithHeight()
+        {
+            var graph = new DotGraph("TestGraph")
+            {
+                Elements =
+                {
+                    new DotNode("TestNode")
+                    {
+                        Height = 0.64f
+                    }
+                }
+            };
+
+            var compiled = graph.Compile();
+
+            Check.That(compiled).HasSameValueAs("graph TestGraph { TestNode [height=0.64]; }");
+        }
     }
 }

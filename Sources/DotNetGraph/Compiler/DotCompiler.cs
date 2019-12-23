@@ -57,24 +57,30 @@ namespace DotNetGraph.Compiler
 
         private void CompileEdge(StringBuilder builder, DotEdge edge)
         {
-            if (edge.Left is DotString leftEdgeString)
+            CompileEdgeEndPoint(builder, edge.Left);
+
+            builder.Append(_graph.Directed ? " -> " : " -- ");
+
+            CompileEdgeEndPoint(builder, edge.Right);
+            
+            CompileAttributes(builder, edge.Attributes);
+            
+            builder.Append("; ");
+        }
+
+        private void CompileEdgeEndPoint(StringBuilder builder, IDotElement endPoint)
+        {
+            if (endPoint is DotString leftEdgeString)
             {
-                builder.Append($"{leftEdgeString.Value} ");
+                builder.Append($"{leftEdgeString.Value}");
+            }
+            else if (endPoint is DotNode leftEdgeNode)
+            {
+                builder.Append($"{leftEdgeNode.Identifier}");
             }
             else
             {
-                throw new DotException($"Left part of an edge can't be of type: {edge.Left.GetType()}");
-            }
-
-            builder.Append(_graph.Directed ? "-> " : "-- ");
-
-            if (edge.Right is DotString rightEdgeString)
-            {
-                builder.Append($"{rightEdgeString.Value} ");
-            }
-            else
-            {
-                throw new DotException($"Right part of an edge can't be of type: {edge.Right.GetType()}");
+                throw new DotException($"Endpoint of an edge can't be of type: {endPoint.GetType()}");
             }
         }
 
@@ -122,6 +128,18 @@ namespace DotNetGraph.Compiler
                 {
                     var text = FormatString(labelAttribute.Text);
                     attributeValues.Add($"label=\"{text}\"");
+                }
+                else if (attribute is DotNodeHeightAttribute nodeHeightAttribute)
+                {
+                    attributeValues.Add($"height={nodeHeightAttribute.Value:F2}");
+                }
+                else if (attribute is DotEdgeArrowTailAttribute edgeArrowTailAttribute)
+                {
+                    attributeValues.Add($"arrowtail={edgeArrowTailAttribute.ArrowType.ToString().ToLowerInvariant()}");
+                }
+                else if (attribute is DotEdgeArrowHeadAttribute edgeArrowHeadAttribute)
+                {
+                    attributeValues.Add($"arrowhead={edgeArrowHeadAttribute.ArrowType.ToString().ToLowerInvariant()}");
                 }
                 else
                 {

@@ -36,10 +36,10 @@ graph.Elements.Add(myNode);
 ## Create and add an edge (*DotEdge*)
 
 ```csharp
-// Create an edge with node names
+// Create an edge with identifiers
 var myEdge = new DotEdge("myNode1", "myNode2");
 
-// Create an edge with node objects
+// Create an edge with nodes and attributes
 var myEdge = new DotEdge(myNode1, myNode2)
 {
     ArrowHead = DotEdgeArrowType.Box,
@@ -51,6 +51,29 @@ var myEdge = new DotEdge(myNode1, myNode2)
 
 // Add the edge to the graph
 graph.Elements.Add(myEdge);
+```
+
+## Create a subgraph / cluster
+
+```csharp
+// Subgraph identifier need to start with "cluster" to be identified as a cluster
+var mySubGraph = new DotSubGraph("cluster_0");
+
+// Create a subgraph with attributes (only used for cluster)
+var mySubGraph = new DotSubGraph("cluster_0")
+{
+    Color = Color.Red,
+    Style = DotSubGraphStyle.Dashed,
+    Label = "My subgraph!"
+};
+
+// Add node, edge, subgraph
+subGraph.Elements.Add(myNode);
+subGraph.Elements.Add(myEdge);
+subGraph.Elements.Add(mySubGraph2);
+
+// Add subgraph to main graph
+graph.Elements.Add(mySubGraph);
 ```
 
 ## Compile to DOT format

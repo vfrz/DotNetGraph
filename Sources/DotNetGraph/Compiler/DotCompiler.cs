@@ -19,8 +19,14 @@ namespace DotNetGraph.Compiler
             _graph = graph;
         }
         
-        public string Compile()
+        public string Compile(bool applyDefaultStyles = true)
         {
+            if (applyDefaultStyles)
+            {
+                var styleProcessor = new DotStyleProcessor(_graph);
+                styleProcessor.ApplyDefaultLayoutStyles(_graph);
+            }
+            
             var builder = new StringBuilder();
 
             CompileGraph(builder);

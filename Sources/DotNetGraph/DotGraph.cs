@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using DotNetGraph.Core;
+using DotNetGraph.Node;
 
 namespace DotNetGraph
 {
-    public class DotGraph : IDotElement
+    public class DotGraph : IDotElement, IElementWithChildren
     {
         public bool Directed { get; set; }
         
@@ -12,16 +13,26 @@ namespace DotNetGraph
         public bool Strict { get; set; }
         
         public List<IDotElement> Elements { get; }
+        
+        public DotNodeStyleLayout DefaultNodeStyleLayout { get; set; }
 
-        public DotGraph()
+        public DotGraph(string identifier, bool directed = false)
         {
             Elements = new List<IDotElement>();
-        }
-
-        public DotGraph(string identifier, bool directed = false) : this()
-        {
             Identifier = identifier;
             Directed = directed;
+        }
+
+        public DotGraph AddElement(IDotElement element)
+        {
+            Elements.Add(element);
+            return this;
+        }
+
+        public DotGraph WithDefaultNodeStyleLayout(DotNodeStyleLayout nodeStyleLayout)
+        {
+            DefaultNodeStyleLayout = nodeStyleLayout;
+            return this;
         }
     }
 }

@@ -4,9 +4,11 @@ using DotNetGraph.Core;
 
 namespace DotNetGraph.SubGraph
 {
-    public class DotSubGraph : DotElementWithAttributes
+    public class DotSubGraph : DotElementWithAttributes, IElementWithChildren
     {
         public string Identifier { get; set; }
+        
+        public List<IDotElement> Elements { get; }
         
         public DotColorAttribute Color
         {
@@ -25,8 +27,6 @@ namespace DotNetGraph.SubGraph
             get => GetAttribute<DotLabelAttribute>();
             set => SetAttribute(value);
         }
-
-        public List<IDotElement> Elements { get; }
 
         public DotSubGraph(string identifier = null)
         {

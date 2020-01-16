@@ -49,10 +49,39 @@ namespace DotNetGraph.Node
             set => SetAttribute(value);
         }
         
-        public DotNode(string identifier = null, DotColorAttribute color = null)
+        public DotNode(string identifier)
         {
             Identifier = identifier;
-            Color = color;
+        }
+
+        public DotNode(string identifier, DotNodeStyleLayout styleLayout)
+        {
+            Identifier = identifier;
+            ApplyStyleLayout(styleLayout);
+        }
+
+        public void ApplyStyleLayout(DotNodeStyleLayout styleLayout)
+        {
+            if (styleLayout is null)
+                return;
+
+            if (styleLayout.Color != null)
+                Color = styleLayout.Color;
+
+            if (styleLayout.Height != null)
+                Height = styleLayout.Height;
+
+            if (styleLayout.Shape != null)
+                Shape = styleLayout.Shape;
+
+            if (styleLayout.Style != null)
+                Style = styleLayout.Style;
+
+            if (styleLayout.FillColor != null)
+                FillColor = styleLayout.FillColor;
+
+            if (styleLayout.FontColor != null)
+                FontColor = styleLayout.FontColor;
         }
     }
 }

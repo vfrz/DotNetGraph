@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Text;
 using DotNetGraph.Attributes;
 using DotNetGraph.Core;
@@ -192,7 +193,7 @@ namespace DotNetGraph.Compiler
                 }
                 else if (attribute is DotNodeHeightAttribute nodeHeightAttribute)
                 {
-                    attributeValues.Add($"height={nodeHeightAttribute.Value:F2}");
+                    attributeValues.Add(string.Format(CultureInfo.InvariantCulture, "height={0:F2}", nodeHeightAttribute.Value));
                 }
                 else if (attribute is DotEdgeArrowTailAttribute edgeArrowTailAttribute)
                 {

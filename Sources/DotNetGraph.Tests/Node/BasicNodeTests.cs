@@ -1,4 +1,6 @@
 using System.Drawing;
+using System.Globalization;
+using System.Threading;
 using DotNetGraph.Extensions;
 using DotNetGraph.Node;
 using NFluent;
@@ -173,6 +175,64 @@ namespace DotNetGraph.Tests.Node
             var compiled = graph.Compile();
 
             Check.That(compiled).HasSameValueAs("graph TestGraph { TestNode [height=0.64]; }");
+        }
+        
+        [Fact]
+        public void NodeWithHeightUsesCorrectCulture()
+        {
+            var currentCulture = Thread.CurrentThread.CurrentCulture;
+            var currentUiCulture = Thread.CurrentThread.CurrentUICulture;
+            
+            var graph = new DotGraph("TestGraph")
+            {
+                Elements =
+                {
+                    new DotNode("TestNode")
+                    {
+                        Height = 0.64f
+                    }
+                }
+            };
+
+            var cultureInfo = new CultureInfo("de-DE");
+            Thread.CurrentThread.CurrentCulture = cultureInfo;
+            Thread.CurrentThread.CurrentUICulture = cultureInfo;
+            
+            var compiled = graph.Compile();
+
+            Check.That(compiled).HasSameValueAs("graph TestGraph { TestNode [height=0.64]; }");
+            
+            Thread.CurrentThread.CurrentCulture = currentCulture;
+            Thread.CurrentThread.CurrentUICulture = currentUiCulture;
+        }
+        
+        [Fact]
+        public void NodeWithLargeHeightUsesCorrectCulture()
+        {
+            var currentCulture = Thread.CurrentThread.CurrentCulture;
+            var currentUiCulture = Thread.CurrentThread.CurrentUICulture;
+            
+            var graph = new DotGraph("TestGraph")
+            {
+                Elements =
+                {
+                    new DotNode("TestNode")
+                    {
+                        Height = 12345.67f
+                    }
+                }
+            };
+
+            var cultureInfo = new CultureInfo("fr-FR");
+            Thread.CurrentThread.CurrentCulture = cultureInfo;
+            Thread.CurrentThread.CurrentUICulture = cultureInfo;
+            
+            var compiled = graph.Compile();
+
+            Check.That(compiled).HasSameValueAs("graph TestGraph { TestNode [height=12345.67]; }");
+            
+            Thread.CurrentThread.CurrentCulture = currentCulture;
+            Thread.CurrentThread.CurrentUICulture = currentUiCulture;
         }
     }
 }

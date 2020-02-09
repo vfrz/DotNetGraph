@@ -43,6 +43,12 @@ namespace DotNetGraph.Node
             set => SetAttribute(value);
         }
 
+        public DotNodeWidthAttribute Width
+        {
+            get => GetAttribute<DotNodeWidthAttribute>();
+            set => SetAttribute(value);
+        }
+
         public DotNodeHeightAttribute Height
         {
             get => GetAttribute<DotNodeHeightAttribute>();

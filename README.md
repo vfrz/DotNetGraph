@@ -26,6 +26,7 @@ var myNode = new DotNode("MyNode")
     FillColor = Color.Coral,
     FontColor = Color.Black,
     Style = DotNodeStyle.Dotted,
+    Width = 0.5f,
     Height = 0.5f
 };
 

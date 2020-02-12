@@ -191,6 +191,10 @@ namespace DotNetGraph.Compiler
                     var text = FormatString(labelAttribute.Text);
                     attributeValues.Add($"label=\"{text}\"");
                 }
+                else if (attribute is DotNodeWidthAttribute nodeWidthAttribute)
+                {
+                    attributeValues.Add(string.Format(CultureInfo.InvariantCulture, "width={0:F2}", nodeWidthAttribute.Value));
+                }
                 else if (attribute is DotNodeHeightAttribute nodeHeightAttribute)
                 {
                     attributeValues.Add(string.Format(CultureInfo.InvariantCulture, "height={0:F2}", nodeHeightAttribute.Value));

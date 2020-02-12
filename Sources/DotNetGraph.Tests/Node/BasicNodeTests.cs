@@ -159,6 +159,25 @@ namespace DotNetGraph.Tests.Node
         }
         
         [Fact]
+        public void NodeWithWidth()
+        {
+            var graph = new DotGraph("TestGraph")
+            {
+                Elements =
+                {
+                    new DotNode("TestNode")
+                    {
+                        Width = 0.64f
+                    }
+                }
+            };
+
+            var compiled = graph.Compile();
+
+            Check.That(compiled).HasSameValueAs("graph TestGraph { TestNode [width=0.64]; }");
+        }
+        
+        [Fact]
         public void NodeWithHeight()
         {
             var graph = new DotGraph("TestGraph")
@@ -178,7 +197,7 @@ namespace DotNetGraph.Tests.Node
         }
         
         [Fact]
-        public void NodeWithHeightUsesCorrectCulture()
+        public void NodeWithWidthAndHeightUsesCorrectCulture()
         {
             var currentCulture = Thread.CurrentThread.CurrentCulture;
             var currentUiCulture = Thread.CurrentThread.CurrentUICulture;
@@ -189,6 +208,7 @@ namespace DotNetGraph.Tests.Node
                 {
                     new DotNode("TestNode")
                     {
+                        Width = 0.46f,
                         Height = 0.64f
                     }
                 }
@@ -200,7 +220,7 @@ namespace DotNetGraph.Tests.Node
             
             var compiled = graph.Compile();
 
-            Check.That(compiled).HasSameValueAs("graph TestGraph { TestNode [height=0.64]; }");
+            Check.That(compiled).HasSameValueAs("graph TestGraph { TestNode [width=0.46,height=0.64]; }");
             
             Thread.CurrentThread.CurrentCulture = currentCulture;
             Thread.CurrentThread.CurrentUICulture = currentUiCulture;

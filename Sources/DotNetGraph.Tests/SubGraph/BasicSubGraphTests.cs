@@ -14,12 +14,7 @@ namespace DotNetGraph.Tests.SubGraph
         public void EmptySubGraph()
         {
             var graph = new DotGraph("TestGraph")
-            {
-                Elements =
-                {
-                    new DotSubGraph("TestSubGraph")
-                }
-            };
+                .Add(new DotSubGraph("TestSubGraph"));
 
             var compiled = graph.Compile();
 
@@ -30,17 +25,12 @@ namespace DotNetGraph.Tests.SubGraph
         public void SubGraphWithMultipleAttributes()
         {
             var graph = new DotGraph("TestGraph")
-            {
-                Elements =
+                .Add(new DotSubGraph("TestSubGraph")
                 {
-                    new DotSubGraph("TestSubGraph")
-                    {
-                        Style = DotSubGraphStyle.Dashed,
-                        Color = Color.Red,
-                        Label = "Hello, world!"
-                    }
-                }
-            };
+                    Style = DotSubGraphStyle.Dashed,
+                    Color = Color.Red,
+                    Label = "Hello, world!"
+                });
 
             var compiled = graph.Compile();
 
@@ -51,15 +41,10 @@ namespace DotNetGraph.Tests.SubGraph
         public void SubGraphWithStyle()
         {
             var graph = new DotGraph("TestGraph")
-            {
-                Elements =
+                .Add(new DotSubGraph("TestSubGraph")
                 {
-                    new DotSubGraph("TestSubGraph")
-                    {
-                        Style = DotSubGraphStyle.Dashed
-                    }
-                }
-            };
+                    Style = DotSubGraphStyle.Dashed
+                });
 
             var compiled = graph.Compile();
 
@@ -70,15 +55,10 @@ namespace DotNetGraph.Tests.SubGraph
         public void SubGraphWithLabel()
         {
             var graph = new DotGraph("TestGraph")
-            {
-                Elements =
+                .Add(new DotSubGraph("TestSubGraph")
                 {
-                    new DotSubGraph("TestSubGraph")
-                    {
-                        Label = "Hello, \"world\"!"
-                    }
-                }
-            };
+                    Label = "Hello, \"world\"!"
+                });
 
             var compiled = graph.Compile();
 
@@ -89,15 +69,10 @@ namespace DotNetGraph.Tests.SubGraph
         public void SubGraphWithColor()
         {
             var graph = new DotGraph("TestGraph")
-            {
-                Elements =
+                .Add(new DotSubGraph("TestSubGraph")
                 {
-                    new DotSubGraph("TestSubGraph")
-                    {
-                        Color = Color.Red
-                    }
-                }
-            };
+                    Color = Color.Red
+                });
 
             var compiled = graph.Compile();
 
@@ -108,41 +83,32 @@ namespace DotNetGraph.Tests.SubGraph
         public void SubGraphWithEdge()
         {
             var graph = new DotGraph("TestGraph")
-            {
-                Elements =
+                .Add(new DotSubGraph("TestSubGraph")
                 {
-                    new DotSubGraph("TestSubGraph")
+                    Elements =
                     {
-                        Elements =
-                        {
-                            new DotEdge("hello", "world")
-                        }
+                        new DotEdge("hello", "world")
                     }
-                }
-            };
+                });
 
             var compiled = graph.Compile();
 
             Check.That(compiled).HasSameValueAs("graph TestGraph { subgraph TestSubGraph { hello -- world; } }");
         }
-        
+
         [Fact]
         public void SubGraphWithEdgeDirected()
         {
             var graph = new DotGraph("TestGraph")
             {
                 Directed = true,
+            }.Add(new DotSubGraph("TestSubGraph")
+            {
                 Elements =
                 {
-                    new DotSubGraph("TestSubGraph")
-                    {
-                        Elements =
-                        {
-                            new DotEdge("hello", "world")
-                        }
-                    }
+                    new DotEdge("hello", "world")
                 }
-            };
+            });
 
             var compiled = graph.Compile();
 
@@ -153,18 +119,13 @@ namespace DotNetGraph.Tests.SubGraph
         public void SubGraphWithNode()
         {
             var graph = new DotGraph("TestGraph")
-            {
-                Elements =
+                .Add(new DotSubGraph("TestSubGraph")
                 {
-                    new DotSubGraph("TestSubGraph")
+                    Elements =
                     {
-                        Elements =
-                        {
-                            new DotNode("TestNode")
-                        }
+                        new DotNode("TestNode")
                     }
-                }
-            };
+                });
 
             var compiled = graph.Compile();
 

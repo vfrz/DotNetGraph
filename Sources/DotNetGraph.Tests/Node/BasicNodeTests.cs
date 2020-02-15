@@ -14,12 +14,7 @@ namespace DotNetGraph.Tests.Node
         public void EmptyNode()
         {
             var graph = new DotGraph("TestGraph")
-            {
-                Elements =
-                {
-                    new DotNode("TestNode")
-                }
-            };
+                .Add(new DotNode("TestNode"));
 
             var compiled = graph.Compile();
 
@@ -30,18 +25,13 @@ namespace DotNetGraph.Tests.Node
         public void NodeWithMultipleAttributes()
         {
             var graph = new DotGraph("TestGraph")
-            {
-                Elements =
+                .Add(new DotNode("TestNode")
                 {
-                    new DotNode("TestNode")
-                    {
-                        Color = Color.Blue,
-                        Label = "Test",
-                        Shape = DotNodeShape.Box
-                    }
-                }
-            };
-            
+                    Color = Color.Blue,
+                    Label = "Test",
+                    Shape = DotNodeShape.Box
+                });
+
             var compiled = graph.Compile();
 
             Check.That(compiled).HasSameValueAs("graph TestGraph { TestNode [color=\"#0000FF\",label=\"Test\",shape=box]; }");
@@ -51,12 +41,7 @@ namespace DotNetGraph.Tests.Node
         public void NodeWithColor()
         {
             var graph = new DotGraph("TestGraph")
-            {
-                Elements =
-                {
-                    new DotNode("TestNode", Color.Red)
-                }
-            };
+                .Add(new DotNode("TestNode", Color.Red));
 
             var compiled = graph.Compile();
 
@@ -67,15 +52,10 @@ namespace DotNetGraph.Tests.Node
         public void NodeWithShape()
         {
             var graph = new DotGraph("TestGraph")
-            {
-                Elements =
+                .Add(new DotNode("TestNode")
                 {
-                    new DotNode("TestNode")
-                    {
-                        Shape = DotNodeShape.Square
-                    }
-                }
-            };
+                    Shape = DotNodeShape.Square
+                });
 
             var compiled = graph.Compile();
 
@@ -86,15 +66,10 @@ namespace DotNetGraph.Tests.Node
         public void NodeWithStyle()
         {
             var graph = new DotGraph("TestGraph")
-            {
-                Elements =
+                .Add(new DotNode("TestNode")
                 {
-                    new DotNode("TestNode")
-                    {
-                        Style = DotNodeStyle.Dashed
-                    }
-                }
-            };
+                    Style = DotNodeStyle.Dashed
+                });
 
             var compiled = graph.Compile();
 
@@ -105,15 +80,10 @@ namespace DotNetGraph.Tests.Node
         public void NodeWithFontColor()
         {
             var graph = new DotGraph("TestGraph")
-            {
-                Elements =
+                .Add(new DotNode("TestNode")
                 {
-                    new DotNode("TestNode")
-                    {
-                        FontColor = Color.Red
-                    }
-                }
-            };
+                    FontColor = Color.Red
+                });
 
             var compiled = graph.Compile();
 
@@ -124,15 +94,10 @@ namespace DotNetGraph.Tests.Node
         public void NodeWithFillColor()
         {
             var graph = new DotGraph("TestGraph")
-            {
-                Elements =
+                .Add(new DotNode("TestNode")
                 {
-                    new DotNode("TestNode")
-                    {
-                        FillColor = Color.Red
-                    }
-                }
-            };
+                    FillColor = Color.Red
+                });
 
             var compiled = graph.Compile();
 
@@ -143,114 +108,89 @@ namespace DotNetGraph.Tests.Node
         public void NodeWithLabel()
         {
             var graph = new DotGraph("TestGraph")
-            {
-                Elements =
+                .Add(new DotNode("TestNode")
                 {
-                    new DotNode("TestNode")
-                    {
-                        Label = "Hello, \"world\"!"
-                    }
-                }
-            };
+                    Label = "Hello, \"world\"!"
+                });
 
             var compiled = graph.Compile();
 
             Check.That(compiled).HasSameValueAs("graph TestGraph { TestNode [label=\"Hello, \\\"world\\\"!\"]; }");
         }
-        
+
         [Fact]
         public void NodeWithWidth()
         {
             var graph = new DotGraph("TestGraph")
-            {
-                Elements =
+                .Add(new DotNode("TestNode")
                 {
-                    new DotNode("TestNode")
-                    {
-                        Width = 0.64f
-                    }
-                }
-            };
+                    Width = 0.64f
+                });
 
             var compiled = graph.Compile();
 
             Check.That(compiled).HasSameValueAs("graph TestGraph { TestNode [width=0.64]; }");
         }
-        
+
         [Fact]
         public void NodeWithHeight()
         {
             var graph = new DotGraph("TestGraph")
-            {
-                Elements =
+                .Add(new DotNode("TestNode")
                 {
-                    new DotNode("TestNode")
-                    {
-                        Height = 0.64f
-                    }
-                }
-            };
+                    Height = 0.64f
+                });
 
             var compiled = graph.Compile();
 
             Check.That(compiled).HasSameValueAs("graph TestGraph { TestNode [height=0.64]; }");
         }
-        
+
         [Fact]
         public void NodeWithWidthAndHeightUsesCorrectCulture()
         {
             var currentCulture = Thread.CurrentThread.CurrentCulture;
             var currentUiCulture = Thread.CurrentThread.CurrentUICulture;
-            
+
             var graph = new DotGraph("TestGraph")
-            {
-                Elements =
+                .Add(new DotNode("TestNode")
                 {
-                    new DotNode("TestNode")
-                    {
-                        Width = 0.46f,
-                        Height = 0.64f
-                    }
-                }
-            };
+                    Width = 0.46f,
+                    Height = 0.64f
+                });
 
             var cultureInfo = new CultureInfo("de-DE");
             Thread.CurrentThread.CurrentCulture = cultureInfo;
             Thread.CurrentThread.CurrentUICulture = cultureInfo;
-            
+
             var compiled = graph.Compile();
 
             Check.That(compiled).HasSameValueAs("graph TestGraph { TestNode [width=0.46,height=0.64]; }");
-            
+
             Thread.CurrentThread.CurrentCulture = currentCulture;
             Thread.CurrentThread.CurrentUICulture = currentUiCulture;
         }
-        
+
         [Fact]
         public void NodeWithLargeHeightUsesCorrectCulture()
         {
             var currentCulture = Thread.CurrentThread.CurrentCulture;
             var currentUiCulture = Thread.CurrentThread.CurrentUICulture;
-            
+
             var graph = new DotGraph("TestGraph")
-            {
-                Elements =
+                .Add(new DotNode("TestNode")
                 {
-                    new DotNode("TestNode")
-                    {
-                        Height = 12345.67f
-                    }
-                }
-            };
+                    Height = 12345.67f
+                });
 
             var cultureInfo = new CultureInfo("fr-FR");
             Thread.CurrentThread.CurrentCulture = cultureInfo;
             Thread.CurrentThread.CurrentUICulture = cultureInfo;
-            
+
             var compiled = graph.Compile();
 
             Check.That(compiled).HasSameValueAs("graph TestGraph { TestNode [height=12345.67]; }");
-            
+
             Thread.CurrentThread.CurrentCulture = currentCulture;
             Thread.CurrentThread.CurrentUICulture = currentUiCulture;
         }

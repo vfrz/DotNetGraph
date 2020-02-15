@@ -14,7 +14,7 @@ namespace DotNetGraph.Compiler
     public class DotCompiler
     {
         private readonly DotGraph _graph;
-
+        
         public DotCompiler(DotGraph graph)
         {
             _graph = graph;

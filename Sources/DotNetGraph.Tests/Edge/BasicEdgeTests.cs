@@ -13,12 +13,7 @@ namespace DotNetGraph.Tests.Edge
         public void EdgeWithIdentifierToIdentifier()
         {
             var graph = new DotGraph("TestGraph")
-            {
-                Elements =
-                {
-                    new DotEdge("hello", "world")
-                }
-            };
+                .Add(new DotEdge("hello", "world"));
 
             var compiled = graph.Compile();
 
@@ -30,12 +25,8 @@ namespace DotNetGraph.Tests.Edge
         {
             var graph = new DotGraph("TestGraph")
             {
-                Directed = true,
-                Elements =
-                {
-                    new DotEdge("hello", "world")
-                }
-            };
+                Directed = true
+            }.Add(new DotEdge("hello", "world"));
 
             var compiled = graph.Compile();
 
@@ -50,14 +41,9 @@ namespace DotNetGraph.Tests.Edge
             var worldNode = new DotNode("world");
 
             var graph = new DotGraph("TestGraph")
-            {
-                Elements =
-                {
-                    helloNode,
-                    worldNode,
-                    new DotEdge(helloNode, worldNode)
-                }
-            };
+                .Add(helloNode)
+                .Add(worldNode)
+                .Add(new DotEdge(helloNode, worldNode));
 
             var compiled = graph.Compile();
 
@@ -68,17 +54,12 @@ namespace DotNetGraph.Tests.Edge
         public void EdgeWithMultipleAttributes()
         {
             var graph = new DotGraph("TestGraph")
-            {
-                Elements =
+                .Add(new DotEdge("hello", "world")
                 {
-                    new DotEdge("hello", "world")
-                    {
-                        Color = Color.Red,
-                        ArrowHead = DotEdgeArrowType.Box,
-                        ArrowTail = DotEdgeArrowType.Diamond
-                    }
-                }
-            };
+                    Color = Color.Red,
+                    ArrowHead = DotEdgeArrowType.Box,
+                    ArrowTail = DotEdgeArrowType.Diamond
+                });
 
             var compiled = graph.Compile();
 
@@ -89,15 +70,10 @@ namespace DotNetGraph.Tests.Edge
         public void EdgeWithColor()
         {
             var graph = new DotGraph("TestGraph")
-            {
-                Elements =
+                .Add(new DotEdge("hello", "world")
                 {
-                    new DotEdge("hello", "world")
-                    {
-                        Color = Color.Red
-                    }
-                }
-            };
+                    Color = Color.Red
+                });
 
             var compiled = graph.Compile();
 
@@ -108,15 +84,10 @@ namespace DotNetGraph.Tests.Edge
         public void EdgeWithFontColor()
         {
             var graph = new DotGraph("TestGraph")
-            {
-                Elements =
+                .Add(new DotEdge("hello", "world")
                 {
-                    new DotEdge("hello", "world")
-                    {
-                        FontColor = Color.Blue
-                    }
-                }
-            };
+                    FontColor = Color.Blue
+                });
 
             var compiled = graph.Compile();
 
@@ -127,15 +98,10 @@ namespace DotNetGraph.Tests.Edge
         public void EdgeWithLabel()
         {
             var graph = new DotGraph("TestGraph")
-            {
-                Elements =
+                .Add(new DotEdge("hello", "world")
                 {
-                    new DotEdge("hello", "world")
-                    {
-                        Label = "Hello, \"world\"!"
-                    }
-                }
-            };
+                    Label = "Hello, \"world\"!"
+                });
 
             var compiled = graph.Compile();
 
@@ -146,15 +112,10 @@ namespace DotNetGraph.Tests.Edge
         public void EdgeWithArrowHead()
         {
             var graph = new DotGraph("TestGraph")
-            {
-                Elements =
+                .Add(new DotEdge("hello", "world")
                 {
-                    new DotEdge("hello", "world")
-                    {
-                        ArrowHead = DotEdgeArrowType.Box
-                    }
-                }
-            };
+                    ArrowHead = DotEdgeArrowType.Box
+                });
 
             var compiled = graph.Compile();
 
@@ -165,15 +126,10 @@ namespace DotNetGraph.Tests.Edge
         public void EdgeWithArrowTail()
         {
             var graph = new DotGraph("TestGraph")
-            {
-                Elements =
+                .Add(new DotEdge("hello", "world")
                 {
-                    new DotEdge("hello", "world")
-                    {
-                        ArrowTail = DotEdgeArrowType.Diamond
-                    }
-                }
-            };
+                    ArrowTail = DotEdgeArrowType.Diamond
+                });
 
             var compiled = graph.Compile();
 

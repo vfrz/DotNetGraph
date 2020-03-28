@@ -20,7 +20,13 @@ namespace DotNetGraph.Edge
             get => GetAttribute<DotFontColorAttribute>();
             set => SetAttribute(value);
         }
-        
+
+        public DotEdgeStyleAttribute Style
+        {
+            get => GetAttribute<DotEdgeStyleAttribute>();
+            set => SetAttribute(value);
+        }
+
         public DotLabelAttribute Label
         {
             get => GetAttribute<DotLabelAttribute>();

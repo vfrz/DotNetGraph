@@ -3,15 +3,15 @@
         xmlns="https://raw.githubusercontent.com/NuGet/NuGet.Client/dev/src/NuGet.Core/NuGet.Packaging/compiler/resources/nuspec.xsd">
     <metadata>
         <id>DotNetGraph</id>
-        <version>2.0.0</version>
+        <version>2.0.2</version>
         <title>DotNetGraph</title>
         <authors>VFRZ</authors>
         <owners>VFRZ</owners>
         <projectUrl>https://github.com/vfrz/DotNetGraph</projectUrl>
         <repository type="git" url="https://github.com/vfrz/DotNetGraph.git"/>
         <description>Create GraphViz DOT diagram / graph using C#/.Net</description>
-        <releaseNotes>New major release (rewrite from scratch and subgraph support added)</releaseNotes>
-        <copyright>Copyright 2019</copyright>
+        <releaseNotes>Add style attribute to DotEdge (by lukascorona)</releaseNotes>
+        <copyright>Copyright 2020</copyright>
         <tags>DOT Graphviz</tags>
         <requireLicenseAcceptance>true</requireLicenseAcceptance>
         <license type="file">LICENSE.txt</license>

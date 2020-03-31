@@ -174,6 +174,10 @@ namespace DotNetGraph.Compiler
                 {
                     attributeValues.Add($"style={nodeStyleAttribute.Style.ToString().ToLowerInvariant()}");
                 }
+                else if (attribute is DotEdgeStyleAttribute edgeStyleAttribute)
+                {
+                    attributeValues.Add($"style={edgeStyleAttribute.Style.ToString().ToLowerInvariant()}");
+                }
                 else if (attribute is DotFontColorAttribute fontColorAttribute)
                 {
                     attributeValues.Add($"fontcolor=\"{fontColorAttribute.ToHex()}\"");

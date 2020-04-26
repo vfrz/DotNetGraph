@@ -80,7 +80,10 @@ graph.Elements.Add(mySubGraph);
 ## Compile to DOT format
 
 ```csharp
+// Non indented version
 var dot = graph.Compile();
+// Indented version
+var dot = graph.Compile(true);
 
 // Save it to a file
 File.WriteAllText("myFile.dot", dot);

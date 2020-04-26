@@ -168,7 +168,7 @@ namespace DotNetGraph.Tests.SubGraph
 
             var compiled = graph.Compile();
 
-            Check.That(compiled).HasSameValueAs("graph TestGraph { subgraph TestSubGraph { TestNode ; } }");
+            Check.That(compiled).HasSameValueAs("graph TestGraph { subgraph TestSubGraph { TestNode; } }");
         }
     }
 }

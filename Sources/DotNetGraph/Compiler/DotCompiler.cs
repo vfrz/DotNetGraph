@@ -36,7 +36,7 @@ namespace DotNetGraph.Compiler
 
             builder.Append(_graph.Directed ? "digraph " : "graph ");
 
-            builder.Append($"{_graph.Identifier} {{ ");
+            builder.Append($"\"{_graph.Identifier}\" {{ ");
 
             foreach (var element in _graph.Elements)
             {
@@ -63,7 +63,7 @@ namespace DotNetGraph.Compiler
 
         private void CompileSubGraph(StringBuilder builder, DotSubGraph subGraph)
         {
-            builder.Append($"subgraph {subGraph.Identifier} {{ ");
+            builder.Append($"subgraph \"{subGraph.Identifier}\" {{ ");
             
             CompileSubGraphAttributes(builder, subGraph.Attributes);
             

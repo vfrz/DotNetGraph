@@ -36,7 +36,7 @@ namespace DotNetGraph.Compiler
 
             builder.Append(_graph.Directed ? "digraph " : "graph ");
 
-            builder.Append($"\"{_graph.Identifier}\" {{ ");
+            builder.Append($"\"{FormatString(_graph.Identifier)}\" {{ ");
 
             foreach (var element in _graph.Elements)
             {
@@ -63,7 +63,7 @@ namespace DotNetGraph.Compiler
 
         private void CompileSubGraph(StringBuilder builder, DotSubGraph subGraph)
         {
-            builder.Append($"subgraph \"{subGraph.Identifier}\" {{ ");
+            builder.Append($"subgraph \"{FormatString(subGraph.Identifier)}\" {{ ");
             
             CompileSubGraphAttributes(builder, subGraph.Attributes);
             
@@ -107,8 +107,7 @@ namespace DotNetGraph.Compiler
                 }
                 else if (attribute is DotLabelAttribute labelAttribute)
                 {
-                    var text = FormatString(labelAttribute.Text);
-                    builder.Append($"label=\"{text}\"; ");
+                    builder.Append($"label=\"{FormatString(labelAttribute.Text)}\"; ");
                 }
                 else
                 {
@@ -134,11 +133,11 @@ namespace DotNetGraph.Compiler
         {
             if (endPoint is DotString leftEdgeString)
             {
-                builder.Append($"{leftEdgeString.Value}");
+                builder.Append($"\"{FormatString(leftEdgeString.Value)}\"");
             }
             else if (endPoint is DotNode leftEdgeNode)
             {
-                builder.Append($"{leftEdgeNode.Identifier}");
+                builder.Append($"\"{FormatString(leftEdgeNode.Identifier)}\"");
             }
             else
             {
@@ -148,7 +147,7 @@ namespace DotNetGraph.Compiler
 
         private void CompileNode(StringBuilder builder, DotNode node)
         {
-            builder.Append($"{node.Identifier} ");
+            builder.Append($"\"{FormatString(node.Identifier)}\" ");
 
             CompileAttributes(builder, node.Attributes);
             
@@ -192,8 +191,7 @@ namespace DotNetGraph.Compiler
                 }
                 else if (attribute is DotLabelAttribute labelAttribute)
                 {
-                    var text = FormatString(labelAttribute.Text);
-                    attributeValues.Add($"label=\"{text}\"");
+                    attributeValues.Add($"label=\"{FormatString(labelAttribute.Text)}\"");
                 }
                 else if (attribute is DotNodeWidthAttribute nodeWidthAttribute)
                 {
@@ -224,7 +222,9 @@ namespace DotNetGraph.Compiler
 
         private static string FormatString(string value)
         {
-            var result = value.Replace("\"", "\\\"");
+            var result = value
+                .Replace("\\", "\\\\")
+                .Replace("\"", "\\\"");
 
             return result;
         }

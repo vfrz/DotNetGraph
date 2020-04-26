@@ -139,7 +139,7 @@ namespace DotNetGraph.Tests.SubGraph
 
             var compiled = graph.Compile();
 
-            Check.That(compiled).HasSameValueAs("graph \"TestGraph\" { subgraph \"TestSubGraph\" { hello -- world; } }");
+            Check.That(compiled).HasSameValueAs("graph \"TestGraph\" { subgraph \"TestSubGraph\" { \"hello\" -- \"world\"; } }");
         }
         
         [Fact]
@@ -162,7 +162,7 @@ namespace DotNetGraph.Tests.SubGraph
 
             var compiled = graph.Compile();
 
-            Check.That(compiled).HasSameValueAs("digraph \"TestGraph\" { subgraph \"TestSubGraph\" { hello -> world; } }");
+            Check.That(compiled).HasSameValueAs("digraph \"TestGraph\" { subgraph \"TestSubGraph\" { \"hello\" -> \"world\"; } }");
         }
 
         [Fact]
@@ -184,7 +184,7 @@ namespace DotNetGraph.Tests.SubGraph
 
             var compiled = graph.Compile();
 
-            Check.That(compiled).HasSameValueAs("graph \"TestGraph\" { subgraph \"TestSubGraph\" { TestNode ; } }");
+            Check.That(compiled).HasSameValueAs("graph \"TestGraph\" { subgraph \"TestSubGraph\" { \"TestNode\" ; } }");
         }
     }
 }

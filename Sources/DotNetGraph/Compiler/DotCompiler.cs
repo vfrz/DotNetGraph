@@ -220,11 +220,13 @@ namespace DotNetGraph.Compiler
             builder.Append("]");
         }
 
-        private static string FormatString(string value)
+        internal static string FormatString(string value)
         {
             var result = value
                 .Replace("\\", "\\\\")
-                .Replace("\"", "\\\"");
+                .Replace("\"", "\\\"")
+                .Replace("\r\n", "\\n")
+                .Replace("\n", "\\n");
 
             return result;
         }

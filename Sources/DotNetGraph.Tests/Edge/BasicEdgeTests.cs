@@ -61,7 +61,7 @@ namespace DotNetGraph.Tests.Edge
 
             var compiled = graph.Compile();
 
-            Check.That(compiled).HasSameValueAs("graph \"TestGraph\" { \"hello\" ; \"world\" ; \"hello\" -- \"world\"; }");
+            Check.That(compiled).HasSameValueAs("graph \"TestGraph\" { \"hello\"; \"world\"; \"hello\" -- \"world\"; }");
         }
 
         [Fact]

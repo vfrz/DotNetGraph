@@ -23,7 +23,23 @@ namespace DotNetGraph.Tests.SubGraph
 
             var compiled = graph.Compile();
 
-            Check.That(compiled).HasSameValueAs("graph TestGraph { subgraph TestSubGraph { } }");
+            Check.That(compiled).HasSameValueAs("graph \"TestGraph\" { subgraph \"TestSubGraph\" { } }");
+        }
+
+        [Fact]
+        public void SubGraphWithSpaceInIdentifier()
+        {
+            var graph = new DotGraph("TestGraph")
+            {
+                Elements =
+                {
+                    new DotSubGraph("My test subgraph")
+                }
+            };
+
+            var compiled = graph.Compile();
+
+            Check.That(compiled).HasSameValueAs("graph \"TestGraph\" { subgraph \"My test subgraph\" { } }");
         }
 
         [Fact]
@@ -44,7 +60,7 @@ namespace DotNetGraph.Tests.SubGraph
 
             var compiled = graph.Compile();
 
-            Check.That(compiled).HasSameValueAs("graph TestGraph { subgraph TestSubGraph { style=dashed; color=\"#FF0000\"; label=\"Hello, world!\"; } }");
+            Check.That(compiled).HasSameValueAs("graph \"TestGraph\" { subgraph \"TestSubGraph\" { style=dashed; color=\"#FF0000\"; label=\"Hello, world!\"; } }");
         }
 
         [Fact]
@@ -63,7 +79,7 @@ namespace DotNetGraph.Tests.SubGraph
 
             var compiled = graph.Compile();
 
-            Check.That(compiled).HasSameValueAs("graph TestGraph { subgraph TestSubGraph { style=dashed; } }");
+            Check.That(compiled).HasSameValueAs("graph \"TestGraph\" { subgraph \"TestSubGraph\" { style=dashed; } }");
         }
 
         [Fact]
@@ -82,7 +98,7 @@ namespace DotNetGraph.Tests.SubGraph
 
             var compiled = graph.Compile();
 
-            Check.That(compiled).HasSameValueAs("graph TestGraph { subgraph TestSubGraph { label=\"Hello, \\\"world\\\"!\"; } }");
+            Check.That(compiled).HasSameValueAs("graph \"TestGraph\" { subgraph \"TestSubGraph\" { label=\"Hello, \\\"world\\\"!\"; } }");
         }
 
         [Fact]
@@ -101,7 +117,7 @@ namespace DotNetGraph.Tests.SubGraph
 
             var compiled = graph.Compile();
 
-            Check.That(compiled).HasSameValueAs("graph TestGraph { subgraph TestSubGraph { color=\"#FF0000\"; } }");
+            Check.That(compiled).HasSameValueAs("graph \"TestGraph\" { subgraph \"TestSubGraph\" { color=\"#FF0000\"; } }");
         }
 
         [Fact]
@@ -123,7 +139,7 @@ namespace DotNetGraph.Tests.SubGraph
 
             var compiled = graph.Compile();
 
-            Check.That(compiled).HasSameValueAs("graph TestGraph { subgraph TestSubGraph { hello -- world; } }");
+            Check.That(compiled).HasSameValueAs("graph \"TestGraph\" { subgraph \"TestSubGraph\" { \"hello\" -- \"world\"; } }");
         }
         
         [Fact]
@@ -146,7 +162,7 @@ namespace DotNetGraph.Tests.SubGraph
 
             var compiled = graph.Compile();
 
-            Check.That(compiled).HasSameValueAs("digraph TestGraph { subgraph TestSubGraph { hello -> world; } }");
+            Check.That(compiled).HasSameValueAs("digraph \"TestGraph\" { subgraph \"TestSubGraph\" { \"hello\" -> \"world\"; } }");
         }
 
         [Fact]
@@ -168,7 +184,7 @@ namespace DotNetGraph.Tests.SubGraph
 
             var compiled = graph.Compile();
 
-            Check.That(compiled).HasSameValueAs("graph TestGraph { subgraph TestSubGraph { TestNode; } }");
+            Check.That(compiled).HasSameValueAs("graph \"TestGraph\" { subgraph \"TestSubGraph\" { \"TestNode\"; } }");
         }
     }
 }

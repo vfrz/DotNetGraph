@@ -38,7 +38,7 @@ namespace DotNetGraph.Compiler
 
             builder.Append(_graph.Directed ? "digraph " : "graph ");
 
-            builder.Append($"{_graph.Identifier} {{ ");
+            builder.Append($"\"{FormatString(_graph.Identifier)}\" {{ ");
 
             builder.AddIndentationNewLine(indented);
             
@@ -73,7 +73,7 @@ namespace DotNetGraph.Compiler
         {
             builder.AddIndentation(indented, indentationLevel);
             
-            builder.Append($"subgraph {subGraph.Identifier} {{ ");
+            builder.Append($"subgraph \"{FormatString(subGraph.Identifier)}\" {{ ");
 
             builder.AddIndentationNewLine(indented);
 
@@ -127,8 +127,7 @@ namespace DotNetGraph.Compiler
                 }
                 else if (attribute is DotLabelAttribute labelAttribute)
                 {
-                    var text = FormatString(labelAttribute.Text);
-                    builder.Append($"label=\"{text}\"; ");
+                    builder.Append($"label=\"{FormatString(labelAttribute.Text)}\"; ");
                 }
                 else
                 {
@@ -158,11 +157,11 @@ namespace DotNetGraph.Compiler
         {
             if (endPoint is DotString leftEdgeString)
             {
-                builder.Append($"{leftEdgeString.Value}");
+                builder.Append($"\"{FormatString(leftEdgeString.Value)}\"");
             }
             else if (endPoint is DotNode leftEdgeNode)
             {
-                builder.Append($"{leftEdgeNode.Identifier}");
+                builder.Append($"\"{FormatString(leftEdgeNode.Identifier)}\"");
             }
             else
             {
@@ -174,7 +173,7 @@ namespace DotNetGraph.Compiler
         {
             builder.AddIndentation(indented, indentationLevel);
             
-            builder.Append($"{node.Identifier}");
+            builder.Append($"\"{FormatString(node.Identifier)}\"");
 
             CompileAttributes(builder, node.Attributes);
             
@@ -220,8 +219,7 @@ namespace DotNetGraph.Compiler
                 }
                 else if (attribute is DotLabelAttribute labelAttribute)
                 {
-                    var text = FormatString(labelAttribute.Text);
-                    attributeValues.Add($"label=\"{text}\"");
+                    attributeValues.Add($"label=\"{FormatString(labelAttribute.Text)}\"");
                 }
                 else if (attribute is DotNodeWidthAttribute nodeWidthAttribute)
                 {
@@ -250,9 +248,13 @@ namespace DotNetGraph.Compiler
             builder.Append("]");
         }
 
-        private static string FormatString(string value)
+        internal static string FormatString(string value)
         {
-            var result = value.Replace("\"", "\\\"");
+            var result = value
+                .Replace("\\", "\\\\")
+                .Replace("\"", "\\\"")
+                .Replace("\r\n", "\\n")
+                .Replace("\n", "\\n");
 
             return result;
         }

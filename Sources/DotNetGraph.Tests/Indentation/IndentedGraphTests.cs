@@ -27,7 +27,7 @@ namespace DotNetGraph.Tests.Indentation
             
             _output.WriteLine(compiled);
             
-            Check.That(compiled).HasSameValueAs("graph TestGraph { \n}");
+            Check.That(compiled).HasSameValueAs("graph \"TestGraph\" { \n}");
         }
 
         [Fact]
@@ -39,7 +39,7 @@ namespace DotNetGraph.Tests.Indentation
             
             _output.WriteLine(compiled);
 
-            Check.That(compiled).HasSameValueAs("digraph TestGraph { \n}");
+            Check.That(compiled).HasSameValueAs("digraph \"TestGraph\" { \n}");
         }
 
         [Fact]
@@ -53,7 +53,7 @@ namespace DotNetGraph.Tests.Indentation
             
             _output.WriteLine(compiled);
 
-            Check.That(compiled).HasSameValueAs("graph TestGraph { \n\tA -- B; \n}");
+            Check.That(compiled).HasSameValueAs("graph \"TestGraph\" { \n\t\"A\" -- \"B\"; \n}");
         }
 
         [Fact]
@@ -73,7 +73,7 @@ namespace DotNetGraph.Tests.Indentation
             
             _output.WriteLine(compiled);
 
-            Check.That(compiled).HasSameValueAs("graph TestGraph { \n\tA -- B[style=dashed,color=\"#FF0000\"]; \n}");
+            Check.That(compiled).HasSameValueAs("graph \"TestGraph\" { \n\t\"A\" -- \"B\"[style=dashed,color=\"#FF0000\"]; \n}");
         }
 
         [Fact]
@@ -87,7 +87,7 @@ namespace DotNetGraph.Tests.Indentation
             
             _output.WriteLine(compiled);
 
-            Check.That(compiled).HasSameValueAs("graph TestGraph { \n\tsubgraph TestSubGraph { \n\t} \n}");
+            Check.That(compiled).HasSameValueAs("graph \"TestGraph\" { \n\tsubgraph \"TestSubGraph\" { \n\t} \n}");
         }
 
         [Fact]
@@ -105,7 +105,7 @@ namespace DotNetGraph.Tests.Indentation
             
             _output.WriteLine(compiled);
 
-            Check.That(compiled).HasSameValueAs("graph TestGraph { \n\tsubgraph TestSubGraph { \n\t\tA -- B; \n\t} \n}");
+            Check.That(compiled).HasSameValueAs("graph \"TestGraph\" { \n\tsubgraph \"TestSubGraph\" { \n\t\t\"A\" -- \"B\"; \n\t} \n}");
         }
         
         [Fact]
@@ -119,7 +119,7 @@ namespace DotNetGraph.Tests.Indentation
             
             _output.WriteLine(compiled);
 
-            Check.That(compiled).HasSameValueAs("graph TestGraph { \n\tTestNode; \n}");
+            Check.That(compiled).HasSameValueAs("graph \"TestGraph\" { \n\t\"TestNode\"; \n}");
         }
 
         [Fact]
@@ -139,7 +139,7 @@ namespace DotNetGraph.Tests.Indentation
             
             _output.WriteLine(compiled);
 
-            Check.That(compiled).HasSameValueAs("graph TestGraph { \n\tTestNode[color=\"#FF0000\",style=bold]; \n}");
+            Check.That(compiled).HasSameValueAs("graph \"TestGraph\" { \n\t\"TestNode\"[color=\"#FF0000\",style=bold]; \n}");
         }
     }
 }

@@ -27,7 +27,8 @@ var myNode = new DotNode("MyNode")
     FontColor = Color.Black,
     Style = DotNodeStyle.Dotted,
     Width = 0.5f,
-    Height = 0.5f
+    Height = 0.5f,
+    PenWidth = 1.5f
 };
 
 // Add the node to the graph
@@ -47,7 +48,9 @@ var myEdge = new DotEdge(myNode1, myNode2)
     ArrowTail = DotEdgeArrowType.Diamond,
     Color = Color.Red,
     FontColor = Color.Black,
-    Label = "My edge!"
+    Label = "My edge!",
+    Style = DotEdgeStyle.Dashed,
+    PenWidth = 1.5f
 };
 
 // Add the edge to the graph

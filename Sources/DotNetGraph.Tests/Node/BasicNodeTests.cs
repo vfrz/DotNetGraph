@@ -174,7 +174,7 @@ namespace DotNetGraph.Tests.Node
 
             var compiled = graph.Compile();
 
-            Check.That(compiled).HasSameValueAs("graph TestGraph { TestNode [penwidth=0.64]; }");
+            Check.That(compiled).HasSameValueAs("graph \"TestGraph\" { \"TestNode\"[penwidth=0.64]; }");
         }
 
         [Fact]

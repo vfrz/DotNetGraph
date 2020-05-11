@@ -139,7 +139,7 @@ namespace DotNetGraph.Tests.Edge
 
             var compiled = graph.Compile();
 
-            Check.That(compiled).HasSameValueAs("graph TestGraph { hello -- world[penwidth=0.46]; }");
+            Check.That(compiled).HasSameValueAs("graph \"TestGraph\" { \"hello\" -- \"world\"[penwidth=0.46]; }");
         }
 
         [Fact]

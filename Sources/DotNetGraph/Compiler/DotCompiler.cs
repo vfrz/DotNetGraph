@@ -229,6 +229,10 @@ namespace DotNetGraph.Compiler
                 {
                     attributeValues.Add(string.Format(CultureInfo.InvariantCulture, "height={0:F2}", nodeHeightAttribute.Value));
                 }
+                else if (attribute is DotPenWidthAttribute dotPenwidthAttribute)
+                {
+                    attributeValues.Add(string.Format(CultureInfo.InvariantCulture, "penwidth={0:F2}", dotPenwidthAttribute.Value));
+                }
                 else if (attribute is DotEdgeArrowTailAttribute edgeArrowTailAttribute)
                 {
                     attributeValues.Add($"arrowtail={edgeArrowTailAttribute.ArrowType.ToString().ToLowerInvariant()}");

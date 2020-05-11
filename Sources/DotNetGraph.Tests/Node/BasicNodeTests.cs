@@ -157,7 +157,26 @@ namespace DotNetGraph.Tests.Node
 
             Check.That(compiled).HasSameValueAs("graph \"TestGraph\" { \"TestNode\"[label=\"Hello, \\\"world\\\"!\"]; }");
         }
-        
+
+        [Fact]
+        public void NodeWithPenWidth()
+        {
+            var graph = new DotGraph("TestGraph")
+            {
+                Elements =
+                {
+                    new DotNode("TestNode")
+                    {
+                        PenWidth = 0.64f
+                    }
+                }
+            };
+
+            var compiled = graph.Compile();
+
+            Check.That(compiled).HasSameValueAs("graph \"TestGraph\" { \"TestNode\"[penwidth=0.64]; }");
+        }
+
         [Fact]
         public void NodeWithWidth()
         {

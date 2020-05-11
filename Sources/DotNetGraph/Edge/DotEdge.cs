@@ -33,7 +33,13 @@ namespace DotNetGraph.Edge
             get => GetAttribute<DotLabelAttribute>();
             set => SetAttribute(value);
         }
-        
+
+        public DotPenWidthAttribute PenWidth
+        {
+            get => GetAttribute<DotPenWidthAttribute>();
+            set => SetAttribute(value);
+        }
+
         public DotEdgeArrowHeadAttribute ArrowHead
         {
             get => GetAttribute<DotEdgeArrowHeadAttribute>();

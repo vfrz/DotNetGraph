@@ -124,6 +124,25 @@ namespace DotNetGraph.Tests.Edge
         }
 
         [Fact]
+        public void EdgeWithPenWidth()
+        {
+            var graph = new DotGraph("TestGraph")
+            {
+                Elements =
+                {
+                    new DotEdge("hello", "world")
+                    {
+                        PenWidth = 0.46f
+                    }
+                }
+            };
+
+            var compiled = graph.Compile();
+
+            Check.That(compiled).HasSameValueAs("graph \"TestGraph\" { \"hello\" -- \"world\"[penwidth=0.46]; }");
+        }
+
+        [Fact]
         public void EdgeWithLabel()
         {
             var graph = new DotGraph("TestGraph")

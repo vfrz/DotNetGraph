@@ -7,13 +7,23 @@ namespace DotNetGraph.Tests
     public class BasicGraphTests
     {
         [Fact]
+        public void GraphWithSpaceInIdentifier()
+        {
+            var graph = new DotGraph("My test graph");
+
+            var compiled = graph.Compile();
+
+            Check.That(compiled).HasSameValueAs("graph \"My test graph\" { }");
+        }
+        
+        [Fact]
         public void EmptyDirectedGraph()
         {
             var graph = new DotGraph("TestGraph", true);
 
             var compiled = graph.Compile();
 
-            Check.That(compiled).HasSameValueAs("digraph TestGraph { }");
+            Check.That(compiled).HasSameValueAs("digraph \"TestGraph\" { }");
         }
 
         [Fact]
@@ -23,7 +33,7 @@ namespace DotNetGraph.Tests
 
             var compiled = graph.Compile();
 
-            Check.That(compiled).HasSameValueAs("graph TestGraph { }");
+            Check.That(compiled).HasSameValueAs("graph \"TestGraph\" { }");
         }
 
         [Fact]
@@ -36,7 +46,7 @@ namespace DotNetGraph.Tests
 
             var compiled = graph.Compile();
 
-            Check.That(compiled).HasSameValueAs("strict graph TestGraph { }");
+            Check.That(compiled).HasSameValueAs("strict graph \"TestGraph\" { }");
         }
     }
 }

@@ -22,7 +22,7 @@ namespace DotNetGraph.Tests.Edge
 
             var compiled = graph.Compile();
 
-            Check.That(compiled).HasSameValueAs("graph TestGraph { hello -- world; }");
+            Check.That(compiled).HasSameValueAs("graph \"TestGraph\" { \"hello\" -- \"world\"; }");
         }
 
         [Fact]
@@ -39,7 +39,7 @@ namespace DotNetGraph.Tests.Edge
 
             var compiled = graph.Compile();
 
-            Check.That(compiled).HasSameValueAs("digraph TestGraph { hello -> world; }");
+            Check.That(compiled).HasSameValueAs("digraph \"TestGraph\" { \"hello\" -> \"world\"; }");
         }
 
         [Fact]
@@ -61,7 +61,7 @@ namespace DotNetGraph.Tests.Edge
 
             var compiled = graph.Compile();
 
-            Check.That(compiled).HasSameValueAs("graph TestGraph { hello ; world ; hello -- world; }");
+            Check.That(compiled).HasSameValueAs("graph \"TestGraph\" { \"hello\"; \"world\"; \"hello\" -- \"world\"; }");
         }
 
         [Fact]
@@ -82,7 +82,7 @@ namespace DotNetGraph.Tests.Edge
 
             var compiled = graph.Compile();
 
-            Check.That(compiled).HasSameValueAs("graph TestGraph { hello -- world[color=\"#FF0000\",arrowhead=box,arrowtail=diamond]; }");
+            Check.That(compiled).HasSameValueAs("graph \"TestGraph\" { \"hello\" -- \"world\"[color=\"#FF0000\",arrowhead=box,arrowtail=diamond]; }");
         }
 
         [Fact]
@@ -101,7 +101,7 @@ namespace DotNetGraph.Tests.Edge
 
             var compiled = graph.Compile();
 
-            Check.That(compiled).HasSameValueAs("graph TestGraph { hello -- world[color=\"#FF0000\"]; }");
+            Check.That(compiled).HasSameValueAs("graph \"TestGraph\" { \"hello\" -- \"world\"[color=\"#FF0000\"]; }");
         }
 
         [Fact]
@@ -120,7 +120,7 @@ namespace DotNetGraph.Tests.Edge
 
             var compiled = graph.Compile();
 
-            Check.That(compiled).HasSameValueAs("graph TestGraph { hello -- world[fontcolor=\"#0000FF\"]; }");
+            Check.That(compiled).HasSameValueAs("graph \"TestGraph\" { \"hello\" -- \"world\"[fontcolor=\"#0000FF\"]; }");
         }
 
         [Fact]
@@ -158,7 +158,7 @@ namespace DotNetGraph.Tests.Edge
 
             var compiled = graph.Compile();
 
-            Check.That(compiled).HasSameValueAs("graph TestGraph { hello -- world[label=\"Hello, \\\"world\\\"!\"]; }");
+            Check.That(compiled).HasSameValueAs("graph \"TestGraph\" { \"hello\" -- \"world\"[label=\"Hello, \\\"world\\\"!\"]; }");
         }
 
         [Fact]
@@ -177,7 +177,7 @@ namespace DotNetGraph.Tests.Edge
 
             var compiled = graph.Compile();
 
-            Check.That(compiled).HasSameValueAs("graph TestGraph { hello -- world[style=dashed]; }");
+            Check.That(compiled).HasSameValueAs("graph \"TestGraph\" { \"hello\" -- \"world\"[style=dashed]; }");
         }
 
         [Fact]
@@ -196,7 +196,7 @@ namespace DotNetGraph.Tests.Edge
 
             var compiled = graph.Compile();
 
-            Check.That(compiled).HasSameValueAs("graph TestGraph { hello -- world[arrowhead=box]; }");
+            Check.That(compiled).HasSameValueAs("graph \"TestGraph\" { \"hello\" -- \"world\"[arrowhead=box]; }");
         }
 
         [Fact]
@@ -215,7 +215,7 @@ namespace DotNetGraph.Tests.Edge
 
             var compiled = graph.Compile();
 
-            Check.That(compiled).HasSameValueAs("graph TestGraph { hello -- world[arrowtail=diamond]; }");
+            Check.That(compiled).HasSameValueAs("graph \"TestGraph\" { \"hello\" -- \"world\"[arrowtail=diamond]; }");
         }
     }
 }

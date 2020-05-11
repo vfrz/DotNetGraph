@@ -1,3 +1,4 @@
+using System.Drawing;
 using DotNetGraph.Attributes;
 using DotNetGraph.Core;
 

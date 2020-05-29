@@ -241,6 +241,10 @@ namespace DotNetGraph.Compiler
                 {
                     attributeValues.Add($"arrowhead={edgeArrowHeadAttribute.ArrowType.ToString().ToLowerInvariant()}");
                 }
+                else if (attribute is DotPositionAttribute positionAttribute && positionAttribute.Position != null)
+                {
+                    attributeValues.Add($"pos=\"{positionAttribute.Position.X},{positionAttribute.Position.Y}!\"");
+                }
                 else
                 {
                     throw new DotException($"Attribute type not supported: {attribute.GetType()}");

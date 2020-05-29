@@ -1,4 +1,5 @@
 using System.Drawing;
+using DotNetGraph.Core;
 using DotNetGraph.Edge;
 using DotNetGraph.Extensions;
 using DotNetGraph.Node;
@@ -123,6 +124,25 @@ namespace DotNetGraph.Tests.Edge
             Check.That(compiled).HasSameValueAs("graph \"TestGraph\" { \"hello\" -- \"world\"[fontcolor=\"#0000FF\"]; }");
         }
 
+        [Fact]
+        public void EdgeWithPosition()
+        {
+            var graph = new DotGraph("TestGraph")
+            {
+                Elements =
+                {
+                    new DotEdge("hello", "world")
+                    {
+                        Position = new DotPosition(4, 2)
+                    }
+                }
+            };
+
+            var compiled = graph.Compile();
+
+            Check.That(compiled).HasSameValueAs("graph \"TestGraph\" { \"hello\" -- \"world\"[pos=\"4,2!\"]; }");
+        }
+        
         [Fact]
         public void EdgeWithPenWidth()
         {

@@ -52,6 +52,12 @@ namespace DotNetGraph.Edge
             set => SetAttribute(value);
         }
         
+        public DotPositionAttribute Position
+        {
+            get => GetAttribute<DotPositionAttribute>();
+            set => SetAttribute(value);
+        }
+        
         public DotEdge()
         {
         }

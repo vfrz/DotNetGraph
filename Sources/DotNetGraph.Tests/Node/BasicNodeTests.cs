@@ -1,6 +1,7 @@
 using System.Drawing;
 using System.Globalization;
 using System.Threading;
+using DotNetGraph.Core;
 using DotNetGraph.Extensions;
 using DotNetGraph.Node;
 using NFluent;
@@ -61,6 +62,25 @@ namespace DotNetGraph.Tests.Node
             var compiled = graph.Compile();
 
             Check.That(compiled).HasSameValueAs("graph \"TestGraph\" { \"TestNode\"[color=\"#FF0000\"]; }");
+        }
+
+        [Fact]
+        public void NodeWithPosition()
+        {
+            var graph = new DotGraph("TestGraph")
+            {
+                Elements =
+                {
+                    new DotNode("TestNode")
+                    {
+                        Position = new DotPosition(4, 2)
+                    }
+                }
+            };
+
+            var compiled = graph.Compile();
+
+            Check.That(compiled).HasSameValueAs("graph \"TestGraph\" { \"TestNode\"[pos=\"4,2!\"]; }");
         }
 
         [Fact]

@@ -60,6 +60,12 @@ namespace DotNetGraph.Node
             get => GetAttribute<DotNodeHeightAttribute>();
             set => SetAttribute(value);
         }
+
+        public DotPositionAttribute Position
+        {
+            get => GetAttribute<DotPositionAttribute>();
+            set => SetAttribute(value);
+        }
         
         public DotNode(string identifier = null, DotColorAttribute color = null)
         {

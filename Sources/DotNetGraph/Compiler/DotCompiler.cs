@@ -20,16 +20,16 @@ namespace DotNetGraph.Compiler
             _graph = graph;
         }
         
-        public string Compile(bool indented = false)
+        public string Compile(bool indented = false, bool formatStrings = true)
         {
             var builder = new StringBuilder();
 
-            CompileGraph(builder, indented);
+            CompileGraph(builder, indented, formatStrings);
 
             return builder.ToString();
         }
 
-        private void CompileGraph(StringBuilder builder, bool indented)
+        private void CompileGraph(StringBuilder builder, bool indented, bool formatStrings)
         {
             var indentationLevel = 0;
             
@@ -38,7 +38,7 @@ namespace DotNetGraph.Compiler
 
             builder.Append(_graph.Directed ? "digraph " : "graph ");
 
-            builder.Append($"\"{FormatString(_graph.Identifier)}\" {{ ");
+            builder.Append($"\"{FormatString(_graph.Identifier, formatStrings)}\" {{ ");
 
             builder.AddIndentationNewLine(indented);
             
@@ -48,15 +48,15 @@ namespace DotNetGraph.Compiler
             {
                 if (element is DotEdge edge)
                 {
-                    CompileEdge(builder, edge, indented, indentationLevel);
+                    CompileEdge(builder, edge, indented, indentationLevel, formatStrings);
                 }
                 else if (element is DotNode node)
                 {
-                    CompileNode(builder, node, indented, indentationLevel);
+                    CompileNode(builder, node, indented, indentationLevel, formatStrings);
                 }
                 else if (element is DotSubGraph subGraph)
                 {
-                    CompileSubGraph(builder, subGraph, indented, indentationLevel);
+                    CompileSubGraph(builder, subGraph, indented, indentationLevel, formatStrings);
                 }
                 else
                 {
@@ -69,31 +69,31 @@ namespace DotNetGraph.Compiler
             builder.Append("}");
         }
 
-        private void CompileSubGraph(StringBuilder builder, DotSubGraph subGraph, bool indented, int indentationLevel)
+        private void CompileSubGraph(StringBuilder builder, DotSubGraph subGraph, bool indented, int indentationLevel, bool formatStrings)
         {
             builder.AddIndentation(indented, indentationLevel);
             
-            builder.Append($"subgraph \"{FormatString(subGraph.Identifier)}\" {{ ");
+            builder.Append($"subgraph \"{FormatString(subGraph.Identifier, formatStrings)}\" {{ ");
 
             builder.AddIndentationNewLine(indented);
 
             indentationLevel++;
             
-            CompileSubGraphAttributes(builder, subGraph.Attributes);
+            CompileSubGraphAttributes(builder, subGraph.Attributes, formatStrings);
             
             foreach (var element in subGraph.Elements)
             {
                 if (element is DotEdge edge)
                 {
-                    CompileEdge(builder, edge, indented, indentationLevel);
+                    CompileEdge(builder, edge, indented, indentationLevel, formatStrings);
                 }
                 else if (element is DotNode node)
                 {
-                    CompileNode(builder, node, indented, indentationLevel);
+                    CompileNode(builder, node, indented, indentationLevel, formatStrings);
                 }
                 else if (element is DotSubGraph subSubGraph)
                 {
-                    CompileSubGraph(builder, subSubGraph, indented, indentationLevel);
+                    CompileSubGraph(builder, subSubGraph, indented, indentationLevel, formatStrings);
                 }
                 else
                 {
@@ -110,7 +110,7 @@ namespace DotNetGraph.Compiler
             builder.AddIndentationNewLine(indented);
         }
 
-        private void CompileSubGraphAttributes(StringBuilder builder, ReadOnlyCollection<IDotAttribute> attributes)
+        private void CompileSubGraphAttributes(StringBuilder builder, ReadOnlyCollection<IDotAttribute> attributes, bool formatStrings)
         {
             if (attributes.Count == 0)
                 return;
@@ -127,7 +127,7 @@ namespace DotNetGraph.Compiler
                 }
                 else if (attribute is DotLabelAttribute labelAttribute)
                 {
-                    builder.Append($"label=\"{FormatString(labelAttribute.Text)}\"; ");
+                    builder.Append($"label=\"{FormatString(labelAttribute.Text, formatStrings)}\"; ");
                 }
                 else
                 {
@@ -136,32 +136,32 @@ namespace DotNetGraph.Compiler
             }
         }
 
-        private void CompileEdge(StringBuilder builder, DotEdge edge, bool indented, int indentationLevel)
+        private void CompileEdge(StringBuilder builder, DotEdge edge, bool indented, int indentationLevel, bool formatStrings)
         {
             builder.AddIndentation(indented, indentationLevel);
             
-            CompileEdgeEndPoint(builder, edge.Left);
+            CompileEdgeEndPoint(builder, edge.Left, formatStrings);
 
             builder.Append(_graph.Directed ? " -> " : " -- ");
 
-            CompileEdgeEndPoint(builder, edge.Right);
+            CompileEdgeEndPoint(builder, edge.Right, formatStrings);
             
-            CompileAttributes(builder, edge.Attributes);
+            CompileAttributes(builder, edge.Attributes, formatStrings);
             
             builder.Append("; ");
 
             builder.AddIndentationNewLine(indented);
         }
 
-        private void CompileEdgeEndPoint(StringBuilder builder, IDotElement endPoint)
+        private void CompileEdgeEndPoint(StringBuilder builder, IDotElement endPoint, bool formatStrings)
         {
             if (endPoint is DotString leftEdgeString)
             {
-                builder.Append($"\"{FormatString(leftEdgeString.Value)}\"");
+                builder.Append($"\"{FormatString(leftEdgeString.Value, formatStrings)}\"");
             }
             else if (endPoint is DotNode leftEdgeNode)
             {
-                builder.Append($"\"{FormatString(leftEdgeNode.Identifier)}\"");
+                builder.Append($"\"{FormatString(leftEdgeNode.Identifier, formatStrings)}\"");
             }
             else
             {
@@ -169,20 +169,20 @@ namespace DotNetGraph.Compiler
             }
         }
 
-        private void CompileNode(StringBuilder builder, DotNode node, bool indented, int indentationLevel)
+        private void CompileNode(StringBuilder builder, DotNode node, bool indented, int indentationLevel, bool formatStrings)
         {
             builder.AddIndentation(indented, indentationLevel);
             
-            builder.Append($"\"{FormatString(node.Identifier)}\"");
+            builder.Append($"\"{FormatString(node.Identifier, formatStrings)}\"");
 
-            CompileAttributes(builder, node.Attributes);
+            CompileAttributes(builder, node.Attributes, formatStrings);
             
             builder.Append("; ");
 
             builder.AddIndentationNewLine(indented);
         }
 
-        private void CompileAttributes(StringBuilder builder, ReadOnlyCollection<IDotAttribute> attributes)
+        private void CompileAttributes(StringBuilder builder, ReadOnlyCollection<IDotAttribute> attributes, bool formatStrings)
         {
             if (attributes.Count == 0)
                 return;
@@ -219,7 +219,7 @@ namespace DotNetGraph.Compiler
                 }
                 else if (attribute is DotLabelAttribute labelAttribute)
                 {
-                    attributeValues.Add($"label=\"{FormatString(labelAttribute.Text)}\"");
+                    attributeValues.Add($"label=\"{FormatString(labelAttribute.Text, formatStrings)}\"");
                 }
                 else if (attribute is DotNodeWidthAttribute nodeWidthAttribute)
                 {
@@ -256,8 +256,11 @@ namespace DotNetGraph.Compiler
             builder.Append("]");
         }
 
-        internal static string FormatString(string value)
+        internal static string FormatString(string value, bool format)
         {
+            if (!format)
+                return value;
+            
             var result = value
                 .Replace("\\", "\\\\")
                 .Replace("\"", "\\\"")

@@ -1,3 +1,4 @@
+using DotNetGraph.Core;
 using DotNetGraph.Extensions;
 using DotNetGraph.Node;
 using NFluent;
@@ -63,6 +64,19 @@ namespace DotNetGraph.Tests
             var compiled = graph.Compile(false, false);
 
             Check.That(compiled).HasSameValueAs("digraph \"TestGraph\" { \"TestNode\"[label=\"\\lTesting\"]; }");
+        }
+
+        [Fact]
+        public void GraphWithLayout()
+        {
+            var graph = new DotGraph("TestGraph", true)
+            {
+                Layout = DotGraphLayout.Neato
+            };
+
+            var compiled = graph.Compile(false, false);
+
+            Check.That(compiled).HasSameValueAs("digraph \"TestGraph\" { layout=neato; }");
         }
     }
 }

@@ -44,6 +44,8 @@ namespace DotNetGraph.Compiler
             
             indentationLevel++;
             
+            CompileGraphAttributes(builder, _graph.Attributes, formatStrings);
+            
             foreach (var element in _graph.Elements)
             {
                 if (element is DotEdge edge)
@@ -254,6 +256,24 @@ namespace DotNetGraph.Compiler
             builder.Append(string.Join(",", attributeValues));
             
             builder.Append("]");
+        }
+
+        private void CompileGraphAttributes(StringBuilder builder, ReadOnlyCollection<IDotAttribute> attributes, bool formatStrings)
+        {
+            if (attributes.Count == 0)
+                return;
+
+            foreach (var attribute in attributes)
+            {
+                if (attribute is DotGraphLayoutAttribute graphLayoutAttribute)
+                {
+                    builder.Append($"layout={graphLayoutAttribute.Layout.ToString().ToLowerInvariant()}; ");
+                }
+                else
+                {
+                    throw new DotException($"Attribute type not supported: {attribute.GetType()}");
+                }
+            }
         }
 
         internal static string FormatString(string value, bool format)

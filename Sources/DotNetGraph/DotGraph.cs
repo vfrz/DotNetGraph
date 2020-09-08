@@ -1,15 +1,22 @@
 using System.Collections.Generic;
+using DotNetGraph.Attributes;
 using DotNetGraph.Core;
 
 namespace DotNetGraph
 {
-    public class DotGraph : IDotElement
+    public class DotGraph : DotElementWithAttributes
     {
         public bool Directed { get; set; }
         
         public string Identifier { get; set; }
         
         public bool Strict { get; set; }
+        
+        public DotGraphLayoutAttribute Layout
+        {
+            get => GetAttribute<DotGraphLayoutAttribute>();
+            set => SetAttribute(value);
+        }
         
         public List<IDotElement> Elements { get; }
 

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
+using System.Linq;
 using System.Text;
 using DotNetGraph.Attributes;
 using DotNetGraph.Core;
@@ -19,7 +20,7 @@ namespace DotNetGraph.Compiler
         {
             _graph = graph;
         }
-        
+
         public string Compile(bool indented = false, bool formatStrings = true)
         {
             var builder = new StringBuilder();
@@ -32,18 +33,18 @@ namespace DotNetGraph.Compiler
         private void CompileGraph(StringBuilder builder, bool indented, bool formatStrings)
         {
             var indentationLevel = 0;
-            
+
             if (_graph.Strict)
                 builder.Append("strict ");
 
             builder.Append(_graph.Directed ? "digraph " : "graph ");
 
-            builder.Append($"\"{FormatString(_graph.Identifier, formatStrings)}\" {{ ");
+            builder.Append($"{SurroundStringWithQuotes(_graph.Identifier, formatStrings)} {{ ");
 
             builder.AddIndentationNewLine(indented);
-            
+
             indentationLevel++;
-            
+
             foreach (var element in _graph.Elements)
             {
                 if (element is DotEdge edge)
@@ -65,22 +66,22 @@ namespace DotNetGraph.Compiler
             }
 
             indentationLevel--;
-            
+
             builder.Append("}");
         }
 
         private void CompileSubGraph(StringBuilder builder, DotSubGraph subGraph, bool indented, int indentationLevel, bool formatStrings)
         {
             builder.AddIndentation(indented, indentationLevel);
-            
-            builder.Append($"subgraph \"{FormatString(subGraph.Identifier, formatStrings)}\" {{ ");
+
+            builder.Append($"subgraph {SurroundStringWithQuotes(subGraph.Identifier, formatStrings)} {{ ");
 
             builder.AddIndentationNewLine(indented);
 
             indentationLevel++;
-            
+
             CompileSubGraphAttributes(builder, subGraph.Attributes, formatStrings);
-            
+
             foreach (var element in subGraph.Elements)
             {
                 if (element is DotEdge edge)
@@ -102,9 +103,9 @@ namespace DotNetGraph.Compiler
             }
 
             indentationLevel--;
-            
+
             builder.AddIndentation(indented, indentationLevel);
-            
+
             builder.Append("} ");
 
             builder.AddIndentationNewLine(indented);
@@ -114,7 +115,7 @@ namespace DotNetGraph.Compiler
         {
             if (attributes.Count == 0)
                 return;
-            
+
             foreach (var attribute in attributes)
             {
                 if (attribute is DotSubGraphStyleAttribute subGraphStyleAttribute)
@@ -127,7 +128,7 @@ namespace DotNetGraph.Compiler
                 }
                 else if (attribute is DotLabelAttribute labelAttribute)
                 {
-                    builder.Append($"label=\"{FormatString(labelAttribute.Text, formatStrings)}\"; ");
+                    builder.Append($"label={SurroundStringWithQuotes(labelAttribute.Text, formatStrings)}; ");
                 }
                 else
                 {
@@ -139,15 +140,15 @@ namespace DotNetGraph.Compiler
         private void CompileEdge(StringBuilder builder, DotEdge edge, bool indented, int indentationLevel, bool formatStrings)
         {
             builder.AddIndentation(indented, indentationLevel);
-            
+
             CompileEdgeEndPoint(builder, edge.Left, formatStrings);
 
             builder.Append(_graph.Directed ? " -> " : " -- ");
 
             CompileEdgeEndPoint(builder, edge.Right, formatStrings);
-            
+
             CompileAttributes(builder, edge.Attributes, formatStrings);
-            
+
             builder.Append("; ");
 
             builder.AddIndentationNewLine(indented);
@@ -157,11 +158,11 @@ namespace DotNetGraph.Compiler
         {
             if (endPoint is DotString leftEdgeString)
             {
-                builder.Append($"\"{FormatString(leftEdgeString.Value, formatStrings)}\"");
+                builder.Append(SurroundStringWithQuotes(leftEdgeString.Value, formatStrings));
             }
             else if (endPoint is DotNode leftEdgeNode)
             {
-                builder.Append($"\"{FormatString(leftEdgeNode.Identifier, formatStrings)}\"");
+                builder.Append(SurroundStringWithQuotes(leftEdgeNode.Identifier, formatStrings));
             }
             else
             {
@@ -172,11 +173,11 @@ namespace DotNetGraph.Compiler
         private void CompileNode(StringBuilder builder, DotNode node, bool indented, int indentationLevel, bool formatStrings)
         {
             builder.AddIndentation(indented, indentationLevel);
-            
-            builder.Append($"\"{FormatString(node.Identifier, formatStrings)}\"");
+
+            builder.Append(SurroundStringWithQuotes(node.Identifier, formatStrings));
 
             CompileAttributes(builder, node.Attributes, formatStrings);
-            
+
             builder.Append("; ");
 
             builder.AddIndentationNewLine(indented);
@@ -190,7 +191,7 @@ namespace DotNetGraph.Compiler
             builder.Append("[");
 
             var attributeValues = new List<string>();
-            
+
             foreach (var attribute in attributes)
             {
                 if (attribute is DotNodeShapeAttribute nodeShapeAttribute)
@@ -219,7 +220,7 @@ namespace DotNetGraph.Compiler
                 }
                 else if (attribute is DotLabelAttribute labelAttribute)
                 {
-                    attributeValues.Add($"label=\"{FormatString(labelAttribute.Text, formatStrings)}\"");
+                    attributeValues.Add($"label={SurroundStringWithQuotes(labelAttribute.Text, formatStrings)}");
                 }
                 else if (attribute is DotNodeWidthAttribute nodeWidthAttribute)
                 {
@@ -252,22 +253,27 @@ namespace DotNetGraph.Compiler
             }
 
             builder.Append(string.Join(",", attributeValues));
-            
+
             builder.Append("]");
+        }
+
+        internal static string SurroundStringWithQuotes(string value, bool format)
+        {
+            var formatted = FormatString(value, format);
+            var surround = value.Any(c => !char.IsLetterOrDigit(c) || char.IsWhiteSpace(c));
+            return surround ? "\"" + formatted + "\"" : formatted;
         }
 
         internal static string FormatString(string value, bool format)
         {
             if (!format)
                 return value;
-            
-            var result = value
+
+            return value
                 .Replace("\\", "\\\\")
                 .Replace("\"", "\\\"")
                 .Replace("\r\n", "\\n")
                 .Replace("\n", "\\n");
-
-            return result;
         }
     }
 }

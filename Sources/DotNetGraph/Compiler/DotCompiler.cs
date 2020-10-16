@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using DotNetGraph.Attributes;
 using DotNetGraph.Core;
 using DotNetGraph.Edge;
@@ -14,6 +15,8 @@ namespace DotNetGraph.Compiler
 {
     public class DotCompiler
     {
+        private static readonly Regex ValidIdentifierPattern = new Regex("^([a-zA-Z\\200-\\377_][a-zA-Z\\200-\\3770-9_]*|[-]?(.[0-9]+|[0-9]+(.[0-9]*)?))$");
+
         private readonly DotGraph _graph;
 
         public DotCompiler(DotGraph graph)
@@ -260,8 +263,7 @@ namespace DotNetGraph.Compiler
         internal static string SurroundStringWithQuotes(string value, bool format)
         {
             var formatted = FormatString(value, format);
-            var surround = value.Any(c => !char.IsLetterOrDigit(c) || char.IsWhiteSpace(c));
-            return surround ? "\"" + formatted + "\"" : formatted;
+            return ValidIdentifierPattern.IsMatch(value) ? formatted : "\"" + formatted + "\"";
         }
 
         internal static string FormatString(string value, bool format)

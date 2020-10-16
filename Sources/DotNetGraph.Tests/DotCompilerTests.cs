@@ -29,8 +29,11 @@ namespace DotNetGraph.Tests
         [Theory]
         [InlineData("node")]
         [InlineData("node123")]
-        [InlineData("узел")]
-        [InlineData("節点")]
+        [InlineData("underscores_are_allowed")]
+        [InlineData("-123")]
+        [InlineData("123")]
+        [InlineData("1.23")]
+        [InlineData("-1.23")]
         public void SurroundWithDoubleQuotes_Without(string text)
         {
             var formatted = DotCompiler.SurroundStringWithQuotes(text, false);
@@ -42,9 +45,11 @@ namespace DotNetGraph.Tests
         [InlineData("no[]de")]
         [InlineData("no\"de")]
         [InlineData("no\nde")]
+        [InlineData("123start_with_number")]
         [InlineData("identifier with space")]
         [InlineData("\"node\"")]
-        [InlineData("節+点")]
+        [InlineData("節点")]
+        [InlineData("узел")]
         public void SurroundWithDoubleQuotes_With(string text)
         {
             var formatted = DotCompiler.SurroundStringWithQuotes(text, false);

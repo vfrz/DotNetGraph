@@ -50,6 +50,10 @@ namespace DotNetGraph.Tests
         [InlineData("\"node\"")]
         [InlineData("節点")]
         [InlineData("узел")]
+        [InlineData("1a")]
+        [InlineData("-1a")]
+        [InlineData("1.1a")]
+        [InlineData("-1.1a")]
         public void SurroundWithDoubleQuotes_With(string text)
         {
             var formatted = DotCompiler.SurroundStringWithQuotes(text, false);

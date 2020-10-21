@@ -24,7 +24,7 @@ namespace DotNetGraph.Tests.Node
 
             var compiled = graph.Compile();
 
-            Check.That(compiled).HasSameValueAs("graph \"TestGraph\" { \"TestNode\"; }");
+            Check.That(compiled).HasSameValueAs("graph TestGraph { TestNode; }");
         }
 
         [Fact]
@@ -42,10 +42,10 @@ namespace DotNetGraph.Tests.Node
                     }
                 }
             };
-            
+
             var compiled = graph.Compile();
 
-            Check.That(compiled).HasSameValueAs("graph \"TestGraph\" { \"TestNode\"[color=\"#0000FF\",label=\"Test\",shape=box]; }");
+            Check.That(compiled).HasSameValueAs("graph TestGraph { TestNode[color=\"#0000FF\",label=Test,shape=box]; }");
         }
 
         [Fact]
@@ -61,7 +61,7 @@ namespace DotNetGraph.Tests.Node
 
             var compiled = graph.Compile();
 
-            Check.That(compiled).HasSameValueAs("graph \"TestGraph\" { \"TestNode\"[color=\"#FF0000\"]; }");
+            Check.That(compiled).HasSameValueAs("graph TestGraph { TestNode[color=\"#FF0000\"]; }");
         }
 
         [Fact]
@@ -80,7 +80,7 @@ namespace DotNetGraph.Tests.Node
 
             var compiled = graph.Compile();
 
-            Check.That(compiled).HasSameValueAs("graph \"TestGraph\" { \"TestNode\"[pos=\"4,2!\"]; }");
+            Check.That(compiled).HasSameValueAs("graph TestGraph { TestNode[pos=\"4,2!\"]; }");
         }
 
         [Fact]
@@ -99,7 +99,7 @@ namespace DotNetGraph.Tests.Node
 
             var compiled = graph.Compile();
 
-            Check.That(compiled).HasSameValueAs("graph \"TestGraph\" { \"TestNode\"[shape=square]; }");
+            Check.That(compiled).HasSameValueAs("graph TestGraph { TestNode[shape=square]; }");
         }
 
         [Fact]
@@ -118,7 +118,7 @@ namespace DotNetGraph.Tests.Node
 
             var compiled = graph.Compile();
 
-            Check.That(compiled).HasSameValueAs("graph \"TestGraph\" { \"TestNode\"[style=dashed]; }");
+            Check.That(compiled).HasSameValueAs("graph TestGraph { TestNode[style=dashed]; }");
         }
 
         [Fact]
@@ -137,7 +137,7 @@ namespace DotNetGraph.Tests.Node
 
             var compiled = graph.Compile();
 
-            Check.That(compiled).HasSameValueAs("graph \"TestGraph\" { \"TestNode\"[fontcolor=\"#FF0000\"]; }");
+            Check.That(compiled).HasSameValueAs("graph TestGraph { TestNode[fontcolor=\"#FF0000\"]; }");
         }
 
         [Fact]
@@ -156,7 +156,7 @@ namespace DotNetGraph.Tests.Node
 
             var compiled = graph.Compile();
 
-            Check.That(compiled).HasSameValueAs("graph \"TestGraph\" { \"TestNode\"[fillcolor=\"#FF0000\"]; }");
+            Check.That(compiled).HasSameValueAs("graph TestGraph { TestNode[fillcolor=\"#FF0000\"]; }");
         }
 
         [Fact]
@@ -175,7 +175,7 @@ namespace DotNetGraph.Tests.Node
 
             var compiled = graph.Compile();
 
-            Check.That(compiled).HasSameValueAs("graph \"TestGraph\" { \"TestNode\"[label=\"Hello, \\\"world\\\"!\"]; }");
+            Check.That(compiled).HasSameValueAs("graph TestGraph { TestNode[label=\"Hello, \\\"world\\\"!\"]; }");
         }
 
         [Fact]
@@ -194,7 +194,7 @@ namespace DotNetGraph.Tests.Node
 
             var compiled = graph.Compile();
 
-            Check.That(compiled).HasSameValueAs("graph \"TestGraph\" { \"TestNode\"[penwidth=0.64]; }");
+            Check.That(compiled).HasSameValueAs("graph TestGraph { TestNode[penwidth=0.64]; }");
         }
 
         [Fact]
@@ -213,9 +213,9 @@ namespace DotNetGraph.Tests.Node
 
             var compiled = graph.Compile();
 
-            Check.That(compiled).HasSameValueAs("graph \"TestGraph\" { \"TestNode\"[width=0.64]; }");
+            Check.That(compiled).HasSameValueAs("graph TestGraph { TestNode[width=0.64]; }");
         }
-        
+
         [Fact]
         public void NodeWithHeight()
         {
@@ -232,15 +232,15 @@ namespace DotNetGraph.Tests.Node
 
             var compiled = graph.Compile();
 
-            Check.That(compiled).HasSameValueAs("graph \"TestGraph\" { \"TestNode\"[height=0.64]; }");
+            Check.That(compiled).HasSameValueAs("graph TestGraph { TestNode[height=0.64]; }");
         }
-        
+
         [Fact]
         public void NodeWithWidthAndHeightUsesCorrectCulture()
         {
             var currentCulture = Thread.CurrentThread.CurrentCulture;
             var currentUiCulture = Thread.CurrentThread.CurrentUICulture;
-            
+
             var graph = new DotGraph("TestGraph")
             {
                 Elements =
@@ -256,21 +256,21 @@ namespace DotNetGraph.Tests.Node
             var cultureInfo = new CultureInfo("de-DE");
             Thread.CurrentThread.CurrentCulture = cultureInfo;
             Thread.CurrentThread.CurrentUICulture = cultureInfo;
-            
+
             var compiled = graph.Compile();
 
-            Check.That(compiled).HasSameValueAs("graph \"TestGraph\" { \"TestNode\"[width=0.46,height=0.64]; }");
-            
+            Check.That(compiled).HasSameValueAs("graph TestGraph { TestNode[width=0.46,height=0.64]; }");
+
             Thread.CurrentThread.CurrentCulture = currentCulture;
             Thread.CurrentThread.CurrentUICulture = currentUiCulture;
         }
-        
+
         [Fact]
         public void NodeWithLargeHeightUsesCorrectCulture()
         {
             var currentCulture = Thread.CurrentThread.CurrentCulture;
             var currentUiCulture = Thread.CurrentThread.CurrentUICulture;
-            
+
             var graph = new DotGraph("TestGraph")
             {
                 Elements =
@@ -285,11 +285,11 @@ namespace DotNetGraph.Tests.Node
             var cultureInfo = new CultureInfo("fr-FR");
             Thread.CurrentThread.CurrentCulture = cultureInfo;
             Thread.CurrentThread.CurrentUICulture = cultureInfo;
-            
+
             var compiled = graph.Compile();
 
-            Check.That(compiled).HasSameValueAs("graph \"TestGraph\" { \"TestNode\"[height=12345.67]; }");
-            
+            Check.That(compiled).HasSameValueAs("graph TestGraph { TestNode[height=12345.67]; }");
+
             Thread.CurrentThread.CurrentCulture = currentCulture;
             Thread.CurrentThread.CurrentUICulture = currentUiCulture;
         }

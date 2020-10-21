@@ -16,7 +16,7 @@ namespace DotNetGraph.Tests
 
             Check.That(compiled).HasSameValueAs("graph \"My test graph\" { }");
         }
-        
+
         [Fact]
         public void EmptyDirectedGraph()
         {
@@ -24,7 +24,7 @@ namespace DotNetGraph.Tests
 
             var compiled = graph.Compile();
 
-            Check.That(compiled).HasSameValueAs("digraph \"TestGraph\" { }");
+            Check.That(compiled).HasSameValueAs("digraph TestGraph { }");
         }
 
         [Fact]
@@ -34,7 +34,7 @@ namespace DotNetGraph.Tests
 
             var compiled = graph.Compile();
 
-            Check.That(compiled).HasSameValueAs("graph \"TestGraph\" { }");
+            Check.That(compiled).HasSameValueAs("graph TestGraph { }");
         }
 
         [Fact]
@@ -47,14 +47,14 @@ namespace DotNetGraph.Tests
 
             var compiled = graph.Compile();
 
-            Check.That(compiled).HasSameValueAs("strict graph \"TestGraph\" { }");
+            Check.That(compiled).HasSameValueAs("strict graph TestGraph { }");
         }
 
         [Fact]
         public void GraphWithoutStringsFormat()
         {
             var graph = new DotGraph("TestGraph", true);
-            
+
             graph.Elements.Add(new DotNode("TestNode")
             {
                 Label = "\\lTesting"
@@ -62,7 +62,7 @@ namespace DotNetGraph.Tests
 
             var compiled = graph.Compile(false, false);
 
-            Check.That(compiled).HasSameValueAs("digraph \"TestGraph\" { \"TestNode\"[label=\"\\lTesting\"]; }");
+            Check.That(compiled).HasSameValueAs("digraph TestGraph { TestNode[label=\"\\lTesting\"]; }");
         }
     }
 }

@@ -7,9 +7,20 @@ namespace DotNetGraph.Edge
 {
     public class DotEdge : DotElementWithAttributes
     {
-        public IDotElement Left { get; set; }
+        private IDotElement _left;
+        private IDotElement _right;
 
-        public IDotElement Right { get; set; }
+        public IDotElement Left
+        {
+            get => _left;
+            set => _left = value ?? throw new ArgumentNullException(nameof(value));
+        }
+
+        public IDotElement Right
+        {
+            get => _right;
+            set => _right = value ?? throw new ArgumentNullException(nameof(value));
+        }
 
         public DotColorAttribute Color
         {
@@ -59,10 +70,6 @@ namespace DotNetGraph.Edge
             set => SetAttribute(value);
         }
 
-        public DotEdge()
-        {
-        }
-
         public DotEdge(IDotElement left, IDotElement right)
         {
             Left = left ?? throw new ArgumentNullException(nameof(left));
@@ -77,11 +84,11 @@ namespace DotNetGraph.Edge
             if (right == null)
                 throw new ArgumentNullException(nameof(right));
 
-            if (left.Trim().Length == 0)
-                throw new ArgumentException("Left node cannot be empty", nameof(left));
+            if (string.IsNullOrWhiteSpace(left))
+                throw new ArgumentException("Node cannot be empty", nameof(left));
 
-            if (right.Trim().Length == 0)
-                throw new ArgumentException("Right node cannot be empty", nameof(right));
+            if (string.IsNullOrWhiteSpace(right))
+                throw new ArgumentException("Node cannot be empty", nameof(right));
 
             Left = new DotString(left);
             Right = new DotString(right);

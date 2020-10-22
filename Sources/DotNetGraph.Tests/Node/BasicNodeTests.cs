@@ -296,7 +296,7 @@ namespace DotNetGraph.Tests.Node
         }
 
         [Fact]
-        public void NodeWithoutIdentifierThrowsException()
+        public void NodeWithNullIdentifierThrowsException()
         {
             Check.ThatCode(() => new DotNode(null)).Throws<ArgumentNullException>();
         }
@@ -306,6 +306,21 @@ namespace DotNetGraph.Tests.Node
         {
             Check.ThatCode(() => new DotNode(string.Empty)).Throws<ArgumentException>();
             Check.ThatCode(() => new DotNode(" ")).Throws<ArgumentException>();
+        }
+
+        [Fact]
+        public void ModifyNodeIdentifierWithNullIdentifierThrowsException()
+        {
+            var node = new DotNode("test");
+            Check.ThatCode(() => node.Identifier = null).Throws<ArgumentException>();
+        }
+
+        [Fact]
+        public void ModifyNodeIdentifierWithEmptyIdentifierThrowsException()
+        {
+            var node = new DotNode("test");
+            Check.ThatCode(() => node.Identifier = string.Empty).Throws<ArgumentException>();
+            Check.ThatCode(() => node.Identifier = " ").Throws<ArgumentException>();
         }
     }
 }

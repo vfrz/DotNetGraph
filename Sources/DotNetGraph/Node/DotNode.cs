@@ -6,7 +6,22 @@ namespace DotNetGraph.Node
 {
     public class DotNode : DotElementWithAttributes
     {
-        public string Identifier { get; set; }
+        private string _identifier;
+
+        public string Identifier
+        {
+            get => _identifier;
+            set
+            {
+                if (value == null)
+                    throw new ArgumentNullException(nameof(value));
+
+                if (string.IsNullOrWhiteSpace(value))
+                    throw new ArgumentException("Identifier cannot be empty", nameof(value));
+
+                _identifier = value;
+            }
+        }
 
         public DotColorAttribute Color
         {
@@ -73,7 +88,7 @@ namespace DotNetGraph.Node
             if (identifier == null)
                 throw new ArgumentNullException(nameof(identifier));
 
-            if (identifier.Trim().Length == 0)
+            if (string.IsNullOrWhiteSpace(identifier))
                 throw new ArgumentException("Identifier cannot be empty", nameof(identifier));
 
             Identifier = identifier;

@@ -6,11 +6,11 @@ namespace DotNetGraph
     public class DotGraph : IDotElement
     {
         public bool Directed { get; set; }
-        
+
         public string Identifier { get; set; }
-        
+
         public bool Strict { get; set; }
-        
+
         public List<IDotElement> Elements { get; }
 
         public DotGraph()

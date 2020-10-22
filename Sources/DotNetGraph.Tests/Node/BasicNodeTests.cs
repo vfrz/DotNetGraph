@@ -1,3 +1,4 @@
+using System;
 using System.Drawing;
 using System.Globalization;
 using System.Threading;
@@ -292,6 +293,19 @@ namespace DotNetGraph.Tests.Node
 
             Thread.CurrentThread.CurrentCulture = currentCulture;
             Thread.CurrentThread.CurrentUICulture = currentUiCulture;
+        }
+
+        [Fact]
+        public void NodeWithoutIdentifierThrowsException()
+        {
+            Check.ThatCode(() => new DotNode(null)).Throws<ArgumentNullException>();
+        }
+
+        [Fact]
+        public void NodeWithEmptyIdentifierThrowsException()
+        {
+            Check.ThatCode(() => new DotNode(string.Empty)).Throws<ArgumentException>();
+            Check.ThatCode(() => new DotNode(" ")).Throws<ArgumentException>();
         }
     }
 }

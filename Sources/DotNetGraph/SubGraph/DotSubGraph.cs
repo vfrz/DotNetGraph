@@ -7,19 +7,19 @@ namespace DotNetGraph.SubGraph
     public class DotSubGraph : DotElementWithAttributes
     {
         public string Identifier { get; set; }
-        
+
         public DotColorAttribute Color
         {
             get => GetAttribute<DotColorAttribute>();
             set => SetAttribute(value);
         }
-        
+
         public DotSubGraphStyleAttribute Style
         {
             get => GetAttribute<DotSubGraphStyleAttribute>();
             set => SetAttribute(value);
         }
-        
+
         public DotLabelAttribute Label
         {
             get => GetAttribute<DotLabelAttribute>();

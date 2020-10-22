@@ -1,3 +1,4 @@
+using System;
 using System.Drawing;
 using DotNetGraph.Edge;
 using DotNetGraph.Extensions;
@@ -185,6 +186,27 @@ namespace DotNetGraph.Tests.SubGraph
             var compiled = graph.Compile();
 
             Check.That(compiled).HasSameValueAs("graph TestGraph { subgraph TestSubGraph { TestNode; } }");
+        }
+
+        [Fact]
+        public void EdgeWithNullNodesThrowsException()
+        {
+            var node = new DotNode("example");
+
+            Check.ThatCode(() => new DotEdge(null, node)).Throws<ArgumentNullException>();
+            Check.ThatCode(() => new DotEdge(node, null)).Throws<ArgumentNullException>();
+
+            Check.ThatCode(() => new DotEdge(null, "test")).Throws<ArgumentNullException>();
+            Check.ThatCode(() => new DotEdge("test", null)).Throws<ArgumentNullException>();
+        }
+
+        [Fact]
+        public void EdgeWithEmptyNodeIdentifierThrowsException()
+        {
+            Check.ThatCode(() => new DotEdge(string.Empty, "test")).Throws<ArgumentException>();
+            Check.ThatCode(() => new DotEdge(" ", "test")).Throws<ArgumentException>();
+            Check.ThatCode(() => new DotEdge("test", string.Empty)).Throws<ArgumentException>();
+            Check.ThatCode(() => new DotEdge("test", " ")).Throws<ArgumentException>();
         }
     }
 }

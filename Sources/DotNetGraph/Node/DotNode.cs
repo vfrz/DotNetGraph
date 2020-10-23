@@ -1,24 +1,40 @@
 using DotNetGraph.Attributes;
 using DotNetGraph.Core;
+using System;
 
 namespace DotNetGraph.Node
 {
     public class DotNode : DotElementWithAttributes
     {
-        public string Identifier { get; set; }
+        private string _identifier;
+
+        public string Identifier
+        {
+            get => _identifier;
+            set
+            {
+                if (value == null)
+                    throw new ArgumentNullException(nameof(value));
+
+                if (string.IsNullOrWhiteSpace(value))
+                    throw new ArgumentException("Identifier cannot be empty", nameof(value));
+
+                _identifier = value;
+            }
+        }
 
         public DotColorAttribute Color
         {
             get => GetAttribute<DotColorAttribute>();
             set => SetAttribute(value);
         }
-        
+
         public DotFontColorAttribute FontColor
         {
             get => GetAttribute<DotFontColorAttribute>();
             set => SetAttribute(value);
         }
-        
+
         public DotFillColorAttribute FillColor
         {
             get => GetAttribute<DotFillColorAttribute>();
@@ -30,7 +46,7 @@ namespace DotNetGraph.Node
             get => GetAttribute<DotNodeShapeAttribute>();
             set => SetAttribute(value);
         }
-        
+
         public DotNodeStyleAttribute Style
         {
             get => GetAttribute<DotNodeStyleAttribute>();
@@ -66,9 +82,15 @@ namespace DotNetGraph.Node
             get => GetAttribute<DotPositionAttribute>();
             set => SetAttribute(value);
         }
-        
-        public DotNode(string identifier = null, DotColorAttribute color = null)
+
+        public DotNode(string identifier, DotColorAttribute color = null)
         {
+            if (identifier == null)
+                throw new ArgumentNullException(nameof(identifier));
+
+            if (string.IsNullOrWhiteSpace(identifier))
+                throw new ArgumentException("Identifier cannot be empty", nameof(identifier));
+
             Identifier = identifier;
             Color = color;
         }

@@ -123,6 +123,25 @@ namespace DotNetGraph.Tests.Node
         }
 
         [Fact]
+        public void NodeWithMultipleStyles()
+        {
+            var graph = new DotGraph("TestGraph")
+            {
+                Elements =
+                {
+                    new DotNode("TestNode")
+                    {
+                        Style = DotNodeStyle.Rounded | DotNodeStyle.Filled
+                    }
+                }
+            };
+
+            var compiled = graph.Compile();
+
+            Check.That(compiled).HasSameValueAs("graph TestGraph { TestNode[style=\"rounded,filled\"]; }");
+        }
+
+        [Fact]
         public void NodeWithFontColor()
         {
             var graph = new DotGraph("TestGraph")

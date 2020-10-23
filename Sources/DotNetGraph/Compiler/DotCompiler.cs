@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
-using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using DotNetGraph.Attributes;
@@ -123,7 +122,7 @@ namespace DotNetGraph.Compiler
             {
                 if (attribute is DotSubGraphStyleAttribute subGraphStyleAttribute)
                 {
-                    builder.Append($"style={subGraphStyleAttribute.Style.ToString().ToLowerInvariant()}; ");
+                    builder.Append($"style={SurroundStringWithQuotes(subGraphStyleAttribute.Style.FlagsToString(), formatStrings)}; ");
                 }
                 else if (attribute is DotColorAttribute colorAttribute)
                 {
@@ -203,11 +202,11 @@ namespace DotNetGraph.Compiler
                 }
                 else if (attribute is DotNodeStyleAttribute nodeStyleAttribute)
                 {
-                    attributeValues.Add($"style={nodeStyleAttribute.Style.ToString().ToLowerInvariant()}");
+                    attributeValues.Add($"style={SurroundStringWithQuotes(nodeStyleAttribute.Style.FlagsToString(), formatStrings)}");
                 }
                 else if (attribute is DotEdgeStyleAttribute edgeStyleAttribute)
                 {
-                    attributeValues.Add($"style={edgeStyleAttribute.Style.ToString().ToLowerInvariant()}");
+                    attributeValues.Add($"style={SurroundStringWithQuotes(edgeStyleAttribute.Style.FlagsToString(), formatStrings)}");
                 }
                 else if (attribute is DotFontColorAttribute fontColorAttribute)
                 {

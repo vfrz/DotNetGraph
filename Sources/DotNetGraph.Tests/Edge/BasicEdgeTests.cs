@@ -202,6 +202,25 @@ namespace DotNetGraph.Tests.Edge
         }
 
         [Fact]
+        public void EdgeWithMultipleStyles()
+        {
+            var graph = new DotGraph("TestGraph")
+            {
+                Elements =
+                {
+                    new DotEdge("hello", "world")
+                    {
+                        Style = DotEdgeStyle.Dashed | DotEdgeStyle.Dotted
+                    }
+                }
+            };
+
+            var compiled = graph.Compile();
+
+            Check.That(compiled).HasSameValueAs("graph TestGraph { hello -- world[style=\"dashed,dotted\"]; }");
+        }
+
+        [Fact]
         public void EdgeWithArrowHead()
         {
             var graph = new DotGraph("TestGraph")

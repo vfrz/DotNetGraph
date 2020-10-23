@@ -83,6 +83,25 @@ namespace DotNetGraph.Tests.SubGraph
         }
 
         [Fact]
+        public void SubGraphWithMultipleStyles()
+        {
+            var graph = new DotGraph("TestGraph")
+            {
+                Elements =
+                {
+                    new DotSubGraph("TestSubGraph")
+                    {
+                        Style = DotSubGraphStyle.Rounded | DotSubGraphStyle.Filled
+                    }
+                }
+            };
+
+            var compiled = graph.Compile();
+
+            Check.That(compiled).HasSameValueAs("graph TestGraph { subgraph TestSubGraph { style=\"rounded,filled\"; } }");
+        }
+
+        [Fact]
         public void SubGraphWithLabel()
         {
             var graph = new DotGraph("TestGraph")

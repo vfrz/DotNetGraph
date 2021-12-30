@@ -69,5 +69,16 @@ namespace DotNetGraph.Tests.Extensions
             Check.That(subgraph.Identifier).HasSameValueAs(id);
             AssertFirstElement(sut, subgraph);
         }
+
+        [Theory]
+        [MemberData(nameof(GetGraphs))]
+        public void AddLine_WhenCalled_ThenLineIsAdded(IDotGraph sut)
+        {
+            var line = "raw line";
+            sut.AddLine(line);
+
+            Check.That(sut.Elements).CountIs(1);
+            Check.That(((DotString)sut.Elements[0]).Value).IsSameReferenceAs(line);
+        }
     }
 }

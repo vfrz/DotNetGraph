@@ -81,6 +81,10 @@ namespace DotNetGraph.Compiler
                 {
                     CompileSubGraph(subGraph, indentationLevel);
                 }
+                else if (element is DotString stringElement)
+                {
+                    CompileStringElement(stringElement, indentationLevel);
+                }
                 else
                 {
                     throw new DotException($"Graph body can't contain element of type: {element.GetType()}");
@@ -117,6 +121,10 @@ namespace DotNetGraph.Compiler
                 else if (element is DotSubGraph subSubGraph)
                 {
                     CompileSubGraph(subSubGraph, indentationLevel);
+                }
+                else if (element is DotString stringElement)
+                {
+                    CompileStringElement(stringElement, indentationLevel);
                 }
                 else
                 {
@@ -277,6 +285,18 @@ namespace DotNetGraph.Compiler
             _writer.Write(string.Join(",", attributeValues));
 
             _writer.Write("]");
+        }
+
+        private void CompileStringElement(DotString stringElement, int indentationLevel)
+        {
+            CompileLine(stringElement.Value, indentationLevel);
+        }
+
+        private void CompileLine(string value, int indentationLevel)
+        {
+            _writer.AddIndentation(Indented, indentationLevel);
+            _writer.Write(value + " ");
+            _writer.AddIndentationNewLine(Indented);
         }
 
         internal static string SurroundStringWithQuotes(string value, bool format)

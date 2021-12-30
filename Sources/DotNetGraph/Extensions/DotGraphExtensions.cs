@@ -72,5 +72,20 @@ namespace DotNetGraph.Extensions
             graph.Elements.Add(subGraph);
             return subGraph;
         }
+
+        public static void AddLine(this IDotGraph graph, string rawLine)
+        {
+            if (graph == null)
+            {
+                throw new ArgumentNullException(nameof(graph));
+            }
+            if (string.IsNullOrWhiteSpace(rawLine))
+            {
+                throw new ArgumentException("Line cannot be empty", nameof(rawLine));
+            }
+
+            var stringElement = new DotString(rawLine);
+            graph.Elements.Add(stringElement);
+        }
     }
 }

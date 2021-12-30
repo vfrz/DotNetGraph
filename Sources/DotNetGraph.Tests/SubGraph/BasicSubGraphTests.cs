@@ -205,5 +205,27 @@ namespace DotNetGraph.Tests.SubGraph
 
             Check.That(compiled).HasSameValueAs("graph TestGraph { subgraph TestSubGraph { TestNode; } }");
         }
+
+        [Fact]
+        public void DotSubGraph_WhenRawLineAdded_ThenItsCompiled()
+        {
+            var graph = new DotGraph("TestGraph")
+            {
+                Elements =
+                {
+                    new DotSubGraph("TestSubGraph")
+                    {
+                        Elements =
+                        {
+                            new DotString("{rank = same; A; X;}")
+                        }
+                    }
+                }
+            };
+
+            var compiled = graph.Compile();
+
+            Check.That(compiled).HasSameValueAs("graph TestGraph { subgraph TestSubGraph { {rank = same; A; X;} } }");
+        }
     }
 }

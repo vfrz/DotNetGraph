@@ -4,14 +4,14 @@ using Xunit;
 
 namespace DotNetGraph.Tests
 {
-    public class DotCompilerTests
+    public class DotCompilerWorkerTests
     {
         [Fact]
         public void Format()
         {
             const string text = "Je m'appelle \"Jack\",\r\n je suis un test\\essai\nCela marche!";
 
-            var formatted = DotCompiler.FormatString(text, true);
+            var formatted = DotCompilerWorker.FormatString(text, true);
 
             Check.That(formatted).HasSameValueAs("Je m'appelle \\\"Jack\\\",\\n je suis un test\\\\essai\\nCela marche!");
         }
@@ -21,7 +21,7 @@ namespace DotNetGraph.Tests
         {
             const string text = "Je m'appelle \"Jack\",\r\n je suis un test\\essai\nCela marche!";
 
-            var formatted = DotCompiler.FormatString(text, false);
+            var formatted = DotCompilerWorker.FormatString(text, false);
 
             Check.That(formatted).HasSameValueAs(text);
         }
@@ -36,7 +36,7 @@ namespace DotNetGraph.Tests
         [InlineData("-1.23")]
         public void SurroundWithDoubleQuotes_Without(string text)
         {
-            var formatted = DotCompiler.SurroundStringWithQuotes(text, false);
+            var formatted = DotCompilerWorker.SurroundStringWithQuotes(text, false);
 
             Check.That(formatted).HasSameValueAs(text);
         }
@@ -56,7 +56,7 @@ namespace DotNetGraph.Tests
         [InlineData("-1.1a")]
         public void SurroundWithDoubleQuotes_With(string text)
         {
-            var formatted = DotCompiler.SurroundStringWithQuotes(text, false);
+            var formatted = DotCompilerWorker.SurroundStringWithQuotes(text, false);
 
             Check.That(formatted).HasSameValueAs("\"" + text + "\"");
         }

@@ -10,12 +10,7 @@ namespace DotNetGraph.Compiler
 
         public DotCompiler(DotGraph graph)
         {
-            if (graph == null)
-            {
-                throw new ArgumentNullException(nameof(graph));
-            }
-
-            _graph = graph;
+            _graph = graph ?? throw new ArgumentNullException(nameof(graph));
         }
 
         public string Compile(bool indented = false, bool formatStrings = true)

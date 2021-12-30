@@ -29,19 +29,10 @@ namespace DotNetGraph.Compiler
             bool formatStrings,
             bool disposeWriter = false)
         {
-            if (graph == null)
-            {
-                throw new ArgumentNullException(nameof(graph));
-            }
-            if (writer == null)
-            {
-                throw new ArgumentNullException(nameof(writer));
-            }
-
-            _graph = graph;
+            _graph = graph ?? throw new ArgumentNullException(nameof(graph));
+            _writer = writer ?? throw new ArgumentNullException(nameof(writer));
             Indented = indented;
             FormatStrings = formatStrings;
-            _writer = writer;
             _disposeWriter = disposeWriter;
         }
 

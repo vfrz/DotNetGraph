@@ -3,7 +3,7 @@ using DotNetGraph.Core;
 
 namespace DotNetGraph
 {
-    public class DotGraph : IDotElement
+    public class DotGraph : IDotElement, IDotGraph
     {
         public bool Directed { get; set; }
 

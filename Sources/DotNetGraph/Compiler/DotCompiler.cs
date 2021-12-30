@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Text;
 
@@ -9,6 +10,11 @@ namespace DotNetGraph.Compiler
 
         public DotCompiler(DotGraph graph)
         {
+            if (graph == null)
+            {
+                throw new ArgumentNullException(nameof(graph));
+            }
+
             _graph = graph;
         }
 
@@ -17,10 +23,31 @@ namespace DotNetGraph.Compiler
             var builder = new StringBuilder();
             using (var writer = new StringWriter(builder))
             {
-                var worker = new DotCompilerWorker(_graph, writer, indented, formatStrings);
-                worker.Compile();
+                Compile(writer, indented, formatStrings);
                 return builder.ToString();
             }
+        }
+
+        public void Compile(Stream stream, bool indented = false, bool formatStrings = true)
+        {
+            if (stream == null)
+            {
+                throw new ArgumentNullException(nameof(stream));
+            }
+
+            var writer = new StreamWriter(stream);
+            Compile(writer, indented, formatStrings);
+        }
+
+        public void Compile(TextWriter writer, bool indented = false, bool formatStrings = true)
+        {
+            if (writer == null)
+            {
+                throw new ArgumentNullException(nameof(writer));
+            }
+
+            var worker = new DotCompilerWorker(_graph, writer, indented, formatStrings);
+            worker.Compile();
         }
     }
 }

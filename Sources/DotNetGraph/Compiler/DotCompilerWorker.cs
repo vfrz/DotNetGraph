@@ -106,7 +106,7 @@ namespace DotNetGraph.Compiler
 
             indentationLevel++;
 
-            CompileSubGraphAttributes(subGraph.Attributes);
+            CompileSubGraphAttributes(subGraph.Attributes, indentationLevel);
 
             foreach (var element in subGraph.Elements)
             {
@@ -141,29 +141,32 @@ namespace DotNetGraph.Compiler
             _writer.AddIndentationNewLine(Indented);
         }
 
-        private void CompileSubGraphAttributes(IReadOnlyList<IDotAttribute> attributes)
+        private void CompileSubGraphAttributes(IReadOnlyList<IDotAttribute> attributes, int indentationLevel)
         {
             if (attributes.Count == 0)
                 return;
 
             foreach (var attribute in attributes)
             {
+                string line;
                 if (attribute is DotSubGraphStyleAttribute subGraphStyleAttribute)
                 {
-                    _writer.Write($"style={SurroundStringWithQuotes(subGraphStyleAttribute.Style.FlagsToString(), FormatStrings)}; ");
+                    line = $"style={SurroundStringWithQuotes(subGraphStyleAttribute.Style.FlagsToString(), FormatStrings)};";
                 }
                 else if (attribute is DotColorAttribute colorAttribute)
                 {
-                    _writer.Write($"color=\"{colorAttribute.ToHex()}\"; ");
+                    line = $"color=\"{colorAttribute.ToHex()}\";";
                 }
                 else if (attribute is DotLabelAttribute labelAttribute)
                 {
-                    _writer.Write($"label={SurroundStringWithQuotes(labelAttribute.Text, FormatStrings)}; ");
+                    line = $"label={SurroundStringWithQuotes(labelAttribute.Text, FormatStrings)};";
                 }
                 else
                 {
                     throw new DotException($"Attribute type not supported: {attribute.GetType()}");
                 }
+
+                CompileLine(line, indentationLevel);
             }
         }
 

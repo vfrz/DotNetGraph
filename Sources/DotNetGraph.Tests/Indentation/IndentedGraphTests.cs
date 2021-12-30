@@ -141,5 +141,39 @@ namespace DotNetGraph.Tests.Indentation
 
             Check.That(compiled).HasSameValueAs("graph TestGraph { \n\tTestNode[color=\"#FF0000\",style=bold]; \n}");
         }
+
+        [Fact]
+        public void DotGraph_WhenNodesSubGraphsEdgesAndCustomLinesProvided_ThenCompilationIsFormattedCorrectly()
+        {
+            var graph = new DotGraph("TestGraph", true);
+            graph.AddLine("rankdir = TB;");
+
+            var subGraph = graph.NewSubGraph("cluster_0");
+            subGraph.Label = "Test Sub Graph";
+            subGraph.NewNode("A");
+            subGraph.NewNode("B");
+            subGraph.AddLine("{rank = same; A; X;}");
+
+            graph.NewEdge("A", "B");
+
+            var compiled = graph.Compile(true);
+
+            _output.WriteLine(compiled);
+
+            // digraph TestGraph { 
+            // 	rankdir = TB; 
+            // 	subgraph cluster_0 { 
+            // 		label="Test Sub Graph";
+            // 		A; 
+            // 		B; 
+            // 		{rank = same; A; X;} 
+            // 	} 
+            // 	A -> B; 
+            // }
+
+            var expected2 = "digraph TestGraph { \n\trankdir = TB; \n\tsubgraph cluster_0 { \n\t\tlabel=\"Test Sub Graph\"; \n\t\tA; \n\t\tB; \n\t\t{rank = same; A; X;} \n\t} \n\tA -> B; \n}";
+
+            Check.That(compiled).HasSameValueAs(expected2);
+        }
     }
 }

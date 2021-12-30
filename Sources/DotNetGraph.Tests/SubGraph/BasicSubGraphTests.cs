@@ -227,5 +227,20 @@ namespace DotNetGraph.Tests.SubGraph
 
             Check.That(compiled).HasSameValueAs("graph TestGraph { subgraph TestSubGraph { {rank = same; A; X;} } }");
         }
+
+        [Theory]
+        [InlineData("rank")]
+        [InlineData("Rank")]
+        [InlineData("RANK")]
+        public void DotSubGraph_WhenCustomAttributeSet_ThenItsCompiled(string rankName)
+        {
+            var graph = new DotGraph("TestGraph");
+            var subGraph = graph.NewSubGraph("TestSubGraph");
+            subGraph.SetCustomAttribute(rankName, "same; A; X;");
+
+            var compiled = graph.Compile();
+
+            Check.That(compiled).HasSameValueAs("graph TestGraph { subgraph TestSubGraph { rank=same; A; X; } }");
+        }
     }
 }

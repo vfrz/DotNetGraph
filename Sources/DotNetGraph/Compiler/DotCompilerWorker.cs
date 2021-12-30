@@ -161,6 +161,10 @@ namespace DotNetGraph.Compiler
                 {
                     line = $"label={SurroundStringWithQuotes(labelAttribute.Text, FormatStrings)};";
                 }
+                else if (attribute is DotCustomAttribute customAttribute)
+                {
+                    line = customAttribute.ToString();
+                }
                 else
                 {
                     throw new DotException($"Attribute type not supported: {attribute.GetType()}");
@@ -278,6 +282,10 @@ namespace DotNetGraph.Compiler
                 else if (attribute is DotPositionAttribute positionAttribute && positionAttribute.Position != null)
                 {
                     attributeValues.Add($"pos=\"{positionAttribute.Position.X},{positionAttribute.Position.Y}!\"");
+                }
+                else if (attribute is DotCustomAttribute customAttribute)
+                {
+                    attributeValues.Add(customAttribute.ToString());
                 }
                 else
                 {

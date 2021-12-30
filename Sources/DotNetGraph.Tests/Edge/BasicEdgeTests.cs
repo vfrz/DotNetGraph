@@ -287,5 +287,20 @@ namespace DotNetGraph.Tests.Edge
             Check.ThatCode(() => edge.Left = null).Throws<ArgumentNullException>();
             Check.ThatCode(() => edge.Right = null).Throws<ArgumentNullException>();
         }
+
+        [Theory]
+        [InlineData("style")]
+        [InlineData("Style")]
+        [InlineData("STYLE")]
+        public void DotEdge_WhenCustomAttributeSet_ThenItsCompiled(string styleName)
+        {
+            var graph = new DotGraph("TestGraph");
+            var edge = graph.NewEdge("hello", "world");
+            edge.SetCustomAttribute(styleName, "dashed");
+
+            var compiled = graph.Compile();
+
+            Check.That(compiled).HasSameValueAs("graph TestGraph { hello -- world[style=dashed]; }");
+        }
     }
 }

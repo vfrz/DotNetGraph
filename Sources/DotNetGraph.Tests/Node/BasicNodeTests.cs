@@ -341,5 +341,20 @@ namespace DotNetGraph.Tests.Node
             Check.ThatCode(() => node.Identifier = string.Empty).Throws<ArgumentException>();
             Check.ThatCode(() => node.Identifier = " ").Throws<ArgumentException>();
         }
+
+        [Theory]
+        [InlineData("shape")]
+        [InlineData("Shape")]
+        [InlineData("SHAPE")]
+        public void DotNode_WhenCustomAttributeSet_ThenItsCompiled(string shapeName)
+        {
+            var graph = new DotGraph("TestGraph");
+            var node = graph.NewNode("TestNode");
+            node.SetCustomAttribute(shapeName, "square");
+
+            var compiled = graph.Compile();
+
+            Check.That(compiled).HasSameValueAs("graph TestGraph { TestNode[shape=square]; }");
+        }
     }
 }

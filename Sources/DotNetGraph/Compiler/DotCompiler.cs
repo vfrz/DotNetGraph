@@ -46,8 +46,10 @@ namespace DotNetGraph.Compiler
                 throw new ArgumentNullException(nameof(writer));
             }
 
-            var worker = new DotCompilerWorker(_graph, writer, indented, formatStrings);
-            worker.Compile();
+            using (var worker = new DotCompilerWorker(_graph, writer, indented, formatStrings))
+            {
+                worker.Compile();
+            }
         }
     }
 }

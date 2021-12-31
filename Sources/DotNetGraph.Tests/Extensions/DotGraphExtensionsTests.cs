@@ -5,6 +5,7 @@ using Xunit;
 using NFluent;
 using DotNetGraph.Core;
 using DotNetGraph.Node;
+using DotNetGraph.Edge;
 
 namespace DotNetGraph.Tests.Extensions
 {
@@ -16,10 +17,11 @@ namespace DotNetGraph.Tests.Extensions
             yield return new[] { new DotSubGraph("cluster_0") };
         }
 
-        private void AssertFirstElement(IDotGraph sut, IDotElement expected)
+        private void AssertFirstElement<T>(IDotGraph sut)
+            where T : IDotElement
         {
             Check.That(sut.Elements).CountIs(1);
-            Check.That(sut.Elements[0]).IsSameReferenceAs(expected);
+            Check.That(sut.Elements[0]).IsInstanceOfType(typeof(T));
         }
 
         [Theory]
@@ -27,9 +29,9 @@ namespace DotNetGraph.Tests.Extensions
         public void NewNode_WhenCalled_ThenNewNodeIsAdded(IDotGraph sut)
         {
             var id = "A";
-            var node = sut.NewNode(id);
-            Check.That(node.Identifier).HasSameValueAs(id);
-            AssertFirstElement(sut, node);
+            sut.NewNode(id);
+            
+            AssertFirstElement<DotNode>(sut);
         }
 
         [Theory]
@@ -38,12 +40,9 @@ namespace DotNetGraph.Tests.Extensions
         {
             var left = "A";
             var right = "B";
-            var edge = sut.NewEdge(left, right);
+            sut.NewEdge(left, right);
 
-            Check.That(((DotString)edge.Left).Value).HasSameValueAs(left);
-            Check.That(((DotString)edge.Right).Value).HasSameValueAs(right);
-
-            AssertFirstElement(sut, edge);
+            AssertFirstElement<DotEdge>(sut);
         }
 
         [Theory]
@@ -52,12 +51,9 @@ namespace DotNetGraph.Tests.Extensions
         {
             var left = new DotNode("A");
             var right = new DotNode("B");
-            var edge = sut.NewEdge(left, right);
+            sut.NewEdge(left, right);
 
-            Check.That(edge.Left).IsSameReferenceAs(left);
-            Check.That(edge.Right).IsSameReferenceAs(right);
-
-            AssertFirstElement(sut, edge);
+            AssertFirstElement<DotEdge>(sut);
         }
 
         [Theory]
@@ -65,9 +61,9 @@ namespace DotNetGraph.Tests.Extensions
         public void NewSubGraph_WhenCalled_ThenSubGraphIsAdded(IDotGraph sut)
         {
             var id = "A";
-            var subgraph = sut.NewSubGraph(id);
-            Check.That(subgraph.Identifier).HasSameValueAs(id);
-            AssertFirstElement(sut, subgraph);
+            sut.NewSubGraph(id);
+
+            AssertFirstElement<DotSubGraph>(sut);
         }
 
         [Theory]

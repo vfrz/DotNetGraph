@@ -36,12 +36,10 @@ namespace DotNetGraph.Core
                 _attributes.Remove(typeof(T).Name);
         }
 
-        public DotElementWithAttributes SetCustomAttribute(string name, string value)
+        protected void SetCustomAttributeInternal(string name, string value)
         {
             var attr = new DotCustomAttribute(name, value);
             _customAttributes[name] = attr;
-
-            return this;
         }
     }
 }

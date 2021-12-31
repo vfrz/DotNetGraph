@@ -25,7 +25,8 @@ namespace DotNetGraph.Extensions
             new DotCompiler(graph).Compile(writer, indented, formatStrings);
         }
 
-        public static DotNode NewNode(this IDotGraph graph, string identifier)
+        public static T NewNode<T>(this T graph, string identifier, Action<DotNode> nodeSetup = null)
+            where T : IDotGraph
         {
             if (graph == null)
             {
@@ -34,10 +35,13 @@ namespace DotNetGraph.Extensions
 
             var node = new DotNode(identifier);
             graph.Elements.Add(node);
-            return node;
+
+            nodeSetup?.Invoke(node);
+            return graph;
         }
 
-        public static DotEdge NewEdge(this IDotGraph graph, IDotElement left, IDotElement right)
+        public static T NewEdge<T>(this T graph, IDotElement left, IDotElement right, Action<DotEdge> edgeSetup = null)
+            where T : IDotGraph
         {
             if (graph == null)
             {
@@ -46,10 +50,13 @@ namespace DotNetGraph.Extensions
 
             var edge = new DotEdge(left, right);
             graph.Elements.Add(edge);
-            return edge;
+
+            edgeSetup?.Invoke(edge);
+            return graph;
         }
 
-        public static DotEdge NewEdge(this IDotGraph graph, string left, string right)
+        public static T NewEdge<T>(this T graph, string left, string right, Action<DotEdge> edgeSetup = null)
+             where T : IDotGraph
         {
             if (graph == null)
             {
@@ -58,10 +65,13 @@ namespace DotNetGraph.Extensions
 
             var edge = new DotEdge(left, right);
             graph.Elements.Add(edge);
-            return edge;
+
+            edgeSetup?.Invoke(edge);
+            return graph;
         }
 
-        public static DotSubGraph NewSubGraph(this IDotGraph graph, string identifier)
+        public static T NewSubGraph<T>(this T graph, string identifier, Action<DotSubGraph> subGraphSetup = null)
+            where T : IDotGraph
         {
             if (graph == null)
             {
@@ -70,10 +80,13 @@ namespace DotNetGraph.Extensions
 
             var subGraph = new DotSubGraph(identifier);
             graph.Elements.Add(subGraph);
-            return subGraph;
+
+            subGraphSetup?.Invoke(subGraph);
+            return graph;
         }
 
-        public static void AddLine(this IDotGraph graph, string rawLine)
+        public static T AddLine<T>(this T graph, string rawLine)
+            where T : IDotGraph
         {
             if (graph == null)
             {
@@ -86,6 +99,8 @@ namespace DotNetGraph.Extensions
 
             var stringElement = new DotString(rawLine);
             graph.Elements.Add(stringElement);
+
+            return graph;
         }
     }
 }

@@ -234,9 +234,11 @@ namespace DotNetGraph.Tests.SubGraph
         [InlineData("RANK")]
         public void DotSubGraph_WhenCustomAttributeSet_ThenItsCompiled(string rankName)
         {
-            var graph = new DotGraph("TestGraph");
-            var subGraph = graph.NewSubGraph("TestSubGraph");
-            subGraph.SetCustomAttribute(rankName, "same; A; X;");
+            var graph = new DotGraph("TestGraph")
+                .NewSubGraph("TestSubGraph", s =>
+                {
+                    s.SetCustomAttribute(rankName, "same; A; X;");
+                });
 
             var compiled = graph.Compile();
 

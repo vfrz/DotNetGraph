@@ -33,5 +33,12 @@ namespace DotNetGraph.SubGraph
             Elements = new List<IDotElement>();
             Identifier = identifier;
         }
+
+        public DotSubGraph SetCustomAttribute(string name, string value)
+        {
+            SetCustomAttributeInternal(name, value);
+
+            return this;
+        }
     }
 }

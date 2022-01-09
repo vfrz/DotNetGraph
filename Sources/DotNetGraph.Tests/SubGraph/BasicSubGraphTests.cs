@@ -235,7 +235,7 @@ namespace DotNetGraph.Tests.SubGraph
         public void DotSubGraph_WhenCustomAttributeSet_ThenItsCompiled(string rankName)
         {
             var graph = new DotGraph("TestGraph")
-                .NewSubGraph("TestSubGraph", s =>
+                .AddSubGraph("TestSubGraph", s =>
                 {
                     s.SetCustomAttribute(rankName, "same; A; X;");
                 });

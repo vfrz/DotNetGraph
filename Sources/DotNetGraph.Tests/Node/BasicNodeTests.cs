@@ -349,7 +349,7 @@ namespace DotNetGraph.Tests.Node
         public void DotNode_WhenCustomAttributeSet_ThenItsCompiled(string shapeName)
         {
             var graph = new DotGraph("TestGraph")
-                .NewNode("TestNode", n =>
+                .AddNode("TestNode", n =>
                 {
                     n.SetCustomAttribute(shapeName, "square");
                 });

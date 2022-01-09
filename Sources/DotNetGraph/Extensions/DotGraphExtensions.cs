@@ -25,7 +25,7 @@ namespace DotNetGraph.Extensions
             new DotCompiler(graph).Compile(writer, indented, formatStrings);
         }
 
-        public static T NewNode<T>(this T graph, string identifier, Action<DotNode> nodeSetup = null)
+        public static T AddNode<T>(this T graph, string identifier, Action<DotNode> nodeSetup = null)
             where T : IDotGraph
         {
             if (graph == null)
@@ -40,7 +40,7 @@ namespace DotNetGraph.Extensions
             return graph;
         }
 
-        public static T NewEdge<T>(this T graph, IDotElement left, IDotElement right, Action<DotEdge> edgeSetup = null)
+        public static T AddEdge<T>(this T graph, IDotElement left, IDotElement right, Action<DotEdge> edgeSetup = null)
             where T : IDotGraph
         {
             if (graph == null)
@@ -55,7 +55,7 @@ namespace DotNetGraph.Extensions
             return graph;
         }
 
-        public static T NewEdge<T>(this T graph, string left, string right, Action<DotEdge> edgeSetup = null)
+        public static T AddEdge<T>(this T graph, string left, string right, Action<DotEdge> edgeSetup = null)
              where T : IDotGraph
         {
             if (graph == null)
@@ -70,7 +70,7 @@ namespace DotNetGraph.Extensions
             return graph;
         }
 
-        public static T NewSubGraph<T>(this T graph, string identifier, Action<DotSubGraph> subGraphSetup = null)
+        public static T AddSubGraph<T>(this T graph, string identifier, Action<DotSubGraph> subGraphSetup = null)
             where T : IDotGraph
         {
             if (graph == null)

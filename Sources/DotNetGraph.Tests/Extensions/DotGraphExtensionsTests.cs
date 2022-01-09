@@ -17,7 +17,7 @@ namespace DotNetGraph.Tests.Extensions
             yield return new[] { new DotSubGraph("cluster_0") };
         }
 
-        private void AssertFirstElement<T>(IDotGraph sut)
+        private void AssertSingleElement<T>(IDotGraph sut)
             where T : IDotElement
         {
             Check.That(sut.Elements).CountIs(1);
@@ -26,44 +26,44 @@ namespace DotNetGraph.Tests.Extensions
 
         [Theory]
         [MemberData(nameof(GetGraphs))]
-        public void NewNode_WhenCalled_ThenNewNodeIsAdded(IDotGraph sut)
+        public void AddNode_WhenCalled_ThenNewNodeIsAdded(IDotGraph sut)
         {
             var id = "A";
-            sut.NewNode(id);
-            
-            AssertFirstElement<DotNode>(sut);
+            sut.AddNode(id);
+
+            AssertSingleElement<DotNode>(sut);
         }
 
         [Theory]
         [MemberData(nameof(GetGraphs))]
-        public void NewEdge_WhenCalledWithStrings_ThenNewEdgeIsAdded(IDotGraph sut)
+        public void AddEdge_WhenCalledWithStrings_ThenNewEdgeIsAdded(IDotGraph sut)
         {
             var left = "A";
             var right = "B";
-            sut.NewEdge(left, right);
+            sut.AddEdge(left, right);
 
-            AssertFirstElement<DotEdge>(sut);
+            AssertSingleElement<DotEdge>(sut);
         }
 
         [Theory]
         [MemberData(nameof(GetGraphs))]
-        public void NewEdge_WhenCalledWithElements_ThenNewEdgeIsAdded(IDotGraph sut)
+        public void AddEdge_WhenCalledWithElements_ThenNewEdgeIsAdded(IDotGraph sut)
         {
             var left = new DotNode("A");
             var right = new DotNode("B");
-            sut.NewEdge(left, right);
+            sut.AddEdge(left, right);
 
-            AssertFirstElement<DotEdge>(sut);
+            AssertSingleElement<DotEdge>(sut);
         }
 
         [Theory]
         [MemberData(nameof(GetGraphs))]
-        public void NewSubGraph_WhenCalled_ThenSubGraphIsAdded(IDotGraph sut)
+        public void AddSubGraph_WhenCalled_ThenSubGraphIsAdded(IDotGraph sut)
         {
             var id = "A";
-            sut.NewSubGraph(id);
+            sut.AddSubGraph(id);
 
-            AssertFirstElement<DotSubGraph>(sut);
+            AssertSingleElement<DotSubGraph>(sut);
         }
 
         [Theory]
@@ -74,7 +74,7 @@ namespace DotNetGraph.Tests.Extensions
             sut.AddLine(line);
 
             Check.That(sut.Elements).CountIs(1);
-            Check.That(((DotString)sut.Elements[0]).Value).IsSameReferenceAs(line);
+            Check.That(((DotString)sut.Elements[0]).Value).HasSameValueAs(line);
         }
     }
 }

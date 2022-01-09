@@ -295,7 +295,7 @@ namespace DotNetGraph.Tests.Edge
         public void DotEdge_WhenCustomAttributeSet_ThenItsCompiled(string styleName)
         {
             var graph = new DotGraph("TestGraph")
-                .NewEdge("hello", "world", e =>
+                .AddEdge("hello", "world", e =>
                 {
                     e.SetCustomAttribute(styleName, "dashed");
                 });

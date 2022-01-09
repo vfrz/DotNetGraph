@@ -147,14 +147,14 @@ namespace DotNetGraph.Tests.Indentation
         {
             var graph = new DotGraph("TestGraph", true)
                 .AddLine("rankdir = TB;")
-                .NewSubGraph("cluster_0", s =>
+                .AddSubGraph("cluster_0", s =>
                 {
                     s.Label = "Test Sub Graph";
-                    s.NewNode("A")
-                        .NewNode("B")
+                    s.AddNode("A")
+                        .AddNode("B")
                         .AddLine("{rank = same; A; X;}");
                 })
-                .NewEdge("A", "B");
+                .AddEdge("A", "B");
 
             var compiled = graph.Compile(true);
 
@@ -171,9 +171,9 @@ namespace DotNetGraph.Tests.Indentation
             // 	A -> B; 
             // }
 
-            var expected2 = "digraph TestGraph { \n\trankdir = TB; \n\tsubgraph cluster_0 { \n\t\tlabel=\"Test Sub Graph\"; \n\t\tA; \n\t\tB; \n\t\t{rank = same; A; X;} \n\t} \n\tA -> B; \n}";
+            var expected = "digraph TestGraph { \n\trankdir = TB; \n\tsubgraph cluster_0 { \n\t\tlabel=\"Test Sub Graph\"; \n\t\tA; \n\t\tB; \n\t\t{rank = same; A; X;} \n\t} \n\tA -> B; \n}";
 
-            Check.That(compiled).HasSameValueAs(expected2);
+            Check.That(compiled).HasSameValueAs(expected);
         }
     }
 }

@@ -64,5 +64,21 @@ namespace DotNetGraph.Tests
 
             Check.That(compiled).HasSameValueAs("digraph TestGraph { TestNode[label=\"\\lTesting\"]; }");
         }
+
+        [Fact]
+        public void DotGraph_WhenRawLineAdded_ThenItsCompiled()
+        {
+            var graph = new DotGraph("TestGraph")
+            {
+                Elements =
+                {
+                    new DotString("rankdir = TB;")
+                }
+            };
+
+            var compiled = graph.Compile();
+
+            Check.That(compiled).HasSameValueAs("graph TestGraph { rankdir = TB; }");
+        }
     }
 }

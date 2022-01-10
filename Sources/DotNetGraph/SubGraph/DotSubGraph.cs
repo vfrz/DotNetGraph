@@ -4,7 +4,7 @@ using DotNetGraph.Core;
 
 namespace DotNetGraph.SubGraph
 {
-    public class DotSubGraph : DotElementWithAttributes
+    public class DotSubGraph : DotElementWithAttributes, IDotGraph
     {
         public string Identifier { get; set; }
 
@@ -32,6 +32,13 @@ namespace DotNetGraph.SubGraph
         {
             Elements = new List<IDotElement>();
             Identifier = identifier;
+        }
+
+        public DotSubGraph SetCustomAttribute(string name, string value)
+        {
+            SetCustomAttributeInternal(name, value);
+
+            return this;
         }
     }
 }

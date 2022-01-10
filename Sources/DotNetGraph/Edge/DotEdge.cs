@@ -93,5 +93,12 @@ namespace DotNetGraph.Edge
             Left = new DotString(left);
             Right = new DotString(right);
         }
+
+        public DotEdge SetCustomAttribute(string name, string value)
+        {
+            SetCustomAttributeInternal(name, value);
+
+            return this;
+        }
     }
 }

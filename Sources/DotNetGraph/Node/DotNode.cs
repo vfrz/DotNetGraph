@@ -94,5 +94,12 @@ namespace DotNetGraph.Node
             Identifier = identifier;
             Color = color;
         }
+
+        public DotNode SetCustomAttribute(string name, string value)
+        {
+            SetCustomAttributeInternal(name, value);
+
+            return this;
+        }
     }
 }

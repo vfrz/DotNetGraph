@@ -1,6 +1,7 @@
 using DotNetGraph.Attributes;
 using DotNetGraph.Core;
 using System;
+using System.Drawing;
 
 namespace DotNetGraph.Node
 {
@@ -13,77 +14,73 @@ namespace DotNetGraph.Node
             get => _identifier;
             set
             {
-                if (value == null)
-                    throw new ArgumentNullException(nameof(value));
-
                 if (string.IsNullOrWhiteSpace(value))
-                    throw new ArgumentException("Identifier cannot be empty", nameof(value));
-
+                    throw new ArgumentException("Identifier cannot be null or empty", nameof(value));
                 _identifier = value;
             }
         }
 
-        public DotColorAttribute Color
+        public Color Color
         {
-            get => GetAttribute<DotColorAttribute>();
-            set => SetAttribute(value);
+            get => GetAttribute<DotColorAttribute>("color").Color;
+            set => SetAttribute("color", new DotColorAttribute(value));
         }
 
-        public DotFontColorAttribute FontColor
+        public Color FontColor
         {
-            get => GetAttribute<DotFontColorAttribute>();
-            set => SetAttribute(value);
+            get => GetAttribute<DotColorAttribute>("fontcolor").Color;
+            set => SetAttribute("fontcolor", new DotColorAttribute(value));
         }
 
-        public DotFillColorAttribute FillColor
+        public Color FillColor
         {
-            get => GetAttribute<DotFillColorAttribute>();
-            set => SetAttribute(value);
+            get => GetAttribute<DotColorAttribute>("fillcolor").Color;
+            set => SetAttribute("fillcolor", new DotColorAttribute(value));
         }
 
-        public DotNodeShapeAttribute Shape
+        public DotNodeShape Shape
         {
-            get => GetAttribute<DotNodeShapeAttribute>();
-            set => SetAttribute(value);
+            get => GetAttribute<DotNodeShapeAttribute>("shape").Shape;
+            set => SetAttribute("shape", new DotNodeShapeAttribute(value));
         }
 
-        public DotNodeStyleAttribute Style
+        public DotNodeStyle Style
         {
-            get => GetAttribute<DotNodeStyleAttribute>();
-            set => SetAttribute(value);
+            get => GetAttribute<DotNodeStyleAttribute>("style").Style;
+            set => SetAttribute("style", new DotNodeStyleAttribute(value));
         }
 
-        public DotLabelAttribute Label
+        public string Label
         {
-            get => GetAttribute<DotLabelAttribute>();
-            set => SetAttribute(value);
+            get => GetAttribute<DotStringAttribute>("label").Value;
+            set => SetAttribute("label", new DotStringAttribute(value));
         }
 
-        public DotNodeWidthAttribute Width
+        public float Width
         {
-            get => GetAttribute<DotNodeWidthAttribute>();
-            set => SetAttribute(value);
+            get => GetAttribute<DotFloatAttribute>("width").Value;
+            set => SetAttribute("width", new DotFloatAttribute(value));
         }
 
-        public DotPenWidthAttribute PenWidth
+        public float Height
         {
-            get => GetAttribute<DotPenWidthAttribute>();
-            set => SetAttribute(value);
+            get => GetAttribute<DotFloatAttribute>("height").Value;
+            set => SetAttribute("height", new DotFloatAttribute(value));
         }
 
-        public DotNodeHeightAttribute Height
+        public float PenWidth
         {
-            get => GetAttribute<DotNodeHeightAttribute>();
-            set => SetAttribute(value);
+            get => GetAttribute<DotFloatAttribute>("penwidth").Value;
+            set => SetAttribute("penwidth", new DotFloatAttribute(value));
         }
 
-        public DotPositionAttribute Position
+        public DotPosition Position
         {
-            get => GetAttribute<DotPositionAttribute>();
-            set => SetAttribute(value);
+            get => GetAttribute<DotPositionAttribute>("pos").Position;
+            set => SetAttribute("pos", new DotPositionAttribute(value));
         }
 
-        public DotNode(string identifier, DotColorAttribute color = null)
+        public DotNode(string identifier)
         {
             if (identifier == null)
                 throw new ArgumentNullException(nameof(identifier));
@@ -92,14 +89,6 @@ namespace DotNetGraph.Node
                 throw new ArgumentException("Identifier cannot be empty", nameof(identifier));
 
             Identifier = identifier;
-            Color = color;
-        }
-
-        public DotNode SetCustomAttribute(string name, string value)
-        {
-            SetCustomAttributeInternal(name, value);
-
-            return this;
         }
     }
 }

@@ -1,4 +1,3 @@
-using DotNetGraph.Core;
 using DotNetGraph.Node;
 
 namespace DotNetGraph.Attributes
@@ -12,9 +11,9 @@ namespace DotNetGraph.Attributes
             Shape = shape;
         }
 
-        public static implicit operator DotNodeShapeAttribute(DotNodeShape? shape)
+        public override string ToString()
         {
-            return shape.HasValue ? new DotNodeShapeAttribute(shape.Value) : null;
+            return Shape.ToString().ToLowerInvariant();
         }
     }
 }

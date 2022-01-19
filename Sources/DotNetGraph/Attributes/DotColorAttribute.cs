@@ -1,9 +1,9 @@
 using System.Drawing;
-using DotNetGraph.Core;
+using DotNetGraph.Extensions;
 
 namespace DotNetGraph.Attributes
 {
-    public class DotColorAttribute : IDotAttribute
+    public class DotColorAttribute : IDotAttribute, ISurroundWithQuotes
     {
         public Color Color { get; set; }
 
@@ -12,9 +12,9 @@ namespace DotNetGraph.Attributes
             Color = color;
         }
 
-        public static implicit operator DotColorAttribute(Color? color)
+        public override string ToString()
         {
-            return color.HasValue ? new DotColorAttribute(color.Value) : null;
+            return Color.ToHex();
         }
     }
 }

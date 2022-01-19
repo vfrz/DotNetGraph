@@ -22,52 +22,52 @@ namespace DotNetGraph.Edge
             set => _right = value ?? throw new ArgumentNullException(nameof(value));
         }
 
-        public DotColorAttribute Color
+        public Color Color
         {
-            get => GetAttribute<DotColorAttribute>();
-            set => SetAttribute(value);
+            get => GetAttribute<DotColorAttribute>("color").Color;
+            set => SetAttribute("color", new DotColorAttribute(value));
         }
 
-        public DotFontColorAttribute FontColor
+        public Color FontColor
         {
-            get => GetAttribute<DotFontColorAttribute>();
-            set => SetAttribute(value);
+            get => GetAttribute<DotColorAttribute>("fontcolor").Color;
+            set => SetAttribute("fontcolor", new DotColorAttribute(value));
         }
 
-        public DotEdgeStyleAttribute Style
+        public DotEdgeStyle Style
         {
-            get => GetAttribute<DotEdgeStyleAttribute>();
-            set => SetAttribute(value);
+            get => GetAttribute<DotEdgeStyleAttribute>("style").Style;
+            set => SetAttribute("style", new DotEdgeStyleAttribute(value));
         }
 
-        public DotLabelAttribute Label
+        public string Label
         {
-            get => GetAttribute<DotLabelAttribute>();
-            set => SetAttribute(value);
+            get => GetAttribute<DotStringAttribute>("label").Value;
+            set => SetAttribute("label", new DotStringAttribute(value));
         }
 
-        public DotPenWidthAttribute PenWidth
+        public float PenWidth
         {
-            get => GetAttribute<DotPenWidthAttribute>();
-            set => SetAttribute(value);
+            get => GetAttribute<DotFloatAttribute>("penwidth").Value;
+            set => SetAttribute("penwidth", new DotFloatAttribute(value));
         }
 
-        public DotEdgeArrowHeadAttribute ArrowHead
+        public DotEdgeArrowType ArrowHead
         {
-            get => GetAttribute<DotEdgeArrowHeadAttribute>();
-            set => SetAttribute(value);
+            get => GetAttribute<DotEdgeArrowHeadAttribute>("arrowhead").ArrowType;
+            set => SetAttribute("arrowhead", new DotEdgeArrowHeadAttribute(value));
         }
 
-        public DotEdgeArrowTailAttribute ArrowTail
+        public DotEdgeArrowType ArrowTail
         {
-            get => GetAttribute<DotEdgeArrowTailAttribute>();
-            set => SetAttribute(value);
+            get => GetAttribute<DotEdgeArrowHeadAttribute>("arrowtail").ArrowType;
+            set => SetAttribute("arrowtail", new DotEdgeArrowHeadAttribute(value));
         }
 
-        public DotPositionAttribute Position
+        public DotPosition Position
         {
-            get => GetAttribute<DotPositionAttribute>();
-            set => SetAttribute(value);
+            get => GetAttribute<DotPositionAttribute>("pos").Position;
+            set => SetAttribute("pos", new DotPositionAttribute(value));
         }
 
         public DotEdge(IDotElement left, IDotElement right)
@@ -92,13 +92,6 @@ namespace DotNetGraph.Edge
 
             Left = new DotString(left);
             Right = new DotString(right);
-        }
-
-        public DotEdge SetCustomAttribute(string name, string value)
-        {
-            SetCustomAttributeInternal(name, value);
-
-            return this;
         }
     }
 }

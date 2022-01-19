@@ -1,8 +1,9 @@
 ﻿using DotNetGraph.Edge;
+using DotNetGraph.Extensions;
 
 namespace DotNetGraph.Attributes
 {
-    public class DotEdgeStyleAttribute : DotColorAttribute
+    public class DotEdgeStyleAttribute : IDotAttribute, ISurroundWithQuotes
     {
         public DotEdgeStyle Style { get; set; }
 
@@ -11,9 +12,9 @@ namespace DotNetGraph.Attributes
             Style = style;
         }
 
-        public static implicit operator DotEdgeStyleAttribute(DotEdgeStyle? style)
+        public override string ToString()
         {
-            return style.HasValue ? new DotEdgeStyleAttribute(style.Value) : null;
+            return Style.FlagsToString();
         }
     }
 }

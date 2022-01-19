@@ -8,13 +8,10 @@ namespace DotNetGraph.Extensions
     {
         public static string FlagsToString<T>(this T @enum) where T : Enum
         {
-            var type = typeof(T);
-            if (type.GetCustomAttribute<FlagsAttribute>() == null)
-            {
-                throw new InvalidOperationException($"The type '{type}' doesn't have the [Flags] attribute specified.");
-            }
+            if (typeof(T).GetCustomAttribute<FlagsAttribute>() is null)
+                throw new InvalidOperationException($"The type '{typeof(T)}' doesn't have the [Flags] attribute specified.");
 
-            return string.Join(",", Enum.GetValues(type)
+            return string.Join(",", Enum.GetValues(typeof(T))
                 .Cast<T>()
                 .Where(a => @enum.HasFlag(a))
                 .Select(a => a.ToString().ToLowerInvariant()));

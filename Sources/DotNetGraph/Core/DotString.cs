@@ -1,6 +1,4 @@
-using DotNetGraph.Core;
-
-namespace DotNetGraph
+namespace DotNetGraph.Core
 {
     public class DotString : IDotElement
     {

@@ -1,9 +1,9 @@
-using DotNetGraph.Core;
+using DotNetGraph.Extensions;
 using DotNetGraph.Node;
 
 namespace DotNetGraph.Attributes
 {
-    public class DotNodeStyleAttribute : DotColorAttribute
+    public class DotNodeStyleAttribute : IDotAttribute, ISurroundWithQuotes
     {
         public DotNodeStyle Style { get; set; }
 
@@ -12,9 +12,9 @@ namespace DotNetGraph.Attributes
             Style = style;
         }
 
-        public static implicit operator DotNodeStyleAttribute(DotNodeStyle? style)
+        public override string ToString()
         {
-            return style.HasValue ? new DotNodeStyleAttribute(style.Value) : null;
+            return Style.FlagsToString();
         }
     }
 }

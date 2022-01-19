@@ -1,7 +1,6 @@
-namespace DotNetGraph.Core
+namespace DotNetGraph.Attributes
 {
     public interface IDotAttribute
     {
-        
     }
 }

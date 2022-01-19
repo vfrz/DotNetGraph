@@ -1,3 +1,4 @@
+using DotNetGraph.Core;
 using DotNetGraph.Extensions;
 using DotNetGraph.Node;
 using NFluent;

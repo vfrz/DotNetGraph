@@ -1,4 +1,3 @@
-using DotNetGraph.Core;
 using DotNetGraph.Edge;
 
 namespace DotNetGraph.Attributes
@@ -12,9 +11,9 @@ namespace DotNetGraph.Attributes
             ArrowType = arrowType;
         }
 
-        public static implicit operator DotEdgeArrowHeadAttribute(DotEdgeArrowType? arrowType)
+        public override string ToString()
         {
-            return arrowType.HasValue ? new DotEdgeArrowHeadAttribute(arrowType.Value) : null;
+            return ArrowType.ToString().ToLowerInvariant();
         }
     }
 }

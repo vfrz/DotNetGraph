@@ -1,4 +1,3 @@
-using DotNetGraph.Core;
 using DotNetGraph.SubGraph;
 
 namespace DotNetGraph.Attributes
@@ -12,9 +11,9 @@ namespace DotNetGraph.Attributes
             Style = style;
         }
 
-        public static implicit operator DotSubGraphStyleAttribute(DotSubGraphStyle? style)
+        public override string ToString()
         {
-            return style.HasValue ? new DotSubGraphStyleAttribute(style.Value) : null;
+            return Style.ToString().ToLowerInvariant();
         }
     }
 }

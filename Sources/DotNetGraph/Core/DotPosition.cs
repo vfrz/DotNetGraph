@@ -1,19 +1,18 @@
 namespace DotNetGraph.Core
 {
-    public class DotPosition
+    public struct DotPosition
     {
         public int X { get; set; }
 
         public int Y { get; set; }
+        
+        public bool Fixed { get; set; }
 
-        public DotPosition()
-        {
-        }
-
-        public DotPosition(int x, int y)
+        public DotPosition(int x, int y, bool @fixed = true)
         {
             X = x;
             Y = y;
+            Fixed = @fixed;
         }
     }
 }

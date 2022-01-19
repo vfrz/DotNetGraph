@@ -25,13 +25,10 @@ namespace DotNetGraph.Extensions
             new DotCompiler(graph).Compile(writer, indented, formatStrings);
         }
 
-        public static T AddNode<T>(this T graph, string identifier, Action<DotNode> nodeSetup = null)
-            where T : IDotGraph
+        public static T AddNode<T>(this T graph, string identifier, Action<DotNode> nodeSetup = null) where T : IDotGraph
         {
-            if (graph == null)
-            {
+            if (graph is null)
                 throw new ArgumentNullException(nameof(graph));
-            }
 
             var node = new DotNode(identifier);
             graph.Elements.Add(node);
@@ -40,13 +37,10 @@ namespace DotNetGraph.Extensions
             return graph;
         }
 
-        public static T AddEdge<T>(this T graph, IDotElement left, IDotElement right, Action<DotEdge> edgeSetup = null)
-            where T : IDotGraph
+        public static T AddEdge<T>(this T graph, IDotElement left, IDotElement right, Action<DotEdge> edgeSetup = null) where T : IDotGraph
         {
-            if (graph == null)
-            {
+            if (graph is null)
                 throw new ArgumentNullException(nameof(graph));
-            }
 
             var edge = new DotEdge(left, right);
             graph.Elements.Add(edge);
@@ -55,13 +49,10 @@ namespace DotNetGraph.Extensions
             return graph;
         }
 
-        public static T AddEdge<T>(this T graph, string left, string right, Action<DotEdge> edgeSetup = null)
-             where T : IDotGraph
+        public static T AddEdge<T>(this T graph, string left, string right, Action<DotEdge> edgeSetup = null) where T : IDotGraph
         {
-            if (graph == null)
-            {
+            if (graph is null)
                 throw new ArgumentNullException(nameof(graph));
-            }
 
             var edge = new DotEdge(left, right);
             graph.Elements.Add(edge);
@@ -70,13 +61,10 @@ namespace DotNetGraph.Extensions
             return graph;
         }
 
-        public static T AddSubGraph<T>(this T graph, string identifier, Action<DotSubGraph> subGraphSetup = null)
-            where T : IDotGraph
+        public static T AddSubGraph<T>(this T graph, string identifier, Action<DotSubGraph> subGraphSetup = null) where T : IDotGraph
         {
-            if (graph == null)
-            {
+            if (graph is null)
                 throw new ArgumentNullException(nameof(graph));
-            }
 
             var subGraph = new DotSubGraph(identifier);
             graph.Elements.Add(subGraph);
@@ -85,17 +73,13 @@ namespace DotNetGraph.Extensions
             return graph;
         }
 
-        public static T AddLine<T>(this T graph, string rawLine)
-            where T : IDotGraph
+        public static T AddLine<T>(this T graph, string rawLine) where T : IDotGraph
         {
-            if (graph == null)
-            {
+            if (graph is null)
                 throw new ArgumentNullException(nameof(graph));
-            }
+
             if (string.IsNullOrWhiteSpace(rawLine))
-            {
                 throw new ArgumentException("Line cannot be empty", nameof(rawLine));
-            }
 
             var stringElement = new DotString(rawLine);
             graph.Elements.Add(stringElement);

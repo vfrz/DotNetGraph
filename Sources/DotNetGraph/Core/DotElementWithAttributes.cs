@@ -1,45 +1,41 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
 using DotNetGraph.Attributes;
 
 namespace DotNetGraph.Core
 {
     public class DotElementWithAttributes : IDotElement
     {
-        public ReadOnlyCollection<IDotAttribute> Attributes => _attributes.Values
-            .Concat(_customAttributes.Values)
-            .ToList()
-            .AsReadOnly();
+        internal readonly Dictionary<string, IDotAttribute> Attributes;
 
-        private readonly Dictionary<string, IDotAttribute> _attributes;
-        private readonly Dictionary<string, DotCustomAttribute> _customAttributes = new Dictionary<string, DotCustomAttribute>(StringComparer.OrdinalIgnoreCase);
-
-        public DotElementWithAttributes(string identifier = null, DotColorAttribute color = null)
+        public DotElementWithAttributes()
         {
-            _attributes = new Dictionary<string, IDotAttribute>();
+            Attributes = new Dictionary<string, IDotAttribute>();
         }
 
-        protected T GetAttribute<T>() where T : IDotAttribute
+        public T GetAttribute<T>(string name) where T : IDotAttribute
         {
-            if (_attributes.TryGetValue(typeof(T).Name, out var colorAttribute))
-                return (T)colorAttribute;
-            return default;
+            if (Attributes.TryGetValue(name, out var attribute))
+            {
+                if (attribute is T result)
+                    return result;
+                throw new Exception($"Attribute with name '{name}' doesn't match the expected type (expected: {typeof(T)}, current: {attribute.GetType()})");
+            }
+
+            throw new Exception($"There is no attribute named '{name}'");
         }
 
-        protected void SetAttribute<T>(T value) where T : IDotAttribute
+        public void SetAttribute(string name, IDotAttribute value)
         {
-            if (value != null)
-                _attributes[typeof(T).Name] = value;
-            else if (_attributes.ContainsKey(typeof(T).Name))
-                _attributes.Remove(typeof(T).Name);
+            if (value is null)
+                RemoveAttribute(name);
+            else
+                Attributes[name] = value;
         }
 
-        protected void SetCustomAttributeInternal(string name, string value)
+        public void RemoveAttribute(string name)
         {
-            var attr = new DotCustomAttribute(name, value);
-            _customAttributes[name] = attr;
+            Attributes.Remove(name);
         }
     }
 }

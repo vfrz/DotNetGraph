@@ -1,4 +1,5 @@
 using System.Drawing;
+using DotNetGraph.Core;
 using DotNetGraph.Edge;
 using DotNetGraph.Extensions;
 using DotNetGraph.Node;

@@ -6,8 +6,8 @@ using DotNetGraph.Node;
 using DotNetGraph.SubGraph;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace DotNetGraph.Compiler
@@ -23,11 +23,7 @@ namespace DotNetGraph.Compiler
         public bool Indented { get; }
         public bool FormatStrings { get; }
 
-        public DotCompilerWorker(DotGraph graph,
-            TextWriter writer,
-            bool indented,
-            bool formatStrings,
-            bool disposeWriter = false)
+        public DotCompilerWorker(DotGraph graph, TextWriter writer, bool indented, bool formatStrings, bool disposeWriter = false)
         {
             _graph = graph ?? throw new ArgumentNullException(nameof(graph));
             _writer = writer ?? throw new ArgumentNullException(nameof(writer));
@@ -39,9 +35,7 @@ namespace DotNetGraph.Compiler
         public void Dispose()
         {
             if (_disposeWriter)
-            {
                 _writer?.Dispose();
-            }
         }
 
         public void Compile()
@@ -61,7 +55,8 @@ namespace DotNetGraph.Compiler
 
             _writer.Write(_graph.Directed ? "digraph " : "graph ");
 
-            _writer.Write($"{SurroundStringWithQuotes(_graph.Identifier, FormatStrings)} {{ ");
+            //TODO Refactor
+            _writer.Write($"{SurroundStringWithQuotes(_graph.Identifier/*, FormatStrings*/)} {{ ");
 
             _writer.AddIndentationNewLine(Indented);
 
@@ -100,7 +95,7 @@ namespace DotNetGraph.Compiler
         {
             _writer.AddIndentation(Indented, indentationLevel);
 
-            _writer.Write($"subgraph {SurroundStringWithQuotes(subGraph.Identifier, FormatStrings)} {{ ");
+            _writer.Write($"subgraph {SurroundStringWithQuotes(subGraph.Identifier/*, FormatStrings*/)} {{ ");
 
             _writer.AddIndentationNewLine(Indented);
 
@@ -141,25 +136,26 @@ namespace DotNetGraph.Compiler
             _writer.AddIndentationNewLine(Indented);
         }
 
-        private void CompileSubGraphAttributes(IReadOnlyList<IDotAttribute> attributes, int indentationLevel)
+        private void CompileSubGraphAttributes(IReadOnlyDictionary<string, IDotAttribute> attributes, int indentationLevel)
         {
             if (attributes.Count == 0)
                 return;
 
-            foreach (var attribute in attributes)
+            //TODO Refactor
+            foreach (var attribute in attributes.Values)
             {
                 string line;
                 if (attribute is DotSubGraphStyleAttribute subGraphStyleAttribute)
                 {
-                    line = $"style={SurroundStringWithQuotes(subGraphStyleAttribute.Style.FlagsToString(), FormatStrings)};";
+                    line = $"style={SurroundStringWithQuotes(subGraphStyleAttribute.Style.FlagsToString())};";
                 }
                 else if (attribute is DotColorAttribute colorAttribute)
                 {
-                    line = $"color=\"{colorAttribute.ToHex()}\";";
+                    line = $"color=\"{colorAttribute.Color.ToHex()}\";";
                 }
-                else if (attribute is DotLabelAttribute labelAttribute)
+                else if (attribute is DotStringAttribute labelAttribute)
                 {
-                    line = $"label={SurroundStringWithQuotes(labelAttribute.Text, FormatStrings)};";
+                    line = $"label={SurroundStringWithQuotes(labelAttribute.Value)};";
                 }
                 else if (attribute is DotCustomAttribute customAttribute)
                 {
@@ -195,11 +191,11 @@ namespace DotNetGraph.Compiler
         {
             if (endPoint is DotString leftEdgeString)
             {
-                _writer.Write(SurroundStringWithQuotes(leftEdgeString.Value, FormatStrings));
+                _writer.Write(SurroundStringWithQuotes(FormatStrings ? FormatString(leftEdgeString.Value) : leftEdgeString.Value));
             }
             else if (endPoint is DotNode leftEdgeNode)
             {
-                _writer.Write(SurroundStringWithQuotes(leftEdgeNode.Identifier, FormatStrings));
+                _writer.Write(SurroundStringWithQuotes(FormatStrings ? FormatString(leftEdgeNode.Identifier) : leftEdgeNode.Identifier));
             }
             else
             {
@@ -211,7 +207,7 @@ namespace DotNetGraph.Compiler
         {
             _writer.AddIndentation(Indented, indentationLevel);
 
-            _writer.Write(SurroundStringWithQuotes(node.Identifier, FormatStrings));
+            _writer.Write(SurroundStringWithQuotes(FormatStrings ? FormatString(node.Identifier) : node.Identifier));
 
             CompileAttributes(node.Attributes);
 
@@ -220,7 +216,7 @@ namespace DotNetGraph.Compiler
             _writer.AddIndentationNewLine(Indented);
         }
 
-        private void CompileAttributes(IReadOnlyList<IDotAttribute> attributes)
+        private void CompileAttributes(IReadOnlyDictionary<string, IDotAttribute> attributes)
         {
             if (attributes.Count == 0)
                 return;
@@ -231,66 +227,15 @@ namespace DotNetGraph.Compiler
 
             foreach (var attribute in attributes)
             {
-                if (attribute is DotNodeShapeAttribute nodeShapeAttribute)
-                {
-                    attributeValues.Add($"shape={nodeShapeAttribute.Shape.ToString().ToLowerInvariant()}");
-                }
-                else if (attribute is DotNodeStyleAttribute nodeStyleAttribute)
-                {
-                    attributeValues.Add($"style={SurroundStringWithQuotes(nodeStyleAttribute.Style.FlagsToString(), FormatStrings)}");
-                }
-                else if (attribute is DotEdgeStyleAttribute edgeStyleAttribute)
-                {
-                    attributeValues.Add($"style={SurroundStringWithQuotes(edgeStyleAttribute.Style.FlagsToString(), FormatStrings)}");
-                }
-                else if (attribute is DotFontColorAttribute fontColorAttribute)
-                {
-                    attributeValues.Add($"fontcolor=\"{fontColorAttribute.ToHex()}\"");
-                }
-                else if (attribute is DotFillColorAttribute fillColorAttribute)
-                {
-                    attributeValues.Add($"fillcolor=\"{fillColorAttribute.ToHex()}\"");
-                }
-                else if (attribute is DotColorAttribute colorAttribute)
-                {
-                    attributeValues.Add($"color=\"{colorAttribute.ToHex()}\"");
-                }
-                else if (attribute is DotLabelAttribute labelAttribute)
-                {
-                    attributeValues.Add($"label={SurroundStringWithQuotes(labelAttribute.Text, FormatStrings)}");
-                }
-                else if (attribute is DotNodeWidthAttribute nodeWidthAttribute)
-                {
-                    attributeValues.Add(string.Format(CultureInfo.InvariantCulture, "width={0:F2}", nodeWidthAttribute.Value));
-                }
-                else if (attribute is DotNodeHeightAttribute nodeHeightAttribute)
-                {
-                    attributeValues.Add(string.Format(CultureInfo.InvariantCulture, "height={0:F2}", nodeHeightAttribute.Value));
-                }
-                else if (attribute is DotPenWidthAttribute dotPenwidthAttribute)
-                {
-                    attributeValues.Add(string.Format(CultureInfo.InvariantCulture, "penwidth={0:F2}", dotPenwidthAttribute.Value));
-                }
-                else if (attribute is DotEdgeArrowTailAttribute edgeArrowTailAttribute)
-                {
-                    attributeValues.Add($"arrowtail={edgeArrowTailAttribute.ArrowType.ToString().ToLowerInvariant()}");
-                }
-                else if (attribute is DotEdgeArrowHeadAttribute edgeArrowHeadAttribute)
-                {
-                    attributeValues.Add($"arrowhead={edgeArrowHeadAttribute.ArrowType.ToString().ToLowerInvariant()}");
-                }
-                else if (attribute is DotPositionAttribute positionAttribute && positionAttribute.Position != null)
-                {
-                    attributeValues.Add($"pos=\"{positionAttribute.Position.X},{positionAttribute.Position.Y}!\"");
-                }
-                else if (attribute is DotCustomAttribute customAttribute)
-                {
-                    attributeValues.Add(customAttribute.ToString());
-                }
-                else
-                {
-                    throw new DotException($"Attribute type not supported: {attribute.GetType()}");
-                }
+                var value = attribute.Value.ToString();
+
+                if (FormatStrings && attribute.Value is IFormatStringValue)
+                    value = FormatString(value);
+
+                if (attribute.Value is ISurroundWithQuotes)
+                    value = SurroundStringWithQuotes(value);
+                
+                attributeValues.Add($"{attribute.Key}={value}");
             }
 
             _writer.Write(string.Join(",", attributeValues));
@@ -310,17 +255,13 @@ namespace DotNetGraph.Compiler
             _writer.AddIndentationNewLine(Indented);
         }
 
-        internal static string SurroundStringWithQuotes(string value, bool format)
+        internal static string SurroundStringWithQuotes(string value)
         {
-            var formatted = FormatString(value, format);
-            return ValidIdentifierPattern.IsMatch(value) ? formatted : "\"" + formatted + "\"";
+            return ValidIdentifierPattern.IsMatch(value) ? value : $"\"{value}\"";
         }
 
-        internal static string FormatString(string value, bool format)
+        internal static string FormatString(string value)
         {
-            if (!format)
-                return value;
-
             return value
                 .Replace("\\", "\\\\")
                 .Replace("\"", "\\\"")

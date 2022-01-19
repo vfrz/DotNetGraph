@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Drawing;
 using DotNetGraph.Attributes;
 using DotNetGraph.Core;
 
@@ -8,22 +9,22 @@ namespace DotNetGraph.SubGraph
     {
         public string Identifier { get; set; }
 
-        public DotColorAttribute Color
+        public Color Color
         {
-            get => GetAttribute<DotColorAttribute>();
-            set => SetAttribute(value);
+            get => GetAttribute<DotColorAttribute>("color").Color;
+            set => SetAttribute("color", new DotColorAttribute(value));
         }
 
-        public DotSubGraphStyleAttribute Style
+        public DotSubGraphStyle Style
         {
-            get => GetAttribute<DotSubGraphStyleAttribute>();
-            set => SetAttribute(value);
+            get => GetAttribute<DotSubGraphStyleAttribute>("style").Style;
+            set => SetAttribute("style", new DotSubGraphStyleAttribute(value));
         }
 
-        public DotLabelAttribute Label
+        public string Label
         {
-            get => GetAttribute<DotLabelAttribute>();
-            set => SetAttribute(value);
+            get => GetAttribute<DotStringAttribute>("label").Value;
+            set => SetAttribute("label", new DotStringAttribute("label"));
         }
 
         public List<IDotElement> Elements { get; }
@@ -32,13 +33,6 @@ namespace DotNetGraph.SubGraph
         {
             Elements = new List<IDotElement>();
             Identifier = identifier;
-        }
-
-        public DotSubGraph SetCustomAttribute(string name, string value)
-        {
-            SetCustomAttributeInternal(name, value);
-
-            return this;
         }
     }
 }

@@ -55,8 +55,7 @@ namespace DotNetGraph.Compiler
 
             _writer.Write(_graph.Directed ? "digraph " : "graph ");
 
-            //TODO Refactor
-            _writer.Write($"{SurroundStringWithQuotes(_graph.Identifier/*, FormatStrings*/)} {{ ");
+            _writer.Write($"{SurroundStringWithQuotes(FormatStrings ? FormatString(_graph.Identifier) : _graph.Identifier)} {{ ");
 
             _writer.AddIndentationNewLine(Indented);
 
@@ -95,7 +94,7 @@ namespace DotNetGraph.Compiler
         {
             _writer.AddIndentation(Indented, indentationLevel);
 
-            _writer.Write($"subgraph {SurroundStringWithQuotes(subGraph.Identifier/*, FormatStrings*/)} {{ ");
+            _writer.Write($"subgraph {SurroundStringWithQuotes(FormatStrings ? FormatString(subGraph.Identifier) : subGraph.Identifier)} {{ ");
 
             _writer.AddIndentationNewLine(Indented);
 
@@ -141,30 +140,20 @@ namespace DotNetGraph.Compiler
             if (attributes.Count == 0)
                 return;
 
-            //TODO Refactor
-            foreach (var attribute in attributes.Values)
+            foreach (var attribute in attributes)
             {
-                string line;
-                if (attribute is DotSubGraphStyleAttribute subGraphStyleAttribute)
-                {
-                    line = $"style={SurroundStringWithQuotes(subGraphStyleAttribute.Style.FlagsToString())};";
-                }
-                else if (attribute is DotColorAttribute colorAttribute)
-                {
-                    line = $"color=\"{colorAttribute.Color.ToHex()}\";";
-                }
-                else if (attribute is DotStringAttribute labelAttribute)
-                {
-                    line = $"label={SurroundStringWithQuotes(labelAttribute.Value)};";
-                }
-                else if (attribute is DotCustomAttribute customAttribute)
-                {
-                    line = customAttribute.ToString();
-                }
-                else
-                {
-                    throw new DotException($"Attribute type not supported: {attribute.GetType()}");
-                }
+                var value = attribute.Value.ToString();
+
+                if (FormatStrings && attribute.Value is IFormatStringValue)
+                    value = FormatString(value);
+
+                if (attribute.Value is ISurroundWithQuotes)
+                    value = SurroundStringWithQuotes(value);
+                
+                var line = $"{attribute.Key}={value}";
+
+                if (!(attribute.Value is DotCustomAttribute))
+                    line += ";";
 
                 CompileLine(line, indentationLevel);
             }

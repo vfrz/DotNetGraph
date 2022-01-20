@@ -1,4 +1,5 @@
 using System.Drawing;
+using DotNetGraph.Attributes;
 using DotNetGraph.Core;
 using DotNetGraph.Edge;
 using DotNetGraph.Extensions;
@@ -236,14 +237,14 @@ namespace DotNetGraph.Tests.SubGraph
         public void DotSubGraph_WhenCustomAttributeSet_ThenItsCompiled(string rankName)
         {
             var graph = new DotGraph("TestGraph")
-                .AddSubGraph("TestSubGraph", s =>
+                .AddSubGraph("TestSubGraph", subGraph =>
                 {
-                    s.SetCustomAttribute(rankName, "same; A; X;");
+                    subGraph.SetAttribute(rankName, new DotCustomAttribute("same; A; X;"));
                 });
 
             var compiled = graph.Compile();
 
-            Check.That(compiled).HasSameValueAs("graph TestGraph { subgraph TestSubGraph { rank=same; A; X; } }");
+            Check.That(compiled).HasSameValueAs($"graph TestGraph {{ subgraph TestSubGraph {{ {rankName}=same; A; X; }} }}");
         }
     }
 }

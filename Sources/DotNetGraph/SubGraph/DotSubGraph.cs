@@ -24,7 +24,7 @@ namespace DotNetGraph.SubGraph
         public string Label
         {
             get => GetAttribute<DotStringAttribute>("label").Value;
-            set => SetAttribute("label", new DotStringAttribute("label"));
+            set => SetAttribute("label", new DotStringAttribute(value));
         }
 
         public List<IDotElement> Elements { get; }

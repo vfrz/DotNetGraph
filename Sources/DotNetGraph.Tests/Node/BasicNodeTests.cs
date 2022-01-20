@@ -2,6 +2,7 @@ using System;
 using System.Drawing;
 using System.Globalization;
 using System.Threading;
+using DotNetGraph.Attributes;
 using DotNetGraph.Core;
 using DotNetGraph.Extensions;
 using DotNetGraph.Node;
@@ -56,7 +57,10 @@ namespace DotNetGraph.Tests.Node
             {
                 Elements =
                 {
-                    new DotNode("TestNode", Color.Red)
+                    new DotNode("TestNode")
+                    {
+                        Color = Color.Red
+                    }
                 }
             };
 
@@ -349,14 +353,14 @@ namespace DotNetGraph.Tests.Node
         public void DotNode_WhenCustomAttributeSet_ThenItsCompiled(string shapeName)
         {
             var graph = new DotGraph("TestGraph")
-                .AddNode("TestNode", n =>
+                .AddNode("TestNode", node =>
                 {
-                    n.SetCustomAttribute(shapeName, "square");
+                    node.SetAttribute(shapeName, new DotCustomAttribute("square"));
                 });
 
             var compiled = graph.Compile();
 
-            Check.That(compiled).HasSameValueAs("graph TestGraph { TestNode[shape=square]; }");
+            Check.That(compiled).HasSameValueAs($"graph TestGraph {{ TestNode[{shapeName}=square]; }}");
         }
     }
 }

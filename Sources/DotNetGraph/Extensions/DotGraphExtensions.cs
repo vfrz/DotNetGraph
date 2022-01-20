@@ -27,7 +27,7 @@ namespace DotNetGraph.Extensions
 
         public static T AddNode<T>(this T graph, string identifier, Action<DotNode> nodeSetup = null) where T : IDotGraph
         {
-            if (graph is null)
+            if (graph == null)
                 throw new ArgumentNullException(nameof(graph));
 
             var node = new DotNode(identifier);
@@ -39,7 +39,7 @@ namespace DotNetGraph.Extensions
 
         public static T AddEdge<T>(this T graph, IDotElement left, IDotElement right, Action<DotEdge> edgeSetup = null) where T : IDotGraph
         {
-            if (graph is null)
+            if (graph == null)
                 throw new ArgumentNullException(nameof(graph));
 
             var edge = new DotEdge(left, right);
@@ -51,7 +51,7 @@ namespace DotNetGraph.Extensions
 
         public static T AddEdge<T>(this T graph, string left, string right, Action<DotEdge> edgeSetup = null) where T : IDotGraph
         {
-            if (graph is null)
+            if (graph == null)
                 throw new ArgumentNullException(nameof(graph));
 
             var edge = new DotEdge(left, right);
@@ -63,7 +63,7 @@ namespace DotNetGraph.Extensions
 
         public static T AddSubGraph<T>(this T graph, string identifier, Action<DotSubGraph> subGraphSetup = null) where T : IDotGraph
         {
-            if (graph is null)
+            if (graph == null)
                 throw new ArgumentNullException(nameof(graph));
 
             var subGraph = new DotSubGraph(identifier);
@@ -75,7 +75,7 @@ namespace DotNetGraph.Extensions
 
         public static T AddLine<T>(this T graph, string rawLine) where T : IDotGraph
         {
-            if (graph is null)
+            if (graph == null)
                 throw new ArgumentNullException(nameof(graph));
 
             if (string.IsNullOrWhiteSpace(rawLine))

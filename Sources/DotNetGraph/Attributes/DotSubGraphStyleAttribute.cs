@@ -1,8 +1,9 @@
+using DotNetGraph.Extensions;
 using DotNetGraph.SubGraph;
 
 namespace DotNetGraph.Attributes
 {
-    public class DotSubGraphStyleAttribute : IDotAttribute
+    public class DotSubGraphStyleAttribute : IDotAttribute, ISurroundWithQuotes
     {
         public DotSubGraphStyle Style { get; set; }
 
@@ -13,7 +14,7 @@ namespace DotNetGraph.Attributes
 
         public override string ToString()
         {
-            return Style.ToString().ToLowerInvariant();
+            return Style.FlagsToString();
         }
     }
 }

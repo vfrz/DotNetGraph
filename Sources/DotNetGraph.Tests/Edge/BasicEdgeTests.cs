@@ -1,5 +1,6 @@
 using System;
 using System.Drawing;
+using DotNetGraph.Attributes;
 using DotNetGraph.Core;
 using DotNetGraph.Edge;
 using DotNetGraph.Extensions;
@@ -295,14 +296,14 @@ namespace DotNetGraph.Tests.Edge
         public void DotEdge_WhenCustomAttributeSet_ThenItsCompiled(string styleName)
         {
             var graph = new DotGraph("TestGraph")
-                .AddEdge("hello", "world", e =>
+                .AddEdge("hello", "world", edge =>
                 {
-                    e.SetCustomAttribute(styleName, "dashed");
+                    edge.SetAttribute(styleName, new DotCustomAttribute("dashed"));
                 });
 
             var compiled = graph.Compile();
 
-            Check.That(compiled).HasSameValueAs("graph TestGraph { hello -- world[style=dashed]; }");
+            Check.That(compiled).HasSameValueAs($"graph TestGraph {{ hello -- world[{styleName}=dashed]; }}");
         }
     }
 }

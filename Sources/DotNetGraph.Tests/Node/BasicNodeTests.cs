@@ -321,7 +321,7 @@ namespace DotNetGraph.Tests.Node
         [Fact]
         public void NodeWithNullIdentifierThrowsException()
         {
-            Check.ThatCode(() => new DotNode(null)).Throws<ArgumentNullException>();
+            Check.ThatCode(() => new DotNode(null)).Throws<ArgumentException>();
         }
 
         [Fact]

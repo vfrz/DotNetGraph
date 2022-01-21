@@ -267,8 +267,8 @@ namespace DotNetGraph.Tests.Edge
             Check.ThatCode(() => new DotEdge(null, node)).Throws<ArgumentNullException>();
             Check.ThatCode(() => new DotEdge(node, null)).Throws<ArgumentNullException>();
 
-            Check.ThatCode(() => new DotEdge(null, "test")).Throws<ArgumentNullException>();
-            Check.ThatCode(() => new DotEdge("test", null)).Throws<ArgumentNullException>();
+            Check.ThatCode(() => new DotEdge(null, "test")).Throws<ArgumentException>();
+            Check.ThatCode(() => new DotEdge("test", null)).Throws<ArgumentException>();
         }
 
         [Fact]

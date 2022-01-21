@@ -11,14 +11,9 @@ namespace DotNetGraph
 
         public bool Strict { get; set; }
 
-        public List<IDotElement> Elements { get; }
+        public List<IDotElement> Elements { get; } = new List<IDotElement>();
 
-        public DotGraph()
-        {
-            Elements = new List<IDotElement>();
-        }
-
-        public DotGraph(string identifier, bool directed = false) : this()
+        public DotGraph(string identifier = null, bool directed = false)
         {
             Identifier = identifier;
             Directed = directed;

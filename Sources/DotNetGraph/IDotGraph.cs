@@ -5,7 +5,8 @@ namespace DotNetGraph
 {
     public interface IDotGraph
     {
-        List<IDotElement> Elements { get; }
         string Identifier { get; set; }
+
+        List<IDotElement> Elements { get; }
     }
 }

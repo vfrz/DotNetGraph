@@ -23,7 +23,7 @@ namespace DotNetGraph.Tests.Edge
                 }
             };
 
-            var compiled = graph.Compile();
+            var compiled = graph.CompileToString();
 
             Check.That(compiled).HasSameValueAs("graph TestGraph { hello -- world; }");
         }
@@ -40,7 +40,7 @@ namespace DotNetGraph.Tests.Edge
                 }
             };
 
-            var compiled = graph.Compile();
+            var compiled = graph.CompileToString();
 
             Check.That(compiled).HasSameValueAs("digraph TestGraph { hello -> world; }");
         }
@@ -62,7 +62,7 @@ namespace DotNetGraph.Tests.Edge
                 }
             };
 
-            var compiled = graph.Compile();
+            var compiled = graph.CompileToString();
 
             Check.That(compiled).HasSameValueAs("graph TestGraph { hello; world; hello -- world; }");
         }
@@ -83,7 +83,7 @@ namespace DotNetGraph.Tests.Edge
                 }
             };
 
-            var compiled = graph.Compile();
+            var compiled = graph.CompileToString();
 
             Check.That(compiled).HasSameValueAs("graph TestGraph { hello -- world[color=\"#FF0000\",arrowhead=box,arrowtail=diamond]; }");
         }
@@ -102,7 +102,7 @@ namespace DotNetGraph.Tests.Edge
                 }
             };
 
-            var compiled = graph.Compile();
+            var compiled = graph.CompileToString();
 
             Check.That(compiled).HasSameValueAs("graph TestGraph { hello -- world[color=\"#FF0000\"]; }");
         }
@@ -121,7 +121,7 @@ namespace DotNetGraph.Tests.Edge
                 }
             };
 
-            var compiled = graph.Compile();
+            var compiled = graph.CompileToString();
 
             Check.That(compiled).HasSameValueAs("graph TestGraph { hello -- world[fontcolor=\"#0000FF\"]; }");
         }
@@ -140,7 +140,7 @@ namespace DotNetGraph.Tests.Edge
                 }
             };
 
-            var compiled = graph.Compile();
+            var compiled = graph.CompileToString();
 
             Check.That(compiled).HasSameValueAs("graph TestGraph { hello -- world[pos=\"4,2!\"]; }");
         }
@@ -159,7 +159,7 @@ namespace DotNetGraph.Tests.Edge
                 }
             };
 
-            var compiled = graph.Compile();
+            var compiled = graph.CompileToString();
 
             Check.That(compiled).HasSameValueAs("graph TestGraph { hello -- world[penwidth=0.46]; }");
         }
@@ -178,7 +178,7 @@ namespace DotNetGraph.Tests.Edge
                 }
             };
 
-            var compiled = graph.Compile();
+            var compiled = graph.CompileToString();
 
             Check.That(compiled).HasSameValueAs("graph TestGraph { hello -- world[label=\"Hello, \\\"world\\\"!\"]; }");
         }
@@ -197,7 +197,7 @@ namespace DotNetGraph.Tests.Edge
                 }
             };
 
-            var compiled = graph.Compile();
+            var compiled = graph.CompileToString();
 
             Check.That(compiled).HasSameValueAs("graph TestGraph { hello -- world[style=dashed]; }");
         }
@@ -216,7 +216,7 @@ namespace DotNetGraph.Tests.Edge
                 }
             };
 
-            var compiled = graph.Compile();
+            var compiled = graph.CompileToString();
 
             Check.That(compiled).HasSameValueAs("graph TestGraph { hello -- world[style=\"dashed,dotted\"]; }");
         }
@@ -235,7 +235,7 @@ namespace DotNetGraph.Tests.Edge
                 }
             };
 
-            var compiled = graph.Compile();
+            var compiled = graph.CompileToString();
 
             Check.That(compiled).HasSameValueAs("graph TestGraph { hello -- world[arrowhead=box]; }");
         }
@@ -254,7 +254,7 @@ namespace DotNetGraph.Tests.Edge
                 }
             };
 
-            var compiled = graph.Compile();
+            var compiled = graph.CompileToString();
 
             Check.That(compiled).HasSameValueAs("graph TestGraph { hello -- world[arrowtail=diamond]; }");
         }
@@ -301,7 +301,7 @@ namespace DotNetGraph.Tests.Edge
                     edge.SetAttribute(styleName, new DotCustomAttribute("dashed"));
                 });
 
-            var compiled = graph.Compile();
+            var compiled = graph.CompileToString();
 
             Check.That(compiled).HasSameValueAs($"graph TestGraph {{ hello -- world[{styleName}=dashed]; }}");
         }

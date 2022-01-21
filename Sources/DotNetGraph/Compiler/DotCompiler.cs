@@ -13,38 +13,32 @@ namespace DotNetGraph.Compiler
             _graph = graph ?? throw new ArgumentNullException(nameof(graph));
         }
 
-        public string Compile(bool indented = false, bool formatStrings = true)
+        public string CompileToString(bool indented = false, bool formatStrings = true)
         {
             var builder = new StringBuilder();
             using (var writer = new StringWriter(builder))
             {
-                Compile(writer, indented, formatStrings);
+                CompileToTextWriter(writer, indented, formatStrings);
                 return builder.ToString();
             }
         }
 
-        public void Compile(Stream stream, bool indented = false, bool formatStrings = true)
+        public void CompileToStream(Stream stream, bool indented = false, bool formatStrings = true)
         {
-            if (stream == null)
-            {
+            if (stream is null)
                 throw new ArgumentNullException(nameof(stream));
-            }
 
             var writer = new StreamWriter(stream);
-            Compile(writer, indented, formatStrings);
+            CompileToTextWriter(writer, indented, formatStrings);
         }
 
-        public void Compile(TextWriter writer, bool indented = false, bool formatStrings = true)
+        public void CompileToTextWriter(TextWriter writer, bool indented = false, bool formatStrings = true)
         {
-            if (writer == null)
-            {
+            if (writer is null)
                 throw new ArgumentNullException(nameof(writer));
-            }
 
             using (var worker = new DotCompilerWorker(_graph, writer, indented, formatStrings))
-            {
                 worker.Compile();
-            }
         }
     }
 }

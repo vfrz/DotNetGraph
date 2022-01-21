@@ -23,7 +23,7 @@ namespace DotNetGraph.Tests.Indentation
         {
             var graph = new DotGraph("TestGraph");
 
-            var compiled = graph.Compile(true);
+            var compiled = graph.CompileToString(true);
 
             _output.WriteLine(compiled);
 
@@ -35,7 +35,7 @@ namespace DotNetGraph.Tests.Indentation
         {
             var graph = new DotGraph("TestGraph", true);
 
-            var compiled = graph.Compile(true);
+            var compiled = graph.CompileToString(true);
 
             _output.WriteLine(compiled);
 
@@ -49,7 +49,7 @@ namespace DotNetGraph.Tests.Indentation
 
             graph.Elements.Add(new DotEdge("A", "B"));
 
-            var compiled = graph.Compile(true);
+            var compiled = graph.CompileToString(true);
 
             _output.WriteLine(compiled);
 
@@ -69,7 +69,7 @@ namespace DotNetGraph.Tests.Indentation
 
             graph.Elements.Add(edge);
 
-            var compiled = graph.Compile(true);
+            var compiled = graph.CompileToString(true);
 
             _output.WriteLine(compiled);
 
@@ -83,7 +83,7 @@ namespace DotNetGraph.Tests.Indentation
 
             graph.Elements.Add(new DotSubGraph("TestSubGraph"));
 
-            var compiled = graph.Compile(true);
+            var compiled = graph.CompileToString(true);
 
             _output.WriteLine(compiled);
 
@@ -101,7 +101,7 @@ namespace DotNetGraph.Tests.Indentation
 
             graph.Elements.Add(subGraph);
 
-            var compiled = graph.Compile(true);
+            var compiled = graph.CompileToString(true);
 
             _output.WriteLine(compiled);
 
@@ -115,7 +115,7 @@ namespace DotNetGraph.Tests.Indentation
 
             graph.Elements.Add(new DotNode("TestNode"));
 
-            var compiled = graph.Compile(true);
+            var compiled = graph.CompileToString(true);
 
             _output.WriteLine(compiled);
 
@@ -135,7 +135,7 @@ namespace DotNetGraph.Tests.Indentation
 
             graph.Elements.Add(edge);
 
-            var compiled = graph.Compile(true);
+            var compiled = graph.CompileToString(true);
 
             _output.WriteLine(compiled);
 
@@ -156,7 +156,7 @@ namespace DotNetGraph.Tests.Indentation
                 })
                 .AddEdge("A", "B");
 
-            var compiled = graph.Compile(true);
+            var compiled = graph.CompileToString(true);
 
             _output.WriteLine(compiled);
 

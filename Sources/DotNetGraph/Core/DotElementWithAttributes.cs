@@ -6,12 +6,7 @@ namespace DotNetGraph.Core
 {
     public class DotElementWithAttributes : IDotElement
     {
-        internal readonly Dictionary<string, IDotAttribute> Attributes;
-
-        public DotElementWithAttributes()
-        {
-            Attributes = new Dictionary<string, IDotAttribute>();
-        }
+        internal readonly Dictionary<string, IDotAttribute> Attributes = new Dictionary<string, IDotAttribute>();
 
         public T GetAttribute<T>(string name) where T : IDotAttribute
         {
@@ -23,6 +18,19 @@ namespace DotNetGraph.Core
             }
 
             throw new Exception($"There is no attribute named '{name}'");
+        }
+
+        public bool TryGetAttribute<T>(string name, out T attribute) where T : IDotAttribute
+        {
+            var result = Attributes.TryGetValue(name, out var outAttribute);
+            if (result && outAttribute is T outAttributeAsT)
+            {
+                attribute = outAttributeAsT;
+                return true;
+            }
+
+            attribute = default;
+            return false;
         }
 
         public void SetAttribute(string name, IDotAttribute value)

@@ -13,7 +13,7 @@ namespace DotNetGraph.Tests
         {
             var graph = new DotGraph("My test graph");
 
-            var compiled = graph.Compile();
+            var compiled = graph.CompileToString();
 
             Check.That(compiled).HasSameValueAs("graph \"My test graph\" { }");
         }
@@ -23,7 +23,7 @@ namespace DotNetGraph.Tests
         {
             var graph = new DotGraph("TestGraph", true);
 
-            var compiled = graph.Compile();
+            var compiled = graph.CompileToString();
 
             Check.That(compiled).HasSameValueAs("digraph TestGraph { }");
         }
@@ -33,7 +33,7 @@ namespace DotNetGraph.Tests
         {
             var graph = new DotGraph("TestGraph");
 
-            var compiled = graph.Compile();
+            var compiled = graph.CompileToString();
 
             Check.That(compiled).HasSameValueAs("graph TestGraph { }");
         }
@@ -46,7 +46,7 @@ namespace DotNetGraph.Tests
                 Strict = true
             };
 
-            var compiled = graph.Compile();
+            var compiled = graph.CompileToString();
 
             Check.That(compiled).HasSameValueAs("strict graph TestGraph { }");
         }
@@ -61,7 +61,7 @@ namespace DotNetGraph.Tests
                 Label = "\\lTesting"
             });
 
-            var compiled = graph.Compile(false, false);
+            var compiled = graph.CompileToString(false, false);
 
             Check.That(compiled).HasSameValueAs("digraph TestGraph { TestNode[label=\"\\lTesting\"]; }");
         }
@@ -77,7 +77,7 @@ namespace DotNetGraph.Tests
                 }
             };
 
-            var compiled = graph.Compile();
+            var compiled = graph.CompileToString();
 
             Check.That(compiled).HasSameValueAs("graph TestGraph { rankdir = TB; }");
         }

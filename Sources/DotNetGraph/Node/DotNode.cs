@@ -82,13 +82,67 @@ namespace DotNetGraph.Node
 
         public DotNode(string identifier)
         {
-            if (identifier == null)
-                throw new ArgumentNullException(nameof(identifier));
-
-            if (string.IsNullOrWhiteSpace(identifier))
-                throw new ArgumentException("Identifier cannot be empty", nameof(identifier));
-
             Identifier = identifier;
+        }
+
+        public DotNode WithColor(Color color)
+        {
+            Color = color;
+            return this;
+        }
+
+        public DotNode WithFontColor(Color color)
+        {
+            FontColor = color;
+            return this;
+        }
+
+        public DotNode WithFillColor(Color color)
+        {
+            FillColor = color;
+            return this;
+        }
+
+        public DotNode WithShape(DotNodeShape shape)
+        {
+            Shape = shape;
+            return this;
+        }
+
+        public DotNode WithStyle(DotNodeStyle style)
+        {
+            Style = style;
+            return this;
+        }
+
+        public DotNode WithLabel(string label)
+        {
+            Label = label;
+            return this;
+        }
+
+        public DotNode WithWidth(float width)
+        {
+            Width = width;
+            return this;
+        }
+
+        public DotNode WithHeight(float height)
+        {
+            Height = height;
+            return this;
+        }
+
+        public DotNode WithPenWidth(float penWidth)
+        {
+            PenWidth = penWidth;
+            return this;
+        }
+
+        public DotNode WithPosition(DotPosition position)
+        {
+            Position = position;
+            return this;
         }
     }
 }

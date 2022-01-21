@@ -10,19 +10,19 @@ namespace DotNetGraph.Extensions
 {
     public static class DotGraphExtensions
     {
-        public static string Compile(this DotGraph graph, bool indented = false, bool formatStrings = true)
+        public static string CompileToString(this DotGraph graph, bool indented = false, bool formatStrings = true)
         {
-            return new DotCompiler(graph).Compile(indented, formatStrings);
+            return new DotCompiler(graph).CompileToString(indented, formatStrings);
         }
 
-        public static void Compile(this DotGraph graph, Stream stream, bool indented = false, bool formatStrings = true)
+        public static void CompileToStream(this DotGraph graph, Stream stream, bool indented = false, bool formatStrings = true)
         {
-            new DotCompiler(graph).Compile(stream, indented, formatStrings);
+            new DotCompiler(graph).CompileToStream(stream, indented, formatStrings);
         }
 
-        public static void Compile(this DotGraph graph, TextWriter writer, bool indented = false, bool formatStrings = true)
+        public static void CompileToTextWriter(this DotGraph graph, TextWriter writer, bool indented = false, bool formatStrings = true)
         {
-            new DotCompiler(graph).Compile(writer, indented, formatStrings);
+            new DotCompiler(graph).CompileToTextWriter(writer, indented, formatStrings);
         }
 
         public static T AddNode<T>(this T graph, string identifier, Action<DotNode> nodeSetup = null) where T : IDotGraph

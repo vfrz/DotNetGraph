@@ -27,12 +27,29 @@ namespace DotNetGraph.SubGraph
             set => SetAttribute("label", new DotStringAttribute(value));
         }
 
-        public List<IDotElement> Elements { get; }
+        public List<IDotElement> Elements { get; } = new List<IDotElement>();
 
         public DotSubGraph(string identifier = null)
         {
-            Elements = new List<IDotElement>();
             Identifier = identifier;
+        }
+
+        public DotSubGraph WithColor(Color color)
+        {
+            Color = color;
+            return this;
+        }
+
+        public DotSubGraph WithStyle(DotSubGraphStyle style)
+        {
+            Style = style;
+            return this;
+        }
+
+        public DotSubGraph WithLabel(string label)
+        {
+            Label = label;
+            return this;
         }
     }
 }

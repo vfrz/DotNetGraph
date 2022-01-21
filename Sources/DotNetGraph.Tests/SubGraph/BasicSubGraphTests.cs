@@ -23,7 +23,7 @@ namespace DotNetGraph.Tests.SubGraph
                 }
             };
 
-            var compiled = graph.Compile();
+            var compiled = graph.CompileToString();
 
             Check.That(compiled).HasSameValueAs("graph TestGraph { subgraph TestSubGraph { } }");
         }
@@ -39,7 +39,7 @@ namespace DotNetGraph.Tests.SubGraph
                 }
             };
 
-            var compiled = graph.Compile();
+            var compiled = graph.CompileToString();
 
             Check.That(compiled).HasSameValueAs("graph TestGraph { subgraph \"My test subgraph\" { } }");
         }
@@ -60,7 +60,7 @@ namespace DotNetGraph.Tests.SubGraph
                 }
             };
 
-            var compiled = graph.Compile();
+            var compiled = graph.CompileToString();
 
             Check.That(compiled).HasSameValueAs("graph TestGraph { subgraph TestSubGraph { style=dashed; color=\"#FF0000\"; label=\"Hello, world!\"; } }");
         }
@@ -79,7 +79,7 @@ namespace DotNetGraph.Tests.SubGraph
                 }
             };
 
-            var compiled = graph.Compile();
+            var compiled = graph.CompileToString();
 
             Check.That(compiled).HasSameValueAs("graph TestGraph { subgraph TestSubGraph { style=dashed; } }");
         }
@@ -98,7 +98,7 @@ namespace DotNetGraph.Tests.SubGraph
                 }
             };
 
-            var compiled = graph.Compile();
+            var compiled = graph.CompileToString();
 
             Check.That(compiled).HasSameValueAs("graph TestGraph { subgraph TestSubGraph { style=\"rounded,filled\"; } }");
         }
@@ -117,7 +117,7 @@ namespace DotNetGraph.Tests.SubGraph
                 }
             };
 
-            var compiled = graph.Compile();
+            var compiled = graph.CompileToString();
 
             Check.That(compiled).HasSameValueAs("graph TestGraph { subgraph TestSubGraph { label=\"Hello, \\\"world\\\"!\"; } }");
         }
@@ -136,7 +136,7 @@ namespace DotNetGraph.Tests.SubGraph
                 }
             };
 
-            var compiled = graph.Compile();
+            var compiled = graph.CompileToString();
 
             Check.That(compiled).HasSameValueAs("graph TestGraph { subgraph TestSubGraph { color=\"#FF0000\"; } }");
         }
@@ -158,7 +158,7 @@ namespace DotNetGraph.Tests.SubGraph
                 }
             };
 
-            var compiled = graph.Compile();
+            var compiled = graph.CompileToString();
 
             Check.That(compiled).HasSameValueAs("graph TestGraph { subgraph TestSubGraph { hello -- world; } }");
         }
@@ -181,7 +181,7 @@ namespace DotNetGraph.Tests.SubGraph
                 }
             };
 
-            var compiled = graph.Compile();
+            var compiled = graph.CompileToString();
 
             Check.That(compiled).HasSameValueAs("digraph TestGraph { subgraph TestSubGraph { hello -> world; } }");
         }
@@ -203,7 +203,7 @@ namespace DotNetGraph.Tests.SubGraph
                 }
             };
 
-            var compiled = graph.Compile();
+            var compiled = graph.CompileToString();
 
             Check.That(compiled).HasSameValueAs("graph TestGraph { subgraph TestSubGraph { TestNode; } }");
         }
@@ -225,7 +225,7 @@ namespace DotNetGraph.Tests.SubGraph
                 }
             };
 
-            var compiled = graph.Compile();
+            var compiled = graph.CompileToString();
 
             Check.That(compiled).HasSameValueAs("graph TestGraph { subgraph TestSubGraph { {rank = same; A; X;} } }");
         }
@@ -242,7 +242,7 @@ namespace DotNetGraph.Tests.SubGraph
                     subGraph.SetAttribute(rankName, new DotCustomAttribute("same; A; X;"));
                 });
 
-            var compiled = graph.Compile();
+            var compiled = graph.CompileToString();
 
             Check.That(compiled).HasSameValueAs($"graph TestGraph {{ subgraph TestSubGraph {{ {rankName}=same; A; X; }} }}");
         }

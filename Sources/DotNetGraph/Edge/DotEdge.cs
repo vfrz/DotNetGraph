@@ -78,20 +78,62 @@ namespace DotNetGraph.Edge
 
         public DotEdge(string left, string right)
         {
-            if (left == null)
-                throw new ArgumentNullException(nameof(left));
-
-            if (right == null)
-                throw new ArgumentNullException(nameof(right));
-
             if (string.IsNullOrWhiteSpace(left))
-                throw new ArgumentException("Node cannot be empty", nameof(left));
+                throw new ArgumentException("Node cannot be null or empty", nameof(left));
 
             if (string.IsNullOrWhiteSpace(right))
-                throw new ArgumentException("Node cannot be empty", nameof(right));
+                throw new ArgumentException("Node cannot be null or empty", nameof(right));
 
             Left = new DotString(left);
             Right = new DotString(right);
+        }
+
+        public DotEdge WithColor(Color color)
+        {
+            Color = color;
+            return this;
+        }
+
+        public DotEdge WithFontColor(Color color)
+        {
+            FontColor = color;
+            return this;
+        }
+
+        public DotEdge WithStyle(DotEdgeStyle style)
+        {
+            Style = style;
+            return this;
+        }
+
+        public DotEdge WithLabel(string label)
+        {
+            Label = label;
+            return this;
+        }
+
+        public DotEdge WithPenWidth(float penWidth)
+        {
+            PenWidth = penWidth;
+            return this;
+        }
+
+        public DotEdge WithArrowHead(DotEdgeArrowType type)
+        {
+            ArrowHead = type;
+            return this;
+        }
+
+        public DotEdge WithArrowTail(DotEdgeArrowType type)
+        {
+            ArrowTail = type;
+            return this;
+        }
+
+        public DotEdge WithPosition(DotPosition position)
+        {
+            Position = position;
+            return this;
         }
     }
 }

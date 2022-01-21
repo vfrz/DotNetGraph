@@ -7,7 +7,6 @@ using DotNetGraph.SubGraph;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace DotNetGraph.Compiler
@@ -149,7 +148,7 @@ namespace DotNetGraph.Compiler
 
                 if (attribute.Value is ISurroundWithQuotes)
                     value = SurroundStringWithQuotes(value);
-                
+
                 var line = $"{attribute.Key}={value}";
 
                 if (!(attribute.Value is DotCustomAttribute))
@@ -179,17 +178,11 @@ namespace DotNetGraph.Compiler
         private void CompileEdgeEndPoint(IDotElement endPoint)
         {
             if (endPoint is DotString leftEdgeString)
-            {
                 _writer.Write(SurroundStringWithQuotes(FormatStrings ? FormatString(leftEdgeString.Value) : leftEdgeString.Value));
-            }
             else if (endPoint is DotNode leftEdgeNode)
-            {
                 _writer.Write(SurroundStringWithQuotes(FormatStrings ? FormatString(leftEdgeNode.Identifier) : leftEdgeNode.Identifier));
-            }
             else
-            {
                 throw new DotException($"Endpoint of an edge can't be of type: {endPoint.GetType()}");
-            }
         }
 
         private void CompileNode(DotNode node, int indentationLevel)
@@ -223,7 +216,7 @@ namespace DotNetGraph.Compiler
 
                 if (attribute.Value is ISurroundWithQuotes)
                     value = SurroundStringWithQuotes(value);
-                
+
                 attributeValues.Add($"{attribute.Key}={value}");
             }
 

@@ -71,7 +71,7 @@ namespace DotNetGraph.Tests.Extensions
         public void AddLine_WhenCalled_ThenLineIsAdded(IDotGraph sut)
         {
             var line = "raw line";
-            sut.AddLine(line);
+            sut.AddRawLine(line);
 
             Check.That(sut.Elements).CountIs(1);
             Check.That(((DotString)sut.Elements[0]).Value).HasSameValueAs(line);

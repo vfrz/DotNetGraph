@@ -37,6 +37,18 @@ namespace DotNetGraph.Extensions
             return graph;
         }
 
+        public static T AddNode<T>(this T graph, DotNode node) where T : IDotGraph
+        {
+            if (graph == null)
+                throw new ArgumentNullException(nameof(graph));
+
+            if (node is null)
+                throw new ArgumentNullException(nameof(node));
+
+            graph.Elements.Add(node);
+            return graph;
+        }
+
         public static T AddEdge<T>(this T graph, IDotElement left, IDotElement right, Action<DotEdge> edgeSetup = null) where T : IDotGraph
         {
             if (graph == null)
@@ -61,6 +73,18 @@ namespace DotNetGraph.Extensions
             return graph;
         }
 
+        public static T AddEdge<T>(this T graph, DotEdge edge) where T : IDotGraph
+        {
+            if (graph == null)
+                throw new ArgumentNullException(nameof(graph));
+
+            if (edge is null)
+                throw new ArgumentNullException(nameof(edge));
+
+            graph.Elements.Add(edge);
+            return graph;
+        }
+
         public static T AddSubGraph<T>(this T graph, string identifier, Action<DotSubGraph> subGraphSetup = null) where T : IDotGraph
         {
             if (graph == null)
@@ -73,13 +97,25 @@ namespace DotNetGraph.Extensions
             return graph;
         }
 
-        public static T AddLine<T>(this T graph, string rawLine) where T : IDotGraph
+        public static T AddSubGraph<T>(this T graph, DotSubGraph subGraph) where T : IDotGraph
+        {
+            if (graph == null)
+                throw new ArgumentNullException(nameof(graph));
+
+            if (subGraph is null)
+                throw new ArgumentNullException(nameof(subGraph));
+
+            graph.Elements.Add(subGraph);
+            return graph;
+        }
+
+        public static T AddRawLine<T>(this T graph, string rawLine) where T : IDotGraph
         {
             if (graph == null)
                 throw new ArgumentNullException(nameof(graph));
 
             if (string.IsNullOrWhiteSpace(rawLine))
-                throw new ArgumentException("Line cannot be empty", nameof(rawLine));
+                throw new ArgumentException("Line cannot be null or empty", nameof(rawLine));
 
             var stringElement = new DotString(rawLine);
             graph.Elements.Add(stringElement);

@@ -146,13 +146,13 @@ namespace DotNetGraph.Tests.Indentation
         public void DotGraph_WhenNodesSubGraphsEdgesAndCustomLinesProvided_ThenCompilationIsFormattedCorrectly()
         {
             var graph = new DotGraph("TestGraph", true)
-                .AddLine("rankdir = TB;")
+                .AddRawLine("rankdir = TB;")
                 .AddSubGraph("cluster_0", s =>
                 {
                     s.Label = "Test Sub Graph";
                     s.AddNode("A")
                         .AddNode("B")
-                        .AddLine("{rank = same; A; X;}");
+                        .AddRawLine("{rank = same; A; X;}");
                 })
                 .AddEdge("A", "B");
 

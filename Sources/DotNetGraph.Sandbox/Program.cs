@@ -1,24 +1,12 @@
-# DotNetGraph
+﻿using System.Drawing;
+using DotNetGraph;
+using DotNetGraph.Edge;
+using DotNetGraph.Extensions;
+using DotNetGraph.Node;
+using DotNetGraph.SubGraph;
 
-Create **GraphViz DOT graph** with **.NET**
-
-Available on NuGet: [![#](https://img.shields.io/nuget/v/DotNetGraph.svg)](https://www.nuget.org/packages/DotNetGraph/)
-
-Compatible with **.NET Standard 2.0** and higher
-
-# Documentation
-
-## Create a graph (*DotGraph*)
-
-```csharp
 var graph = new DotGraph("MyGraph");
 
-var directedGraph = new DotGraph("MyDirectedGraph", true);
-```
-
-## Create and add a node (*DotNode*)
-
-```csharp
 graph.AddNode("MyNode", node =>
 {
     node.WithShape(DotNodeShape.Ellipse)
@@ -30,11 +18,10 @@ graph.AddNode("MyNode", node =>
         .WithHeight(0.5f)
         .WithPenWidth(1.5f);
 });
-```
 
-## Create and add an edge (*DotEdge*)
+var myNode1 = new DotNode("MyNode1");
+var myNode2 = new DotNode("MyNode2");
 
-```csharp
 // Create an edge with identifiers
 graph.AddEdge("MyNode1", "MyNode2");
 
@@ -48,13 +35,13 @@ graph.AddEdge(myNode1, myNode2, edge =>
         .WithStyle(DotEdgeStyle.Dashed)
         .WithPenWidth(1.5f);
 });
-```
 
-## Create a subgraph / cluster
+var myEdge1 = new DotEdge("MyNode1", "MyNode2");
 
-```csharp
+var anotherSubGraph = new DotSubGraph("cluster_0");
+
 // Create a subgraph with attributes (only used for cluster) and child elements
-graph.AddSubGraph("mysubgraph1", subGraph =>
+graph.AddSubGraph("cluster_0", subGraph =>
 {
     subGraph.WithColor(Color.Red)
         .WithStyle(DotSubGraphStyle.Dashed)
@@ -63,14 +50,7 @@ graph.AddSubGraph("mysubgraph1", subGraph =>
         .AddEdge(myEdge1)
         .AddSubGraph(anotherSubGraph);
 });
-```
 
-## Compile to DOT format
-
-```csharp
-// Non indented version
-var dot = graph.CompileToString();
-
-// Indented version
 var dot = graph.CompileToString(indented: true);
-```
+
+Console.WriteLine(dot);

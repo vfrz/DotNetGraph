@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetGraph", "DotNetGraph\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetGraph.Tests", "DotNetGraph.Tests\DotNetGraph.Tests.csproj", "{353B34ED-4C2D-42D9-B7EC-196FAC7D14EB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetGraph.Sandbox", "DotNetGraph.Sandbox\DotNetGraph.Sandbox.csproj", "{684F1CEE-6C49-4753-843E-0D611BE18C45}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{353B34ED-4C2D-42D9-B7EC-196FAC7D14EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{353B34ED-4C2D-42D9-B7EC-196FAC7D14EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{353B34ED-4C2D-42D9-B7EC-196FAC7D14EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{684F1CEE-6C49-4753-843E-0D611BE18C45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{684F1CEE-6C49-4753-843E-0D611BE18C45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{684F1CEE-6C49-4753-843E-0D611BE18C45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{684F1CEE-6C49-4753-843E-0D611BE18C45}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

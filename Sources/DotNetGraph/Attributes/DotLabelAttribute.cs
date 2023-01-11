@@ -5,6 +5,7 @@ namespace DotNetGraph.Attributes
     public class DotLabelAttribute : IDotAttribute
     {
         public string Text { get; set; }
+        public bool IsHtml { get; set; } = false;
         
         public DotLabelAttribute(string text = default)
         {

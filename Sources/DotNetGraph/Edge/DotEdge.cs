@@ -9,6 +9,8 @@ namespace DotNetGraph.Edge
     {
         private IDotElement _left;
         private IDotElement _right;
+        private DotString _leftPort;
+        private DotString _rightPort;
 
         public IDotElement Left
         {
@@ -20,6 +22,18 @@ namespace DotNetGraph.Edge
         {
             get => _right;
             set => _right = value ?? throw new ArgumentNullException(nameof(value));
+        }
+        
+        public DotString LeftPort
+        {
+            get => _leftPort;
+            set => _leftPort = value ?? throw new ArgumentNullException(nameof(value));
+        }
+
+        public DotString RightPort
+        {
+            get => _rightPort;
+            set => _rightPort = value ?? throw new ArgumentNullException(nameof(value));
         }
 
         public DotColorAttribute Color
@@ -70,6 +84,7 @@ namespace DotNetGraph.Edge
             set => SetAttribute(value);
         }
 
+        
         public DotEdge(IDotElement left, IDotElement right)
         {
             Left = left ?? throw new ArgumentNullException(nameof(left));
@@ -80,20 +95,33 @@ namespace DotNetGraph.Edge
         {
             if (left == null)
                 throw new ArgumentNullException(nameof(left));
-
+        
             if (right == null)
                 throw new ArgumentNullException(nameof(right));
-
+        
             if (string.IsNullOrWhiteSpace(left))
                 throw new ArgumentException("Node cannot be empty", nameof(left));
-
+        
             if (string.IsNullOrWhiteSpace(right))
                 throw new ArgumentException("Node cannot be empty", nameof(right));
-
+        
             Left = new DotString(left);
             Right = new DotString(right);
         }
+        
+        public DotEdge(IDotElement left, string leftPort, IDotElement right, string rightPort):
+            this(left, right)
+        {
+            if (string.IsNullOrWhiteSpace(leftPort))
+                throw new ArgumentException("Edge Port cannot be empty", nameof(leftPort));
 
+            if (string.IsNullOrWhiteSpace(rightPort))
+                throw new ArgumentException("Edge Port cannot be empty", nameof(rightPort));
+            
+            LeftPort = new DotString(leftPort);
+            RightPort = new DotString(rightPort);
+        }
+        
         public DotEdge SetCustomAttribute(string name, string value)
         {
             SetCustomAttributeInternal(name, value);

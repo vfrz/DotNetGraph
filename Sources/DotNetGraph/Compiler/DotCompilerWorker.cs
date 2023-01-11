@@ -159,7 +159,12 @@ namespace DotNetGraph.Compiler
                 }
                 else if (attribute is DotLabelAttribute labelAttribute)
                 {
-                    line = $"label={SurroundStringWithQuotes(labelAttribute.Text, FormatStrings)};";
+                    if (labelAttribute.IsHtml) {
+                        line = $"label={labelAttribute.Text};";
+                    }
+                    else {
+                        line = $"label={SurroundStringWithQuotes(labelAttribute.Text, FormatStrings)};";
+                    }
                 }
                 else if (attribute is DotCustomAttribute customAttribute)
                 {
@@ -178,11 +183,11 @@ namespace DotNetGraph.Compiler
         {
             _writer.AddIndentation(Indented, indentationLevel);
 
-            CompileEdgeEndPoint(edge.Left);
+            CompileEdgeEndPoint(edge.Left, edge.LeftPort);
 
             _writer.Write(_graph.Directed ? " -> " : " -- ");
 
-            CompileEdgeEndPoint(edge.Right);
+            CompileEdgeEndPoint(edge.Right, edge.RightPort);
 
             CompileAttributes(edge.Attributes);
 
@@ -191,11 +196,12 @@ namespace DotNetGraph.Compiler
             _writer.AddIndentationNewLine(Indented);
         }
 
-        private void CompileEdgeEndPoint(IDotElement endPoint)
+        private void CompileEdgeEndPoint(IDotElement endPoint, DotString port=null)
         {
             if (endPoint is DotString leftEdgeString)
             {
                 _writer.Write(SurroundStringWithQuotes(leftEdgeString.Value, FormatStrings));
+                
             }
             else if (endPoint is DotNode leftEdgeNode)
             {
@@ -204,6 +210,10 @@ namespace DotNetGraph.Compiler
             else
             {
                 throw new DotException($"Endpoint of an edge can't be of type: {endPoint.GetType()}");
+            }
+            if (port!=null) {
+                _writer.Write(":");
+                _writer.Write(SurroundStringWithQuotes(port.Value, FormatStrings));
             }
         }
 
@@ -257,7 +267,12 @@ namespace DotNetGraph.Compiler
                 }
                 else if (attribute is DotLabelAttribute labelAttribute)
                 {
-                    attributeValues.Add($"label={SurroundStringWithQuotes(labelAttribute.Text, FormatStrings)}");
+                    if (labelAttribute.IsHtml) {
+                        attributeValues.Add($"label={labelAttribute.Text}");
+                    }
+                    else {
+                        attributeValues.Add($"label={SurroundStringWithQuotes(labelAttribute.Text, FormatStrings)}");
+                    }
                 }
                 else if (attribute is DotNodeWidthAttribute nodeWidthAttribute)
                 {

@@ -258,6 +258,34 @@ namespace DotNetGraph.Tests.Edge
             Check.That(compiled).HasSameValueAs("graph TestGraph { hello -- world[arrowtail=diamond]; }");
         }
 
+        
+        [Fact]
+        public void EdgeFromPortToPort_asNodes()
+        {
+            var helloNode = new DotNode("hello") {
+                HtmlLabel = "<<table><tr><td port=\"port1\">a</td></tr></table>>"
+            };
+            var worldNode = new DotNode("world") {
+                HtmlLabel = "<<table><tr><td port=\"port2\">b</td></tr></table>>"
+            };
+
+            var graph = new DotGraph("TestGraph")
+            {
+                Elements =
+                {
+                    helloNode,
+                    worldNode,
+                    new DotEdge(helloNode,"port1", worldNode, "port2")
+                }
+            };
+
+            var compiled = graph.Compile();
+
+            Check.That(compiled).HasSameValueAs(
+                "graph TestGraph { hello[label=<<table><tr><td port=\"port1\">a</td></tr></table>>]; world[label=<<table><tr><td port=\"port2\">b</td></tr></table>>]; hello:port1 -- world:port2; }"
+            );
+        }
+
         [Fact]
         public void EdgeWithNullNodesThrowsException()
         {

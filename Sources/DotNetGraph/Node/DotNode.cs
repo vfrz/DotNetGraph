@@ -58,6 +58,14 @@ namespace DotNetGraph.Node
             get => GetAttribute<DotLabelAttribute>();
             set => SetAttribute(value);
         }
+        
+        public DotLabelAttribute HtmlLabel {
+            get => GetAttribute<DotLabelAttribute>();
+            set {
+                value.IsHtml = true;
+                SetAttribute(value);
+            }
+        }
 
         public DotNodeWidthAttribute Width
         {

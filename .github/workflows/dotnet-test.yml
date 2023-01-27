@@ -1,0 +1,15 @@
+name: dotnet test
+
+on: [ push ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 7.X
+      - name: Test
+        run: dotnet test ./Sources -v n -c Release

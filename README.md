@@ -1,12 +1,12 @@
 # DotNetGraph
 
-Create **GraphViz DOT graph** with **.NET**
+Create **GraphViz DOT graph** with **dotnet**.
 
 Available on NuGet: [![#](https://img.shields.io/nuget/v/DotNetGraph.svg)](https://www.nuget.org/packages/DotNetGraph/)
 
-Compatible with **.NET Standard 2.0** and higher
+Compatible with **.NET Standard 2.0** and higher.
 
-# Documentation
+# Usage
 
 ## Create a graph (*DotGraph*)
 

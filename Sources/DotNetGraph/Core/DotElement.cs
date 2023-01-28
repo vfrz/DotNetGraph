@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using DotNetGraph.Attributes;
 using DotNetGraph.Compilation;
-using DotNetGraph.Extensions;
 
 namespace DotNetGraph.Core
 {
-    public abstract class DotElementWithAttributes : IDotElement
+    public abstract class DotElement : IDotElement
     {
         private readonly Dictionary<string, IDotAttribute> _attributes = new Dictionary<string, IDotAttribute>();
 
@@ -16,6 +15,12 @@ namespace DotNetGraph.Core
         {
             get => GetAttributeOrDefault<DotLabelAttribute>("label");
             set => SetAttribute("label", value);
+        }
+
+        public DotColorAttribute FontColor
+        {
+            get => GetAttributeOrDefault<DotColorAttribute>("fontcolor");
+            set => SetAttribute("fontcolor", value);
         }
 
         // Attribute methods

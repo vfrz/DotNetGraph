@@ -24,4 +24,34 @@ public class DotGraphTests
         var result = writer.GetStringBuilder().ToString();
         result.Should().Be("graph \"Test\" {\n}\n");
     }
+    
+    [TestMethod]
+    public async Task CompileEmptyStrictGraph()
+    {
+        var graph = new DotGraph()
+            .WithIdentifier("Test")
+            .Strict();
+
+        await using var writer = new StringWriter();
+        var context = new CompilationContext(writer, new CompilationOptions());
+        await graph.CompileAsync(context);
+
+        var result = writer.GetStringBuilder().ToString();
+        result.Should().Be("strict graph \"Test\" {\n}\n");
+    }
+    
+    [TestMethod]
+    public async Task CompileEmptyDirectedGraph()
+    {
+        var graph = new DotGraph()
+            .WithIdentifier("Test")
+            .Directed();
+
+        await using var writer = new StringWriter();
+        var context = new CompilationContext(writer, new CompilationOptions());
+        await graph.CompileAsync(context);
+
+        var result = writer.GetStringBuilder().ToString();
+        result.Should().Be("digraph \"Test\" {\n}\n");
+    }
 }

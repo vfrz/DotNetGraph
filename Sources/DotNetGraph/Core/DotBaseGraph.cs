@@ -4,7 +4,7 @@ using DotNetGraph.Compilation;
 
 namespace DotNetGraph.Core
 {
-    public abstract class DotBaseGraph : DotElementWithAttributes
+    public abstract class DotBaseGraph : DotElement
     {
         public DotIdentifier Identifier { get; set; }
 

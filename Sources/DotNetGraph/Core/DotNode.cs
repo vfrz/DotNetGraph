@@ -1,10 +1,11 @@
+using System.Threading.Tasks;
 using DotNetGraph.Compilation;
 
 namespace DotNetGraph.Core
 {
     public class DotNode : IDotElement
     {
-        public string Compile(CompilationOptions options)
+        public Task CompileAsync(CompilationContext context)
         {
             throw new System.NotImplementedException();
         }

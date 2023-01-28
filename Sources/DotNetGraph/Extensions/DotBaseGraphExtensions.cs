@@ -4,9 +4,9 @@ namespace DotNetGraph.Extensions
 {
     public static class DotBaseGraphExtensions
     {
-        public static T WithIdentifier<T>(this T graph, string identifier) where T : DotBaseGraph
+        public static T WithIdentifier<T>(this T graph, string identifier, bool isHtml = false) where T : DotBaseGraph
         {
-            graph.Identifier = identifier;
+            graph.Identifier = new DotIdentifier(identifier, isHtml);
             return graph;
         }
 

@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using DotNetGraph.Attributes;
 using DotNetGraph.Compilation;
+using DotNetGraph.Extensions;
 
 namespace DotNetGraph.Core
 {
@@ -9,11 +11,24 @@ namespace DotNetGraph.Core
     {
         private readonly Dictionary<string, IDotAttribute> _attributes = new Dictionary<string, IDotAttribute>();
 
+        // Common attributes
+        public DotLabelAttribute Label
+        {
+            get => GetAttributeOrDefault<DotLabelAttribute>("label");
+            set => SetAttribute("label", value);
+        }
+
+        // Attribute methods
         public IDotAttribute GetAttribute(string name)
         {
             if (_attributes.TryGetValue(name, out var attribute))
                 return attribute;
             throw new Exception($"There is no attribute named '{name}'");
+        }
+
+        public IDotAttribute GetAttributeOrDefault(string name, IDotAttribute defaultValue = default)
+        {
+            return defaultValue;
         }
 
         public T GetAttribute<T>(string name) where T : IDotAttribute
@@ -22,6 +37,18 @@ namespace DotNetGraph.Core
             if (attribute is T result)
                 return result;
             throw new Exception($"Attribute with name '{name}' doesn't match the expected type (expected: {typeof(T)}, current: {attribute.GetType()})");
+        }
+
+        public T GetAttributeOrDefault<T>(string name, T defaultValue = default) where T : IDotAttribute
+        {
+            if (_attributes.TryGetValue(name, out var attribute))
+            {
+                if (attribute is T result)
+                    return result;
+                throw new Exception($"Attribute with name '{name}' doesn't match the expected type (expected: {typeof(T)}, current: {attribute.GetType()})");
+            }
+
+            return defaultValue;
         }
 
         public bool TryGetAttribute(string name, out IDotAttribute attribute)
@@ -68,6 +95,17 @@ namespace DotNetGraph.Core
             return _attributes.Remove(name);
         }
 
-        public abstract string Compile(CompilationOptions options);
+        protected async Task CompileAttributesAsync(CompilationContext context)
+        {
+            foreach (var attributePair in _attributes)
+            {
+                await context.WriteIndentationAsync();
+                await context.WriteAsync($"\"{attributePair.Key}\"=");
+                await attributePair.Value.CompileAsync(context);
+                await context.WriteLineAsync();
+            }
+        }
+
+        public abstract Task CompileAsync(CompilationContext context);
     }
 }

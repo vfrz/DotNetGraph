@@ -2,15 +2,15 @@ using System.Threading.Tasks;
 using DotNetGraph.Compilation;
 using DotNetGraph.Extensions;
 
-namespace DotNetGraph.Attributes
+namespace DotNetGraph.Core
 {
-    public class DotLabelAttribute : IDotAttribute
+    public class DotIdentifier : IDotElement
     {
         public string Value { get; set; }
 
         public bool IsHtml { get; set; } = false;
 
-        public DotLabelAttribute(string value, bool isHtml = false)
+        public DotIdentifier(string value, bool isHtml = false)
         {
             Value = value;
             IsHtml = isHtml;

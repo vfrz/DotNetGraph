@@ -11,6 +11,7 @@ namespace DotNetGraph.Core
 
         public override async Task CompileAsync(CompilationContext context)
         {
+            context.DirectedGraph = Directed;
             await context.WriteIndentationAsync();
             if (Strict)
                 await context.WriteAsync("strict ");

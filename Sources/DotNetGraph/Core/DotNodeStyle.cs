@@ -13,6 +13,7 @@ namespace DotNetGraph.Core
         Diagonals = 32,
         Filled = 64,
         Striped = 128,
-        Wedged = 256
+        Wedged = 256,
+        Invis = 512
     }
 }

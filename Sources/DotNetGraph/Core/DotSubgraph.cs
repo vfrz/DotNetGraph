@@ -5,9 +5,17 @@ namespace DotNetGraph.Core
 {
     public class DotSubgraph : DotBaseGraph
     {
-        public override Task CompileAsync(CompilationContext context)
+        public override async Task CompileAsync(CompilationContext context)
         {
-            throw new System.NotImplementedException();
+            await context.WriteIndentationAsync();
+            await context.WriteAsync("subgraph ");
+            await Identifier.CompileAsync(context);
+            await context.WriteLineAsync(" {");
+            context.IndentationLevel++;
+            await CompileAttributesAsync(context);
+            context.IndentationLevel--;
+            await context.WriteIndentationAsync();
+            await context.WriteLineAsync("}");
         }
     }
 }

@@ -105,7 +105,7 @@ namespace DotNetGraph.Core
             return Attributes.Remove(name);
         }
 
-        protected async Task CompileAttributesAsync(CompilationContext context)
+        public async Task CompileAttributesAsync(CompilationContext context)
         {
             foreach (var attributePair in Attributes)
             {

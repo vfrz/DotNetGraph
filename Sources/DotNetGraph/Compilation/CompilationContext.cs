@@ -10,12 +10,15 @@ namespace DotNetGraph.Compilation
         public CompilationOptions Options { get; }
 
         public int IndentationLevel { get; set; }
+        
+        public bool DirectedGraph { get; set; }
 
         public CompilationContext(TextWriter textWriter, CompilationOptions options)
         {
             TextWriter = textWriter;
             Options = options;
             IndentationLevel = 0;
+            DirectedGraph = false;
         }
 
         public async Task WriteIndentationAsync()

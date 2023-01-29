@@ -8,7 +8,7 @@ namespace DotNetGraph.Core
 {
     public abstract class DotElement : IDotElement
     {
-        private readonly Dictionary<string, IDotAttribute> _attributes = new Dictionary<string, IDotAttribute>();
+        protected readonly Dictionary<string, IDotAttribute> Attributes = new Dictionary<string, IDotAttribute>();
 
         // Common attributes
         public DotLabelAttribute Label
@@ -24,9 +24,14 @@ namespace DotNetGraph.Core
         }
 
         // Attribute methods
+        public bool HasAttribute(string name)
+        {
+            return Attributes.ContainsKey(name);
+        }
+        
         public IDotAttribute GetAttribute(string name)
         {
-            if (_attributes.TryGetValue(name, out var attribute))
+            if (Attributes.TryGetValue(name, out var attribute))
                 return attribute;
             throw new Exception($"There is no attribute named '{name}'");
         }
@@ -46,7 +51,7 @@ namespace DotNetGraph.Core
 
         public T GetAttributeOrDefault<T>(string name, T defaultValue = default) where T : IDotAttribute
         {
-            if (_attributes.TryGetValue(name, out var attribute))
+            if (Attributes.TryGetValue(name, out var attribute))
             {
                 if (attribute is T result)
                     return result;
@@ -58,7 +63,7 @@ namespace DotNetGraph.Core
 
         public bool TryGetAttribute(string name, out IDotAttribute attribute)
         {
-            var result = _attributes.TryGetValue(name, out var outAttribute);
+            var result = Attributes.TryGetValue(name, out var outAttribute);
             if (result)
             {
                 attribute = outAttribute;
@@ -92,17 +97,17 @@ namespace DotNetGraph.Core
             if (value is null)
                 RemoveAttribute(name);
             else
-                _attributes[name] = value;
+                Attributes[name] = value;
         }
 
         public bool RemoveAttribute(string name)
         {
-            return _attributes.Remove(name);
+            return Attributes.Remove(name);
         }
 
         protected async Task CompileAttributesAsync(CompilationContext context)
         {
-            foreach (var attributePair in _attributes)
+            foreach (var attributePair in Attributes)
             {
                 await context.WriteIndentationAsync();
                 await context.WriteAsync($"\"{attributePair.Key}\"=");

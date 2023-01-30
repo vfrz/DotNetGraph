@@ -20,7 +20,7 @@ namespace DotNetGraph.Attributes
 
         public async Task CompileAsync(CompilationContext context)
         {
-            await context.WriteAsync(Value);
+            await context.WriteAsync($"\"{Value}\"");
         }
     }
 }

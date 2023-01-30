@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Threading.Tasks;
 using DotNetGraph.Compilation;
 
@@ -17,7 +18,7 @@ namespace DotNetGraph.Attributes
 
         public async Task CompileAsync(CompilationContext context)
         {
-            await context.WriteAsync(Value.ToString(Format));
+            await context.WriteAsync(Value.ToString(Format, NumberFormatInfo.InvariantInfo));
         }
     }
 }

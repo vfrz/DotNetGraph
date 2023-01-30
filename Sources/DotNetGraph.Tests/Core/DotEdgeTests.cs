@@ -6,7 +6,7 @@ using DotNetGraph.Extensions;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace DotNetGraph.Tests;
+namespace DotNetGraph.Tests.Core;
 
 [TestClass]
 public class DotEdgeTests

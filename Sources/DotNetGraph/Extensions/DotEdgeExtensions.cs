@@ -54,10 +54,10 @@ namespace DotNetGraph.Extensions
             return edge;
         }
         
-        public static DotNode WithPenWidth(this DotNode node, double width)
+        public static DotEdge WithPenWidth(this DotEdge edge, double width)
         {
-            node.PenWidth = new DotDoubleAttribute(width);
-            return node;
+            edge.PenWidth = new DotDoubleAttribute(width);
+            return edge;
         }
         
         public static DotEdge WithArrowHead(this DotEdge edge, string arrowType)

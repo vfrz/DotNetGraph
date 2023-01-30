@@ -19,8 +19,11 @@ namespace DotNetGraph.Attributes
         public async Task CompileAsync(CompilationContext context)
         {
             if (IsHtml)
+            {
                 await context.TextWriter.WriteAsync($"<{Value}>");
-            
+                return;
+            }
+
             var value = context.Options.AutomaticEscapedCharactersFormat ? Value.FormatGraphvizEscapedCharacters() : Value;
             await context.TextWriter.WriteAsync($"\"{value}\"");
         }

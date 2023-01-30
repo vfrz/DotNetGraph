@@ -1,43 +1,39 @@
-using System.Drawing;
 using System.IO;
 using System.Threading.Tasks;
+using DotNetGraph.Attributes;
 using DotNetGraph.Compilation;
 using DotNetGraph.Core;
-using DotNetGraph.Extensions;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace DotNetGraph.Tests;
+namespace DotNetGraph.Tests.Attributes;
 
 [TestClass]
-public class DotNodeTests
+public class DotEdgeStyleAttributeTests
 {
     [TestMethod]
-    public async Task CompileEmptyNode()
+    public async Task RenderFromString()
     {
-        var node = new DotNode()
-            .WithIdentifier("Test");
+        var attribute = new DotEdgeStyleAttribute("custom");
 
         await using var writer = new StringWriter();
         var context = new CompilationContext(writer, new CompilationOptions());
-        await node.CompileAsync(context);
+        await attribute.CompileAsync(context);
 
         var result = writer.GetStringBuilder().ToString();
-        result.Should().Be("\"Test\"\n");
+        result.Should().Be("\"custom\"");
     }
-
+    
     [TestMethod]
-    public async Task CompileNodeWithColor()
+    public async Task RenderFromEnum()
     {
-        var node = new DotNode()
-            .WithIdentifier("Test")
-            .WithColor(Color.Red);
+        var attribute = new DotEdgeStyleAttribute(DotEdgeStyle.Solid);
 
         await using var writer = new StringWriter();
         var context = new CompilationContext(writer, new CompilationOptions());
-        await node.CompileAsync(context);
+        await attribute.CompileAsync(context);
 
         var result = writer.GetStringBuilder().ToString();
-        result.Should().Be("\"Test\" [\n\t\"color\"=\"#FF0000\"\n]\n");
+        result.Should().Be("\"solid\"");
     }
 }

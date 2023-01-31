@@ -11,7 +11,7 @@ namespace DotNetGraph.Tests.Attributes;
 public class DotLabelAttributeTests
 {
     [TestMethod]
-    public async Task RenderDefault()
+    public async Task CompileDefault()
     {
         var attribute = new DotLabelAttribute("Hello,\r\n \"world\"!");
 
@@ -24,7 +24,7 @@ public class DotLabelAttributeTests
     }
 
     [TestMethod]
-    public async Task RenderWithoutAutomaticEscapedCharactersFormat()
+    public async Task CompileWithoutAutomaticEscapedCharactersFormat()
     {
         var attribute = new DotLabelAttribute("Hello,\r\n \"world\"!");
 
@@ -40,7 +40,7 @@ public class DotLabelAttributeTests
     }
     
     [TestMethod]
-    public async Task RenderHtml()
+    public async Task CompileHtml()
     {
         var attribute = new DotLabelAttribute("<b>Hello, world!</b>", true);
 

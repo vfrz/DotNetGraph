@@ -1,39 +1,38 @@
 using System.IO;
 using System.Threading.Tasks;
-using DotNetGraph.Attributes;
 using DotNetGraph.Compilation;
 using DotNetGraph.Core;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace DotNetGraph.Tests.Attributes;
+namespace DotNetGraph.Tests.Core;
 
 [TestClass]
-public class DotEdgeArrowTypeAttributeTests
+public class DotIdentifierTests
 {
     [TestMethod]
-    public async Task CompileFromString()
+    public async Task Compile()
     {
-        var attribute = new DotEdgeArrowTypeAttribute("custom");
+        var identifier = new DotIdentifier("Test");
 
         await using var writer = new StringWriter();
         var context = new CompilationContext(writer, new CompilationOptions());
-        await attribute.CompileAsync(context);
+        await identifier.CompileAsync(context);
 
         var result = writer.GetStringBuilder().ToString();
-        result.Should().Be("\"custom\"");
+        result.Should().Be("\"Test\"");
     }
     
     [TestMethod]
-    public async Task CompileFromEnum()
+    public async Task CompileHtml()
     {
-        var attribute = new DotEdgeArrowTypeAttribute(DotEdgeArrowType.Box);
+        var identifier = new DotIdentifier("<b>Test</b>", true);
 
         await using var writer = new StringWriter();
         var context = new CompilationContext(writer, new CompilationOptions());
-        await attribute.CompileAsync(context);
+        await identifier.CompileAsync(context);
 
         var result = writer.GetStringBuilder().ToString();
-        result.Should().Be("\"box\"");
+        result.Should().Be("<<b>Test</b>>");
     }
 }

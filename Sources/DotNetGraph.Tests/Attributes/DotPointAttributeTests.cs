@@ -13,7 +13,7 @@ namespace DotNetGraph.Tests.Attributes;
 public class DotPointAttributeTests
 {
     [TestMethod]
-    public async Task RenderFromString()
+    public async Task CompileFromString()
     {
         var attribute = new DotPointAttribute("66,99");
 
@@ -26,7 +26,7 @@ public class DotPointAttributeTests
     }
     
     [TestMethod]
-    public async Task RenderFromDotPoint()
+    public async Task CompileFromDotPoint()
     {
         var attribute = new DotPointAttribute(new DotPoint(42, 69, 75, true));
 

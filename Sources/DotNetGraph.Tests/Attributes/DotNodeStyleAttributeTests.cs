@@ -12,7 +12,7 @@ namespace DotNetGraph.Tests.Attributes;
 public class DotNodeStyleAttributeTests
 {
     [TestMethod]
-    public async Task RenderFromString()
+    public async Task CompileFromString()
     {
         var attribute = new DotNodeStyleAttribute("custom");
 
@@ -25,7 +25,7 @@ public class DotNodeStyleAttributeTests
     }
     
     [TestMethod]
-    public async Task RenderFromEnum()
+    public async Task CompileFromEnum()
     {
         var attribute = new DotNodeStyleAttribute(DotNodeStyle.Bold);
 

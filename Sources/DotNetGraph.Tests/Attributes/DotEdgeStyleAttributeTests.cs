@@ -12,7 +12,7 @@ namespace DotNetGraph.Tests.Attributes;
 public class DotEdgeStyleAttributeTests
 {
     [TestMethod]
-    public async Task RenderFromString()
+    public async Task CompileFromString()
     {
         var attribute = new DotEdgeStyleAttribute("custom");
 
@@ -25,7 +25,7 @@ public class DotEdgeStyleAttributeTests
     }
     
     [TestMethod]
-    public async Task RenderFromEnum()
+    public async Task CompileFromEnum()
     {
         var attribute = new DotEdgeStyleAttribute(DotEdgeStyle.Solid);
 

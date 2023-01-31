@@ -11,7 +11,7 @@ namespace DotNetGraph.Tests.Attributes;
 public class DotDoubleAttributeTests
 {
     [TestMethod]
-    public async Task RenderWithDefaultFormat()
+    public async Task CompileWithDefaultFormat()
     {
         var attribute = new DotDoubleAttribute(123.456);
 
@@ -24,7 +24,7 @@ public class DotDoubleAttributeTests
     }
 
     [TestMethod]
-    public async Task RenderWithSpecifiedFormat()
+    public async Task CompileWithSpecifiedFormat()
     {
         var attribute = new DotDoubleAttribute(123.456, "F3");
 

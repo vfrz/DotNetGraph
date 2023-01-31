@@ -12,7 +12,7 @@ namespace DotNetGraph.Tests.Attributes;
 public class DotSubgraphStyleAttributeTests
 {
     [TestMethod]
-    public async Task RenderFromString()
+    public async Task CompileFromString()
     {
         var attribute = new DotSubgraphStyleAttribute("custom");
 
@@ -25,7 +25,7 @@ public class DotSubgraphStyleAttributeTests
     }
     
     [TestMethod]
-    public async Task RenderFromEnum()
+    public async Task CompileFromEnum()
     {
         var attribute = new DotSubgraphStyleAttribute(DotSubgraphStyle.Rounded);
 

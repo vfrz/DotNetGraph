@@ -12,7 +12,7 @@ namespace DotNetGraph.Tests.Attributes;
 public class DotColorAttributeTests
 {
     [TestMethod]
-    public async Task RenderFromString()
+    public async Task CompileFromString()
     {
         var attribute = new DotColorAttribute("red");
 
@@ -25,7 +25,7 @@ public class DotColorAttributeTests
     }
     
     [TestMethod]
-    public async Task RenderFromColor()
+    public async Task CompileFromColor()
     {
         var attribute = new DotColorAttribute(Color.Red);
 

@@ -38,6 +38,8 @@ namespace DotNetGraph.Core
 
         public IDotAttribute GetAttributeOrDefault(string name, IDotAttribute defaultValue = default)
         {
+            if (Attributes.TryGetValue(name, out var attribute))
+                return attribute;
             return defaultValue;
         }
 

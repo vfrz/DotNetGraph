@@ -10,6 +10,12 @@ namespace DotNetGraph.Extensions
             return graph;
         }
 
+        public static T WithRankDir<T>(this T graph, DotRankDir? rankDir) where T : DotBaseGraph
+        {
+            graph.RankDir = rankDir;
+            return graph;
+        }
+
         public static T Add<T>(this T graph, IDotElement element) where T : DotBaseGraph
         {
             graph.Elements.Add(element);

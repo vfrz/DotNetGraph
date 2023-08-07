@@ -22,13 +22,7 @@ namespace DotNetGraph.Core
         {
             await context.WriteIndentationAsync();
             await context.WriteAsync("subgraph ");
-            await Identifier.CompileAsync(context);
-            await context.WriteLineAsync(" {");
-            context.IndentationLevel++;
-            await CompileAttributesAsync(context);
-            context.IndentationLevel--;
-            await context.WriteIndentationAsync();
-            await context.WriteLineAsync("}");
+            await CompileBodyAsync(context);
         }
     }
 }

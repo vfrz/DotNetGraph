@@ -54,4 +54,20 @@ public class DotGraphTests
         var result = writer.GetStringBuilder().ToString();
         result.Should().Be("digraph \"Test\" {\n}\n");
     }
+
+    [TestMethod]
+    public async Task CompileEmptyDirectedGraphWithRankDir()
+    {
+        var graph = new DotGraph()
+            .WithIdentifier("Test")
+            .WithRankDir(DotRankDir.RL)
+            .Directed();
+        
+        await using var writer = new StringWriter();
+        var context = new CompilationContext(writer, new CompilationOptions());
+        await graph.CompileAsync(context);
+        
+        var result = writer.GetStringBuilder().ToString();
+        result.Should().Be("digraph \"Test\" {\n\trankdir=\"RL\"\n}\n");
+    }
 }

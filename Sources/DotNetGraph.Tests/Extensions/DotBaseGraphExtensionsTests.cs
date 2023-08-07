@@ -29,6 +29,15 @@ public class DotBaseGraphExtensionsTests
     }
 
     [TestMethod]
+    public void WithRankDir()
+    {
+        var graph = new DotGraph()
+            .WithRankDir(DotRankDir.TB);
+
+        graph.RankDir.Should().Be(DotRankDir.TB);
+    }
+
+    [TestMethod]
     public void Add()
     {
         var node = new DotNode();

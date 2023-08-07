@@ -8,7 +8,7 @@ namespace DotNetGraph.Core
         public bool Strict { get; set; }
 
         public bool Directed { get; set; }
-
+        
         public override async Task CompileAsync(CompilationContext context)
         {
             context.DirectedGraph = Directed;
@@ -16,13 +16,7 @@ namespace DotNetGraph.Core
             if (Strict)
                 await context.WriteAsync("strict ");
             await context.WriteAsync(Directed ? "digraph " : "graph ");
-            await Identifier.CompileAsync(context);
-            await context.WriteLineAsync(" {");
-            context.IndentationLevel++;
-            await CompileAttributesAsync(context);
-            context.IndentationLevel--;
-            await context.WriteIndentationAsync();
-            await context.WriteLineAsync("}");
+            await CompileBodyAsync(context);
         }
     }
 }

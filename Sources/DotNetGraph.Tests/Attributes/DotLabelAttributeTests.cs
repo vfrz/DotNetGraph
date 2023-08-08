@@ -51,4 +51,13 @@ public class DotLabelAttributeTests
         var result = writer.GetStringBuilder().ToString();
         result.Should().Be("<<b>Hello, world!</b>>");
     }
+
+    [TestMethod]
+    public void ImplicitConversionFromString()
+    {
+        DotLabelAttribute attribute = "Hello, world!";
+
+        attribute.Value.Should().Be("Hello, world!");
+        attribute.IsHtml.Should().Be(false);
+    }
 }

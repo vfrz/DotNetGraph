@@ -36,4 +36,18 @@ public class DotSubgraphStyleAttributeTests
         var result = writer.GetStringBuilder().ToString();
         result.Should().Be("\"rounded\"");
     }
+    
+    [TestMethod]
+    public void ImplicitConversionFromDotSubgraphStyle()
+    {
+        DotSubgraphStyleAttribute attribute = DotSubgraphStyle.Rounded;
+        attribute.Value.Should().Be("rounded");
+    }
+
+    [TestMethod]
+    public void ImplicitConversionFromString()
+    {
+        DotSubgraphStyleAttribute attribute = "rounded";
+        attribute.Value.Should().Be("rounded");
+    }
 }

@@ -23,7 +23,7 @@ public class DotEdgeStyleAttributeTests
         var result = writer.GetStringBuilder().ToString();
         result.Should().Be("\"custom\"");
     }
-    
+
     [TestMethod]
     public async Task CompileFromEnum()
     {
@@ -35,5 +35,19 @@ public class DotEdgeStyleAttributeTests
 
         var result = writer.GetStringBuilder().ToString();
         result.Should().Be("\"solid\"");
+    }
+
+    [TestMethod]
+    public void ImplicitConversionFromDotEdgeStyle()
+    {
+        DotEdgeStyleAttribute attribute = DotEdgeStyle.Solid;
+        attribute.Value.Should().Be("solid");
+    }
+
+    [TestMethod]
+    public void ImplicitConversionFromString()
+    {
+        DotEdgeStyleAttribute attribute = "solid";
+        attribute.Value.Should().Be("solid");
     }
 }

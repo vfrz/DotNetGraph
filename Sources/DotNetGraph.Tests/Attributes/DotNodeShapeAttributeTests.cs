@@ -36,4 +36,18 @@ public class DotNodeShapeAttributeTests
         var result = writer.GetStringBuilder().ToString();
         result.Should().Be("\"terminator\"");
     }
+    
+    [TestMethod]
+    public void ImplicitConversionFromDotNodeShape()
+    {
+        DotNodeShapeAttribute attribute = DotNodeShape.Terminator;
+        attribute.Value.Should().Be("terminator");
+    }
+
+    [TestMethod]
+    public void ImplicitConversionFromString()
+    {
+        DotNodeShapeAttribute attribute = "terminator";
+        attribute.Value.Should().Be("terminator");
+    }
 }

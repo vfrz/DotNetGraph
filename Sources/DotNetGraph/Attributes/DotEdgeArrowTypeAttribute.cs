@@ -22,5 +22,8 @@ namespace DotNetGraph.Attributes
         {
             await context.WriteAsync($"\"{Value}\"");
         }
+
+        public static implicit operator DotEdgeArrowTypeAttribute(DotEdgeArrowType value) => new DotEdgeArrowTypeAttribute(value);
+        public static implicit operator DotEdgeArrowTypeAttribute(string value) => new DotEdgeArrowTypeAttribute(value);
     }
 }

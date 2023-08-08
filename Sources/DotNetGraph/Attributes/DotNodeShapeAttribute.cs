@@ -22,5 +22,8 @@ namespace DotNetGraph.Attributes
         {
             await context.WriteAsync($"\"{Value}\"");
         }
+        
+        public static implicit operator DotNodeShapeAttribute(DotNodeShape value) => new DotNodeShapeAttribute(value);
+        public static implicit operator DotNodeShapeAttribute(string value) => new DotNodeShapeAttribute(value);
     }
 }

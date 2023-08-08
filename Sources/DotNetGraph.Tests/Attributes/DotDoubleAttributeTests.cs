@@ -35,4 +35,11 @@ public class DotDoubleAttributeTests
         var result = writer.GetStringBuilder().ToString();
         result.Should().Be("123.456");
     }
+    
+    [TestMethod]
+    public void ImplicitConversionFromDouble()
+    {
+        DotDoubleAttribute attribute = 123.456d;
+        attribute.Value.Should().Be(123.456d);
+    }
 }

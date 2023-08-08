@@ -8,7 +8,7 @@ namespace DotNetGraph.Attributes
     {
         public string Value { get; set; }
 
-        public bool IsHtml { get; set; } = false;
+        public bool IsHtml { get; set; }
 
         public DotLabelAttribute(string value, bool isHtml = false)
         {
@@ -27,5 +27,7 @@ namespace DotNetGraph.Attributes
             var value = context.Options.AutomaticEscapedCharactersFormat ? Value.FormatGraphvizEscapedCharacters() : Value;
             await context.TextWriter.WriteAsync($"\"{value}\"");
         }
+        
+        public static implicit operator DotLabelAttribute(string value) => new DotLabelAttribute(value);
     }
 }

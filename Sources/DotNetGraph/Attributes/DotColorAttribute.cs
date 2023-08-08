@@ -23,5 +23,8 @@ namespace DotNetGraph.Attributes
         {
             await context.WriteAsync($"\"{Value}\"");
         }
+        
+        public static implicit operator DotColorAttribute(Color value) => new DotColorAttribute(value);
+        public static implicit operator DotColorAttribute(string value) => new DotColorAttribute(value);
     }
 }

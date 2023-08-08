@@ -36,4 +36,18 @@ public class DotEdgeArrowTypeAttributeTests
         var result = writer.GetStringBuilder().ToString();
         result.Should().Be("\"box\"");
     }
+    
+    [TestMethod]
+    public void ImplicitConversionFromDotEdgeArrowType()
+    {
+        DotEdgeArrowTypeAttribute attribute = DotEdgeArrowType.Box;
+        attribute.Value.Should().Be("box");
+    }
+    
+    [TestMethod]
+    public void ImplicitConversionFromString()
+    {
+        DotEdgeArrowTypeAttribute attribute = "box";
+        attribute.Value.Should().Be("box");
+    }
 }

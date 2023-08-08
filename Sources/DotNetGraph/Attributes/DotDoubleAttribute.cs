@@ -20,5 +20,7 @@ namespace DotNetGraph.Attributes
         {
             await context.WriteAsync(Value.ToString(Format, NumberFormatInfo.InvariantInfo));
         }
+        
+        public static implicit operator DotDoubleAttribute(double value) => new DotDoubleAttribute(value);
     }
 }

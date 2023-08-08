@@ -37,4 +37,18 @@ public class DotPointAttributeTests
         var result = writer.GetStringBuilder().ToString();
         result.Should().Be("42,69,75!");
     }
+    
+    [TestMethod]
+    public void ImplicitConversionFromDotPoint()
+    {
+        DotPointAttribute attribute = new DotPoint(42, 69, 75, true);
+        attribute.Value.Should().Be("42,69,75!");
+    }
+
+    [TestMethod]
+    public void ImplicitConversionFromString()
+    {
+        DotPointAttribute attribute = "42,69,75!";
+        attribute.Value.Should().Be("42,69,75!");
+    }
 }

@@ -36,4 +36,18 @@ public class DotColorAttributeTests
         var result = writer.GetStringBuilder().ToString();
         result.Should().Be("\"#FF0000\"");
     }
+
+    [TestMethod]
+    public void ImplicitConversionFromColor()
+    {
+        DotColorAttribute attribute = Color.Red;
+        attribute.Value.Should().Be("#FF0000");
+    }
+    
+    [TestMethod]
+    public void ImplicitConversionFromString()
+    {
+        DotColorAttribute attribute = "#FF0000";
+        attribute.Value.Should().Be("#FF0000");
+    }
 }

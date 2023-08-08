@@ -23,5 +23,8 @@ namespace DotNetGraph.Attributes
         {
             await context.WriteAsync($"\"{Value}\"");
         }
+        
+        public static implicit operator DotEdgeStyleAttribute(DotEdgeStyle value) => new DotEdgeStyleAttribute(value);
+        public static implicit operator DotEdgeStyleAttribute(string value) => new DotEdgeStyleAttribute(value);
     }
 }

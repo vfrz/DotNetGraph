@@ -23,5 +23,8 @@ namespace DotNetGraph.Attributes
         {
             await context.WriteAsync($"\"{Value}\"");
         }
+
+        public static implicit operator DotSubgraphStyleAttribute(DotSubgraphStyle value) => new DotSubgraphStyleAttribute(value);
+        public static implicit operator DotSubgraphStyleAttribute(string value) => new DotSubgraphStyleAttribute(value);
     }
 }

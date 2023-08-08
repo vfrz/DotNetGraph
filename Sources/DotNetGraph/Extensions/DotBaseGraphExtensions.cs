@@ -1,3 +1,4 @@
+using DotNetGraph.Attributes;
 using DotNetGraph.Core;
 
 namespace DotNetGraph.Extensions
@@ -10,9 +11,9 @@ namespace DotNetGraph.Extensions
             return graph;
         }
 
-        public static T WithRankDir<T>(this T graph, DotRankDir? rankDir) where T : DotBaseGraph
+        public static T WithRankDir<T>(this T graph, DotRankDir rankDir) where T : DotBaseGraph
         {
-            graph.RankDir = rankDir;
+            graph.RankDir = new DotRankDirAttribute(rankDir);
             return graph;
         }
 

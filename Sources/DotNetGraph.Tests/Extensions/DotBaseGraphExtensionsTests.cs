@@ -34,7 +34,7 @@ public class DotBaseGraphExtensionsTests
         var graph = new DotGraph()
             .WithRankDir(DotRankDir.TB);
 
-        graph.RankDir.Should().Be(DotRankDir.TB);
+        graph.RankDir.Value.Should().Be("TB");
     }
 
     [TestMethod]

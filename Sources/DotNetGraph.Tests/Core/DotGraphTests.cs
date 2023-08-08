@@ -68,6 +68,25 @@ public class DotGraphTests
         await graph.CompileAsync(context);
         
         var result = writer.GetStringBuilder().ToString();
-        result.Should().Be("digraph \"Test\" {\n\trankdir=\"RL\"\n}\n");
+        result.Should().Be("digraph \"Test\" {\n\t\"rankdir\"=\"RL\"\n}\n");
+    }
+
+    [TestMethod]
+    public async Task CompileDirectedGraphWithOneNode()
+    {
+        var node = new DotNode()
+            .WithIdentifier("TestNode");
+        
+        var graph = new DotGraph()
+            .WithIdentifier("Test")
+            .Directed()
+            .Add(node);
+
+        await using var writer = new StringWriter();
+        var context = new CompilationContext(writer, new CompilationOptions());
+        await graph.CompileAsync(context);
+
+        var result = writer.GetStringBuilder().ToString();
+        result.Should().Be("digraph \"Test\" {\n\t\"TestNode\"\n}\n");
     }
 }

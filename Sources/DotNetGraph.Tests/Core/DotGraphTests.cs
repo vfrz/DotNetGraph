@@ -22,7 +22,7 @@ public class DotGraphTests
         await graph.CompileAsync(context);
 
         var result = writer.GetStringBuilder().ToString();
-        result.Should().Be("graph \"Test\" {\n}\n");
+        result.Should().Be("graph Test {\n}\n");
     }
     
     [TestMethod]
@@ -37,7 +37,7 @@ public class DotGraphTests
         await graph.CompileAsync(context);
 
         var result = writer.GetStringBuilder().ToString();
-        result.Should().Be("strict graph \"Test\" {\n}\n");
+        result.Should().Be("strict graph Test {\n}\n");
     }
     
     [TestMethod]
@@ -52,7 +52,7 @@ public class DotGraphTests
         await graph.CompileAsync(context);
 
         var result = writer.GetStringBuilder().ToString();
-        result.Should().Be("digraph \"Test\" {\n}\n");
+        result.Should().Be("digraph Test {\n}\n");
     }
 
     [TestMethod]
@@ -68,7 +68,7 @@ public class DotGraphTests
         await graph.CompileAsync(context);
         
         var result = writer.GetStringBuilder().ToString();
-        result.Should().Be("digraph \"Test\" {\n\t\"rankdir\"=\"RL\"\n}\n");
+        result.Should().Be("digraph Test {\n\t\"rankdir\"=\"RL\"\n}\n");
     }
 
     [TestMethod]
@@ -87,6 +87,6 @@ public class DotGraphTests
         await graph.CompileAsync(context);
 
         var result = writer.GetStringBuilder().ToString();
-        result.Should().Be("digraph \"Test\" {\n\t\"TestNode\"\n}\n");
+        result.Should().Be("digraph Test {\n\tTestNode\n}\n");
     }
 }

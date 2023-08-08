@@ -23,7 +23,7 @@ public class DotNodeTests
         await node.CompileAsync(context);
 
         var result = writer.GetStringBuilder().ToString();
-        result.Should().Be("\"Test\"\n");
+        result.Should().Be("Test\n");
     }
 
     [TestMethod]
@@ -38,6 +38,6 @@ public class DotNodeTests
         await node.CompileAsync(context);
 
         var result = writer.GetStringBuilder().ToString();
-        result.Should().Be("\"Test\" [\n\t\"color\"=\"#FF0000\"\n]\n");
+        result.Should().Be("Test [\n\t\"color\"=\"#FF0000\"\n]\n");
     }
 }

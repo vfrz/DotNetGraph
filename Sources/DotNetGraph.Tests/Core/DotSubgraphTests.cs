@@ -22,6 +22,6 @@ public class DotSubgraphTests
         await subgraph.CompileAsync(context);
 
         var result = writer.GetStringBuilder().ToString();
-        result.Should().Be("subgraph \"Test\" {\n}\n");
+        result.Should().Be("subgraph Test {\n}\n");
     }
 }

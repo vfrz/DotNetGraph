@@ -24,7 +24,7 @@ public class DotEdgeTests
         await edge.CompileAsync(context);
 
         var result = writer.GetStringBuilder().ToString();
-        result.Should().Be("\"A\" -- \"B\"\n");
+        result.Should().Be("A -- B\n");
     }
     
     [TestMethod]
@@ -42,7 +42,7 @@ public class DotEdgeTests
         await edge.CompileAsync(context);
 
         var result = writer.GetStringBuilder().ToString();
-        result.Should().Be("\"A\" -> \"B\"\n");
+        result.Should().Be("A -> B\n");
     }
 
     [TestMethod]
@@ -96,6 +96,6 @@ public class DotEdgeTests
         await edge.CompileAsync(context);
 
         var result = writer.GetStringBuilder().ToString();
-        result.Should().Be("\"A\" -> \"B\" [\n\t\"label\"=\"Test\"\n\t\"style\"=\"bold\"\n]\n");
+        result.Should().Be("A -> B [\n\t\"label\"=\"Test\"\n\t\"style\"=\"bold\"\n]\n");
     }
 }

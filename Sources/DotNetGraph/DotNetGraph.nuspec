@@ -4,14 +4,14 @@
     <metadata>
         <id>DotNetGraph</id>
         <title>DotNetGraph</title>
-        <version>3.0.0-beta1</version>
+        <version>3.0.0-beta2</version>
         <authors>VFRZ</authors>
         <owners>VFRZ</owners>
         <icon>icon.png</icon>
         <projectUrl>https://github.com/vfrz/DotNetGraph</projectUrl>
         <repository type="git" url="https://github.com/vfrz/DotNetGraph.git"/>
         <description>Create Graphviz DOT graph with dotnet</description>
-        <releaseNotes>3.0 beta 1 release</releaseNotes>
+        <releaseNotes>3.0 beta 2 release</releaseNotes>
         <copyright>Copyright 2023</copyright>
         <tags>DOT Graphviz Graph Visualization Graphs</tags>
         <requireLicenseAcceptance>true</requireLicenseAcceptance>

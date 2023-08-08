@@ -2,11 +2,11 @@
 
 ![Logo](Resources/icon_64.png)
 
-Create **GraphViz DOT graph** with **dotnet**.
+Create **GraphViz DOT graph** with **dotnet** (compatible with **.NET Standard 2.0** and higher).
 
-Available on NuGet: [![#](https://img.shields.io/nuget/v/DotNetGraph.svg)](https://www.nuget.org/packages/DotNetGraph/)
+Current stable version: [![#](https://img.shields.io/nuget/v/DotNetGraph.svg)](https://www.nuget.org/packages/DotNetGraph/)
 
-Compatible with **.NET Standard 2.0** and higher.
+Latest version: [![#](https://img.shields.io/nuget/vpre/DotNetGraph.svg)](https://www.nuget.org/packages/DotNetGraph/absoluteLatest)
 
 # Usage
 

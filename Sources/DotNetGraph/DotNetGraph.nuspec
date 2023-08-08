@@ -3,10 +3,11 @@
         xmlns="https://raw.githubusercontent.com/NuGet/NuGet.Client/dev/src/NuGet.Core/NuGet.Packaging/compiler/resources/nuspec.xsd">
     <metadata>
         <id>DotNetGraph</id>
-        <version>3.0.0</version>
         <title>DotNetGraph</title>
+        <version>3.0.0</version>
         <authors>VFRZ</authors>
         <owners>VFRZ</owners>
+        <icon>icon.png</icon>
         <projectUrl>https://github.com/vfrz/DotNetGraph</projectUrl>
         <repository type="git" url="https://github.com/vfrz/DotNetGraph.git"/>
         <description>Create Graphviz DOT graph with dotnet</description>
@@ -23,5 +24,6 @@
     <files>
         <file src="bin\Release\netstandard2.0\DotNetGraph.dll" target="lib\netstandard2.0\DotNetGraph.dll"/>
         <file src="..\..\LICENSE.txt" target="LICENSE.txt"/>
+        <file src="..\..\Resources\icon_128.png" target="icon.png" />
     </files>
 </package>

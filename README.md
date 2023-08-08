@@ -1,5 +1,7 @@
 # DotNetGraph
 
+![Logo](Resources/icon_64.png)
+
 Create **GraphViz DOT graph** with **dotnet**.
 
 Available on NuGet: [![#](https://img.shields.io/nuget/v/DotNetGraph.svg)](https://www.nuget.org/packages/DotNetGraph/)
@@ -90,3 +92,8 @@ var result = writer.GetStringBuilder().ToString();
 // Save it to a file
 File.WriteAllText("graph.dot", result);
 ```
+<hr>
+
+### Credits
+
+Logo: https://www.flaticon.com/free-icon/flow-chart_4411911

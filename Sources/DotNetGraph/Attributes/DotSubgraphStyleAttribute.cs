@@ -5,16 +5,16 @@ using DotNetGraph.Extensions;
 
 namespace DotNetGraph.Attributes
 {
-    public class DotEdgeStyleAttribute : IDotAttribute
+    public class DotSubgraphStyleAttribute : IDotAttribute
     {
         public string Value { get; set; }
 
-        public DotEdgeStyleAttribute(string value)
+        public DotSubgraphStyleAttribute(string value)
         {
             Value = value;
         }
 
-        public DotEdgeStyleAttribute(DotEdgeStyle style)
+        public DotSubgraphStyleAttribute(DotSubgraphStyle style)
         {
             Value = style.FlagsToString();
         }
@@ -23,8 +23,8 @@ namespace DotNetGraph.Attributes
         {
             await context.WriteAsync($"\"{Value}\"");
         }
-        
-        public static implicit operator DotEdgeStyleAttribute(DotEdgeStyle value) => new DotEdgeStyleAttribute(value);
-        public static implicit operator DotEdgeStyleAttribute(string value) => new DotEdgeStyleAttribute(value);
+
+        public static implicit operator DotSubgraphStyleAttribute(DotSubgraphStyle value) => new DotSubgraphStyleAttribute(value);
+        public static implicit operator DotSubgraphStyleAttribute(string value) => new DotSubgraphStyleAttribute(value);
     }
 }

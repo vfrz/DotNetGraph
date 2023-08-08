@@ -3,16 +3,17 @@
         xmlns="https://raw.githubusercontent.com/NuGet/NuGet.Client/dev/src/NuGet.Core/NuGet.Packaging/compiler/resources/nuspec.xsd">
     <metadata>
         <id>DotNetGraph</id>
-        <version>2.7.0</version>
         <title>DotNetGraph</title>
+        <version>3.0.0</version>
         <authors>VFRZ</authors>
         <owners>VFRZ</owners>
+        <icon>icon.png</icon>
         <projectUrl>https://github.com/vfrz/DotNetGraph</projectUrl>
         <repository type="git" url="https://github.com/vfrz/DotNetGraph.git"/>
-        <description>Create GraphViz DOT diagram / graph using C#/.Net</description>
-        <releaseNotes>Custom attributes, extension methods and more.</releaseNotes>
-        <copyright>Copyright 2022</copyright>
-        <tags>DOT Graphviz</tags>
+        <description>Create Graphviz DOT graph with dotnet</description>
+        <releaseNotes>Initial 3.0 release</releaseNotes>
+        <copyright>Copyright 2023</copyright>
+        <tags>DOT Graphviz Graph Visualization Graphs</tags>
         <requireLicenseAcceptance>true</requireLicenseAcceptance>
         <license type="file">LICENSE.txt</license>
         <frameworkReferences>netstandard2.0</frameworkReferences>
@@ -23,5 +24,6 @@
     <files>
         <file src="bin\Release\netstandard2.0\DotNetGraph.dll" target="lib\netstandard2.0\DotNetGraph.dll"/>
         <file src="..\..\LICENSE.txt" target="LICENSE.txt"/>
+        <file src="..\..\Resources\icon_128.png" target="icon.png" />
     </files>
 </package>

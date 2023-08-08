@@ -1,20 +1,30 @@
 using System.Drawing;
-using DotNetGraph.Core;
+using System.Threading.Tasks;
+using DotNetGraph.Compilation;
+using DotNetGraph.Extensions;
 
 namespace DotNetGraph.Attributes
 {
     public class DotColorAttribute : IDotAttribute
     {
-        public Color Color { get; set; }
+        public string Value { get; set; }
 
-        public DotColorAttribute(Color color = default)
+        public DotColorAttribute(Color color)
         {
-            Color = color;
+            Value = color.ToHexString();
         }
 
-        public static implicit operator DotColorAttribute(Color? color)
+        public DotColorAttribute(string value)
         {
-            return color.HasValue ? new DotColorAttribute(color.Value) : null;
+            Value = value;
         }
+
+        public async Task CompileAsync(CompilationContext context)
+        {
+            await context.WriteAsync($"\"{Value}\"");
+        }
+        
+        public static implicit operator DotColorAttribute(Color value) => new DotColorAttribute(value);
+        public static implicit operator DotColorAttribute(string value) => new DotColorAttribute(value);
     }
 }

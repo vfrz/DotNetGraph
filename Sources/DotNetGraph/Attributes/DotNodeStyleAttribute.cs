@@ -1,20 +1,30 @@
+using System.Threading.Tasks;
+using DotNetGraph.Compilation;
 using DotNetGraph.Core;
-using DotNetGraph.Node;
+using DotNetGraph.Extensions;
 
 namespace DotNetGraph.Attributes
 {
-    public class DotNodeStyleAttribute : DotColorAttribute
+    public class DotNodeStyleAttribute : IDotAttribute
     {
-        public DotNodeStyle Style { get; set; }
+        public string Value { get; set; }
 
-        public DotNodeStyleAttribute(DotNodeStyle style = default)
+        public DotNodeStyleAttribute(string value)
         {
-            Style = style;
+            Value = value;
         }
 
-        public static implicit operator DotNodeStyleAttribute(DotNodeStyle? style)
+        public DotNodeStyleAttribute(DotNodeStyle style)
         {
-            return style.HasValue ? new DotNodeStyleAttribute(style.Value) : null;
+            Value = style.FlagsToString();
         }
+
+        public async Task CompileAsync(CompilationContext context)
+        {
+            await context.WriteAsync($"\"{Value}\"");
+        }
+        
+        public static implicit operator DotNodeStyleAttribute(DotNodeStyle value) => new DotNodeStyleAttribute(value);
+        public static implicit operator DotNodeStyleAttribute(string value) => new DotNodeStyleAttribute(value);
     }
 }

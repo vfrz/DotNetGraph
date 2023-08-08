@@ -1,42 +1,65 @@
-﻿using DotNetGraph.Extensions;
-using NFluent;
 using System;
-using Xunit;
+using DotNetGraph.Extensions;
+using FluentAssertions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace DotNetGraph.Tests.Extensions
+namespace DotNetGraph.Tests.Extensions;
+
+[TestClass]
+public class EnumExtensionsTests
 {
-    public class EnumExtensionsTests
+    [Flags]
+    private enum TestFlaggedEnum
     {
-        public enum EnumWithoutFlags
-        {
-            One, Two, Three
-        }
+        Hello = 1,
+        World = 2,
+        Lorem = 4,
+        Ipsum = 8
+    }
 
-        [Flags]
-        public enum EnumWithFlags
-        {
-            One = 1,
-            Two = 2,
-            Three = 4
-        }
+    private enum TestNonFlaggedEnum
+    {
+        Hello,
+        World
+    }
+    
+    [TestMethod]
+    public void FlagsToStringNoFlag()
+    {
+        var value = (TestFlaggedEnum) 0;
 
-        [Fact]
-        public void FlagsToString_WhenEnumWithoutFlagsProvided_ThenThereIsAnException()
-        {
-            var e = EnumWithoutFlags.One | EnumWithoutFlags.Three;
+        var result = value.FlagsToString();
 
-            Check.ThatCode(() => e.FlagsToString())
-                .Throws<InvalidOperationException>();
-        }
+        result.Should().BeEmpty();
+    }
+    
+    [TestMethod]
+    public void FlagsToStringOneFlag()
+    {
+        var value = TestFlaggedEnum.Lorem;
 
-        [Theory]
-        [InlineData(EnumWithFlags.One, "one")]
-        [InlineData(default(EnumWithFlags), "")]
-        [InlineData(EnumWithFlags.One | EnumWithFlags.Three, "one,three")]
-        public void FlagsToString_WhenEnumWithFlagsProvided_ThenCorrectStringIsReturned(EnumWithFlags e, string expected)
-        {
-            var result = e.FlagsToString();
-            Check.That(result).HasSameValueAs(expected);
-        }
+        var result = value.FlagsToString();
+
+        result.Should().Be("lorem");
+    }
+    
+    [TestMethod]
+    public void FlagsToStringMultipleFlags()
+    {
+        var value = TestFlaggedEnum.Hello | TestFlaggedEnum.World | TestFlaggedEnum.Ipsum;
+
+        var result = value.FlagsToString();
+
+        result.Should().Be("hello,world,ipsum");
+    }
+    
+    [TestMethod]
+    public void FlagsToStringNonFlaggedEnum()
+    {
+        var value = TestNonFlaggedEnum.Hello;
+
+        value.Invoking(v => v.FlagsToString())
+            .Should()
+            .Throw<Exception>();
     }
 }

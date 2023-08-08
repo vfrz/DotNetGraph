@@ -1,20 +1,29 @@
+using System.Threading.Tasks;
+using DotNetGraph.Compilation;
 using DotNetGraph.Core;
-using DotNetGraph.Node;
 
 namespace DotNetGraph.Attributes
 {
     public class DotNodeShapeAttribute : IDotAttribute
     {
-        public DotNodeShape Shape { get; set; }
+        public string Value { get; set; }
 
-        public DotNodeShapeAttribute(DotNodeShape shape = default)
+        public DotNodeShapeAttribute(string value)
         {
-            Shape = shape;
+            Value = value;
         }
 
-        public static implicit operator DotNodeShapeAttribute(DotNodeShape? shape)
+        public DotNodeShapeAttribute(DotNodeShape shape)
         {
-            return shape.HasValue ? new DotNodeShapeAttribute(shape.Value) : null;
+            Value = shape.ToString().ToLowerInvariant();
         }
+
+        public async Task CompileAsync(CompilationContext context)
+        {
+            await context.WriteAsync($"\"{Value}\"");
+        }
+        
+        public static implicit operator DotNodeShapeAttribute(DotNodeShape value) => new DotNodeShapeAttribute(value);
+        public static implicit operator DotNodeShapeAttribute(string value) => new DotNodeShapeAttribute(value);
     }
 }

@@ -1,4 +1,3 @@
-using System.Drawing;
 using DotNetGraph.Attributes;
 using DotNetGraph.Core;
 
@@ -36,7 +35,7 @@ namespace DotNetGraph.Extensions
             return edge;
         }
 
-        public static DotEdge WithColor(this DotEdge edge, Color color)
+        public static DotEdge WithColor(this DotEdge edge, DotColor color)
         {
             edge.Color = new DotColorAttribute(color);
             return edge;

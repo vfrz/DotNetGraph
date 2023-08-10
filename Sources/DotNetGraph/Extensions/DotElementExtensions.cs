@@ -1,4 +1,3 @@
-using System.Drawing;
 using DotNetGraph.Attributes;
 using DotNetGraph.Core;
 
@@ -30,7 +29,7 @@ namespace DotNetGraph.Extensions
             return element;
         }
         
-        public static T WithFontColor<T>(this T element, Color color) where T : DotElement
+        public static T WithFontColor<T>(this T element, DotColor color) where T : DotElement
         {
             element.FontColor = new DotColorAttribute(color);
             return element;

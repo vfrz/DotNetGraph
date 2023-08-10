@@ -1,7 +1,6 @@
-using System.Drawing;
 using System.Threading.Tasks;
 using DotNetGraph.Compilation;
-using DotNetGraph.Extensions;
+using DotNetGraph.Core;
 
 namespace DotNetGraph.Attributes
 {
@@ -9,7 +8,7 @@ namespace DotNetGraph.Attributes
     {
         public string Value { get; set; }
 
-        public DotColorAttribute(Color color)
+        public DotColorAttribute(DotColor color)
         {
             Value = color.ToHexString();
         }
@@ -24,7 +23,7 @@ namespace DotNetGraph.Attributes
             await context.WriteAsync($"\"{Value}\"");
         }
         
-        public static implicit operator DotColorAttribute(Color value) => new DotColorAttribute(value);
+        public static implicit operator DotColorAttribute(DotColor value) => new DotColorAttribute(value);
         public static implicit operator DotColorAttribute(string value) => new DotColorAttribute(value);
     }
 }

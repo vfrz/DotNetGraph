@@ -1,8 +1,8 @@
-using System.Drawing;
 using System.IO;
 using System.Threading.Tasks;
 using DotNetGraph.Attributes;
 using DotNetGraph.Compilation;
+using DotNetGraph.Core;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -27,7 +27,7 @@ public class DotColorAttributeTests
     [TestMethod]
     public async Task CompileFromColor()
     {
-        var attribute = new DotColorAttribute(Color.Red);
+        var attribute = new DotColorAttribute(DotColor.Red);
 
         await using var writer = new StringWriter();
         var context = new CompilationContext(writer, new CompilationOptions());
@@ -40,7 +40,7 @@ public class DotColorAttributeTests
     [TestMethod]
     public void ImplicitConversionFromColor()
     {
-        DotColorAttribute attribute = Color.Red;
+        DotColorAttribute attribute = DotColor.Red;
         attribute.Value.Should().Be("#FF0000");
     }
     

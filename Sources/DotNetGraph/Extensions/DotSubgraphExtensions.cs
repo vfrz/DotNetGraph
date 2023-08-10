@@ -1,4 +1,3 @@
-using System.Drawing;
 using DotNetGraph.Attributes;
 using DotNetGraph.Core;
 
@@ -12,7 +11,7 @@ namespace DotNetGraph.Extensions
             return subgraph;
         }
 
-        public static DotSubgraph WithColor(this DotSubgraph subgraph, Color color)
+        public static DotSubgraph WithColor(this DotSubgraph subgraph, DotColor color)
         {
             subgraph.Color = new DotColorAttribute(color);
             return subgraph;

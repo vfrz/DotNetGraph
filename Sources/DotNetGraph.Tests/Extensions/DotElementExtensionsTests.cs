@@ -1,4 +1,3 @@
-using System.Drawing;
 using DotNetGraph.Attributes;
 using DotNetGraph.Core;
 using DotNetGraph.Extensions;
@@ -53,7 +52,7 @@ public class DotElementExtensionsTests
     public void WithFontColor()
     {
         var node = new DotNode()
-            .WithFontColor(Color.Red);
+            .WithFontColor(DotColor.Red);
 
         node.FontColor.Value.Should().Be("#FF0000");
     }

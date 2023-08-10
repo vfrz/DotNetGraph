@@ -1,4 +1,3 @@
-using System.Drawing;
 using DotNetGraph.Core;
 using DotNetGraph.Extensions;
 using FluentAssertions;
@@ -42,7 +41,7 @@ public class DotNodeExtensionsTests
     public void WithColor()
     {
         var node = new DotNode()
-            .WithColor(Color.Red);
+            .WithColor(DotColor.Red);
 
         node.Color.Value.Should().Be("#FF0000");
     }
@@ -60,7 +59,7 @@ public class DotNodeExtensionsTests
     public void WithFillColor()
     {
         var node = new DotNode()
-            .WithFillColor(Color.Red);
+            .WithFillColor(DotColor.Red);
 
         node.FillColor.Value.Should().Be("#FF0000");
     }

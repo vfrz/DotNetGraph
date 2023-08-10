@@ -1,4 +1,3 @@
-using System.Drawing;
 using DotNetGraph.Core;
 using DotNetGraph.Extensions;
 using FluentAssertions;
@@ -22,7 +21,7 @@ public class DotSubgraphExtensionsTests
     public void WithColor()
     {
         var subgraph = new DotSubgraph()
-            .WithColor(Color.Red);
+            .WithColor(DotColor.Red);
 
         subgraph.Color.Value.Should().Be("#FF0000");
     }

@@ -1,4 +1,3 @@
-using System.Drawing;
 using DotNetGraph.Core;
 using DotNetGraph.Extensions;
 using FluentAssertions;
@@ -114,7 +113,7 @@ public class DotEdgeExtensionsTests
     public void WithColor()
     {
         var edge = new DotEdge()
-            .WithColor(Color.Red);
+            .WithColor(DotColor.Red);
 
         edge.Color.Value.Should().Be("#FF0000");
     }

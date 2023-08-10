@@ -1,4 +1,3 @@
-using System.Drawing;
 using DotNetGraph.Attributes;
 using DotNetGraph.Core;
 
@@ -18,7 +17,7 @@ namespace DotNetGraph.Extensions
             return node;
         }
 
-        public static DotNode WithColor(this DotNode node, Color color)
+        public static DotNode WithColor(this DotNode node, DotColor color)
         {
             node.Color = new DotColorAttribute(color);
             return node;
@@ -30,7 +29,7 @@ namespace DotNetGraph.Extensions
             return node;
         }
 
-        public static DotNode WithFillColor(this DotNode node, Color color)
+        public static DotNode WithFillColor(this DotNode node, DotColor color)
         {
             node.FillColor = new DotColorAttribute(color);
             return node;

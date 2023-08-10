@@ -1,4 +1,3 @@
-using System.Drawing;
 using System.IO;
 using System.Threading.Tasks;
 using DotNetGraph.Compilation;
@@ -31,7 +30,7 @@ public class DotNodeTests
     {
         var node = new DotNode()
             .WithIdentifier("Test")
-            .WithColor(Color.Red);
+            .WithColor(DotColor.Red);
 
         await using var writer = new StringWriter();
         var context = new CompilationContext(writer, new CompilationOptions());

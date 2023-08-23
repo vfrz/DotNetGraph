@@ -89,4 +89,36 @@ public class DotGraphTests
         var result = writer.GetStringBuilder().ToString();
         result.Should().Be("digraph Test {\n\tTestNode\n}\n");
     }
+
+    [TestMethod]
+    public void GetNodeByIdentifier()
+    {
+        var node = new DotNode()
+            .WithIdentifier("TestNode");
+        
+        var graph = new DotGraph()
+            .WithIdentifier("Test")
+            .Directed()
+            .Add(node);
+
+        var nodeFromGraph = graph.GetNodeByIdentifier("TestNode");
+
+        nodeFromGraph.Should().Be(node);
+    }
+    
+    [TestMethod]
+    public void GetNodeByIdentifier_MissingNode()
+    {
+        var node = new DotNode()
+            .WithIdentifier("TestNode");
+        
+        var graph = new DotGraph()
+            .WithIdentifier("Test")
+            .Directed()
+            .Add(node);
+
+        var nodeFromGraph = graph.GetNodeByIdentifier("NotTestNode");
+
+        nodeFromGraph.Should().BeNull();
+    }
 }

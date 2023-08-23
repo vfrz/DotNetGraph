@@ -62,11 +62,11 @@ graph.Add(myEdge);
 
 ```csharp
 // Subgraph identifier need to start with "cluster" to be identified as a cluster
-var mySubGraph = new DotSubGraph().WithIdentifier("cluster_0");
+var mySubgraph = new DotSubgraph().WithIdentifier("cluster_0");
 
 // Create a subgraph with attributes (only used for cluster)
-var mySubGraph = new DotSubGraph()
-    .WithIdentifier("cluster_0")
+var mySubgraph2 = new DotSubgraph()
+    .WithIdentifier("cluster_1")
     .WithColor(DotColor.Red)
     .WithStyle(DotSubGraphStyle.Dashed)
     .WithLabel("My subgraph!");
@@ -74,10 +74,10 @@ var mySubGraph = new DotSubGraph()
 // Add node, edge, subgraph
 subGraph.Add(myNode);
 subGraph.Add(myEdge);
-subGraph.Add(mySubGraph2);
+subGraph.Add(mySubgraph2);
 
 // Add subgraph to main graph
-graph.Add(mySubGraph);
+graph.Add(mySubgraph);
 ```
 
 ## Compile to DOT format

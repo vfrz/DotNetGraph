@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using DotNetGraph.Attributes;
 using DotNetGraph.Compilation;
@@ -13,6 +14,14 @@ namespace DotNetGraph.Core
         {
             get => GetAttributeOrDefault<DotRankDirAttribute>("rankdir");
             set => SetAttribute("rankdir", value);
+        }
+
+        public DotNode GetNodeByIdentifier(string identifier, bool isHtml = false)
+        {
+            return Elements
+                .Where(e => e is DotNode)
+                .Cast<DotNode>()
+                .FirstOrDefault(node => node.Identifier == new DotIdentifier(identifier, isHtml));
         }
 
         public List<IDotElement> Elements { get; } = new List<IDotElement>();

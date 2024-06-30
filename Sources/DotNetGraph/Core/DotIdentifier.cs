@@ -9,6 +9,8 @@ namespace DotNetGraph.Core
 {
     public class DotIdentifier : IDotElement, IEquatable<DotIdentifier>
     {
+        private readonly bool _quoteReservedWords;
+
         private static readonly Regex NoQuotesRequiredRegex
             = new Regex("^([a-zA-Z\\200-\\377_][a-zA-Z\\200-\\3770-9_]*|[-]?(.[0-9]+|[0-9]+(.[0-9]+)?))$");
 
@@ -26,8 +28,9 @@ namespace DotNetGraph.Core
 
         public bool IsHtml { get; set; } = false;
 
-        public DotIdentifier(string value, bool isHtml = false)
+        public DotIdentifier(string value, bool isHtml = false, bool quoteReservedWords = true)
         {
+            _quoteReservedWords = quoteReservedWords;
             Value = value;
             IsHtml = isHtml;
         }
@@ -41,7 +44,7 @@ namespace DotNetGraph.Core
             }
 
             var value = context.Options.AutomaticEscapedCharactersFormat ? Value.FormatGraphvizEscapedCharacters() : Value;
-            if (RequiresDoubleQuotes(value))
+            if (RequiresDoubleQuotes(value) && _quoteReservedWords)
                 await context.TextWriter.WriteAsync($"\"{value}\"");
             else
                 await context.TextWriter.WriteAsync($"{value}");

@@ -5,9 +5,10 @@ namespace DotNetGraph.Extensions
 {
     public static class DotNodeExtensions
     {
-        public static DotNode WithIdentifier(this DotNode node, string identifier, bool isHtml = false)
+        public static DotNode WithIdentifier(this DotNode node, string identifier, bool isHtml = false,
+            bool quoteReservedWords = true)
         {
-            node.Identifier = new DotIdentifier(identifier, isHtml);
+            node.Identifier = new DotIdentifier(identifier, isHtml, quoteReservedWords);
             return node;
         }
 

@@ -4,15 +4,15 @@
     <metadata>
         <id>DotNetGraph</id>
         <title>DotNetGraph</title>
-        <version>3.0.0</version>
+        <version>3.2.0</version>
         <authors>VFRZ</authors>
         <owners>VFRZ</owners>
         <icon>icon.png</icon>
         <projectUrl>https://github.com/vfrz/DotNetGraph</projectUrl>
         <repository type="git" url="https://github.com/vfrz/DotNetGraph.git"/>
         <description>Create Graphviz DOT graph with dotnet</description>
-        <releaseNotes>3.0 release</releaseNotes>
-        <copyright>Copyright 2023</copyright>
+        <releaseNotes>3.2 release</releaseNotes>
+        <copyright>Copyright 2024</copyright>
         <tags>DOT Graphviz Graph Visualization Graphs</tags>
         <requireLicenseAcceptance>true</requireLicenseAcceptance>
         <license type="file">LICENSE.txt</license>

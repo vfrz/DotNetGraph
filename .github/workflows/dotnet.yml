@@ -22,6 +22,8 @@ jobs:
           - { name: .NET 5, version: "5.0.x" }
           - { name: .NET 6, version: "6.0.x" }
           - { name: .NET 7, version: "7.0.x" }
+          - { name: .NET 8, version: "8.0.x" }
+          - { name: .NET 9, version: "9.0.x" }
 
     steps:
       - uses: actions/checkout@v3
@@ -36,5 +38,5 @@ jobs:
       - name: Build
         run: dotnet build ./Sources -c Release
       - name: Test
-        if: matrix.dotnet.version == '6.0.x'
+        if: matrix.dotnet.version == '8.0.x'
         run: dotnet test ./Sources -v n --no-restore --no-build -c Release

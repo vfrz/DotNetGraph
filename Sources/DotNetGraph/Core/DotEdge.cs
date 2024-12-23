@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DotNetGraph.Attributes;
 using DotNetGraph.Compilation;
+using DotNetGraph.Exceptions;
 
 namespace DotNetGraph.Core
 {
@@ -51,7 +52,7 @@ namespace DotNetGraph.Core
         public override async Task CompileAsync(CompilationContext context)
         {
             if (From is null || To is null)
-                throw new Exception("Can't compile edge with null From and/or To");
+                throw new CompilationException("Can't compile edge with null From and/or To");
 
             await context.WriteIndentationAsync();
             await From.CompileAsync(context);

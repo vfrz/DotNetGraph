@@ -18,8 +18,6 @@ jobs:
           - { name: Windows, os: windows-2022 }
           - { name: macOS, os: macos-15 }
         dotnet:
-          - { name: .NET Core 3.1, version: "3.1" }
-          - { name: .NET 5, version: "5.0.x" }
           - { name: .NET 6, version: "6.0.x" }
           - { name: .NET 7, version: "7.0.x" }
           - { name: .NET 8, version: "8.0.x" }

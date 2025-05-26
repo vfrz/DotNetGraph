@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using DotNetGraph.Attributes;
 using DotNetGraph.Compilation;
+using DotNetGraph.Exceptions;
 
 namespace DotNetGraph.Core
 {
@@ -28,19 +29,12 @@ namespace DotNetGraph.Core
         {
             return Attributes.ContainsKey(name);
         }
-        
-        public IDotAttribute GetAttribute(string name)
-        {
-            if (Attributes.TryGetValue(name, out var attribute))
-                return attribute;
-            throw new Exception($"There is no attribute named '{name}'");
-        }
 
-        public IDotAttribute GetAttributeOrDefault(string name, IDotAttribute defaultValue = default)
+                public IDotAttribute GetAttribute(string name)
         {
             if (Attributes.TryGetValue(name, out var attribute))
                 return attribute;
-            return defaultValue;
+            throw new AttributeNotFoundException(name);
         }
 
         public T GetAttribute<T>(string name) where T : IDotAttribute
@@ -48,7 +42,14 @@ namespace DotNetGraph.Core
             var attribute = GetAttribute(name);
             if (attribute is T result)
                 return result;
-            throw new Exception($"Attribute with name '{name}' doesn't match the expected type (expected: {typeof(T)}, current: {attribute.GetType()})");
+            throw new AttributeTypeNotMatchException(name, typeof(T), attribute.GetType());
+        }
+
+                public IDotAttribute GetAttributeOrDefault(string name, IDotAttribute defaultValue = default)
+        {
+            if (Attributes.TryGetValue(name, out var attribute))
+                return attribute;
+            return defaultValue;
         }
 
         public T GetAttributeOrDefault<T>(string name, T defaultValue = default) where T : IDotAttribute
@@ -57,7 +58,7 @@ namespace DotNetGraph.Core
             {
                 if (attribute is T result)
                     return result;
-                throw new Exception($"Attribute with name '{name}' doesn't match the expected type (expected: {typeof(T)}, current: {attribute.GetType()})");
+                throw new AttributeTypeNotMatchException(name, typeof(T), attribute.GetType());
             }
 
             return defaultValue;
@@ -79,7 +80,7 @@ namespace DotNetGraph.Core
         public bool TryGetAttribute<T>(string name, out T attribute) where T : IDotAttribute
         {
             var result = TryGetAttribute(name, out var untypedAttribute);
-            if (result is false)
+            if (!result)
             {
                 attribute = default;
                 return false;
@@ -91,7 +92,7 @@ namespace DotNetGraph.Core
                 return true;
             }
 
-            throw new Exception($"Attribute with name '{name}' doesn't match the expected type (expected: {typeof(T)}, current: {untypedAttribute.GetType()})");
+            throw new AttributeTypeNotMatchException(name, typeof(T), untypedAttribute.GetType());
         }
 
         public void SetAttribute(string name, IDotAttribute value)

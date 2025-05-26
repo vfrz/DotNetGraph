@@ -1,6 +1,5 @@
 using DotNetGraph.Core;
 using DotNetGraph.Extensions;
-using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DotNetGraph.Tests.Extensions;
@@ -14,8 +13,8 @@ public class DotNodeExtensionsTests
         var node = new DotNode()
             .WithIdentifier("Test");
 
-        node.Identifier.Value.Should().Be("Test");
-        node.Identifier.IsHtml.Should().Be(false);
+        Assert.AreEqual("Test", node.Identifier.Value);
+        Assert.IsFalse(node.Identifier.IsHtml);
     }
 
     [TestMethod]
@@ -24,8 +23,8 @@ public class DotNodeExtensionsTests
         var node = new DotNode()
             .WithIdentifier("<b>Test</b>", true);
 
-        node.Identifier.Value.Should().Be("<b>Test</b>");
-        node.Identifier.IsHtml.Should().Be(true);
+        Assert.AreEqual("<b>Test</b>", node.Identifier.Value);
+        Assert.IsTrue(node.Identifier.IsHtml);
     }
 
     [TestMethod]
@@ -34,7 +33,7 @@ public class DotNodeExtensionsTests
         var node = new DotNode()
             .WithColor("red");
 
-        node.Color.Value.Should().Be("red");
+        Assert.AreEqual("red", node.Color.Value);
     }
 
     [TestMethod]
@@ -43,7 +42,7 @@ public class DotNodeExtensionsTests
         var node = new DotNode()
             .WithColor(DotColor.Red);
 
-        node.Color.Value.Should().Be("#FF0000");
+        Assert.AreEqual("#FF0000", node.Color.Value);
     }
 
     [TestMethod]
@@ -52,7 +51,7 @@ public class DotNodeExtensionsTests
         var node = new DotNode()
             .WithFillColor("red");
 
-        node.FillColor.Value.Should().Be("red");
+        Assert.AreEqual("red", node.FillColor.Value);
     }
 
     [TestMethod]
@@ -61,7 +60,7 @@ public class DotNodeExtensionsTests
         var node = new DotNode()
             .WithFillColor(DotColor.Red);
 
-        node.FillColor.Value.Should().Be("#FF0000");
+        Assert.AreEqual("#FF0000", node.FillColor.Value);
     }
 
     [TestMethod]
@@ -70,7 +69,7 @@ public class DotNodeExtensionsTests
         var node = new DotNode()
             .WithShape("custom");
 
-        node.Shape.Value.Should().Be("custom");
+        Assert.AreEqual("custom", node.Shape.Value);
     }
 
     [TestMethod]
@@ -79,7 +78,7 @@ public class DotNodeExtensionsTests
         var node = new DotNode()
             .WithShape(DotNodeShape.Diamond);
 
-        node.Shape.Value.Should().Be("diamond");
+        Assert.AreEqual("diamond", node.Shape.Value);
     }
 
     [TestMethod]
@@ -88,7 +87,7 @@ public class DotNodeExtensionsTests
         var node = new DotNode()
             .WithStyle("custom");
 
-        node.Style.Value.Should().Be("custom");
+        Assert.AreEqual("custom", node.Style.Value);
     }
 
     [TestMethod]
@@ -97,7 +96,7 @@ public class DotNodeExtensionsTests
         var node = new DotNode()
             .WithStyle(DotNodeStyle.Diagonals);
 
-        node.Style.Value.Should().Be("diagonals");
+        Assert.AreEqual("diagonals", node.Style.Value);
     }
 
     [TestMethod]
@@ -106,7 +105,7 @@ public class DotNodeExtensionsTests
         var node = new DotNode()
             .WithWidth(123.456);
 
-        node.Width.Value.Should().Be(123.456);
+        Assert.AreEqual(123.456, node.Width.Value);
     }
 
     [TestMethod]
@@ -115,7 +114,7 @@ public class DotNodeExtensionsTests
         var node = new DotNode()
             .WithHeight(123.456);
 
-        node.Height.Value.Should().Be(123.456);
+        Assert.AreEqual(123.456, node.Height.Value);
     }
 
     [TestMethod]
@@ -124,7 +123,7 @@ public class DotNodeExtensionsTests
         var node = new DotNode()
             .WithPenWidth(123.456);
 
-        node.PenWidth.Value.Should().Be(123.456);
+        Assert.AreEqual(123.456, node.PenWidth.Value);
     }
 
     [TestMethod]
@@ -133,7 +132,7 @@ public class DotNodeExtensionsTests
         var node = new DotNode()
             .WithPos("42,69");
 
-        node.Pos.Value.Should().Be("42,69");
+        Assert.AreEqual("42,69", node.Pos.Value);
     }
 
     [TestMethod]
@@ -142,7 +141,7 @@ public class DotNodeExtensionsTests
         var node = new DotNode()
             .WithPos(42, 69);
 
-        node.Pos.Value.Should().Be("42,69");
+        Assert.AreEqual("42,69", node.Pos.Value);
     }
 
     [TestMethod]
@@ -151,6 +150,6 @@ public class DotNodeExtensionsTests
         var node = new DotNode()
             .WithPos(42, 69, 75);
 
-        node.Pos.Value.Should().Be("42,69,75");
+        Assert.AreEqual("42,69,75", node.Pos.Value);
     }
 }

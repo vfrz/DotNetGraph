@@ -1,7 +1,6 @@
 using DotNetGraph.Attributes;
 using DotNetGraph.Core;
 using DotNetGraph.Extensions;
-using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DotNetGraph.Tests.Extensions;
@@ -15,8 +14,8 @@ public class DotElementExtensionsTests
         var node = new DotNode()
             .WithLabel("Test");
 
-        node.Label.Value.Should().Be("Test");
-        node.Label.IsHtml.Should().Be(false);
+        Assert.AreEqual("Test", node.Label.Value);
+        Assert.IsFalse(node.Label.IsHtml);
     }
 
     [TestMethod]
@@ -26,7 +25,7 @@ public class DotElementExtensionsTests
             .WithAttribute("hello", "world");
 
         var attribute = node.GetAttribute("hello") as DotAttribute;
-        attribute?.Value.Should().Be("world");
+        Assert.AreEqual("world", attribute?.Value);
     }
 
     [TestMethod]
@@ -36,7 +35,7 @@ public class DotElementExtensionsTests
             .WithAttribute("hello", new DotAttribute("world"));
 
         var attribute = node.GetAttribute("hello") as DotAttribute;
-        attribute?.Value.Should().Be("world");
+        Assert.AreEqual("world", attribute?.Value);
     }
 
     [TestMethod]
@@ -45,7 +44,7 @@ public class DotElementExtensionsTests
         var node = new DotNode()
             .WithFontColor("red");
 
-        node.FontColor.Value.Should().Be("red");
+        Assert.AreEqual("red", node.FontColor.Value);
     }
 
     [TestMethod]
@@ -54,6 +53,6 @@ public class DotElementExtensionsTests
         var node = new DotNode()
             .WithFontColor(DotColor.Red);
 
-        node.FontColor.Value.Should().Be("#FF0000");
+        Assert.AreEqual("#FF0000", node.FontColor.Value);
     }
 }

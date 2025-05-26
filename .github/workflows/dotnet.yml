@@ -36,5 +36,5 @@ jobs:
       - name: Build
         run: dotnet build ./Sources -c Release
       - name: Test
-        if: matrix.dotnet.version == '8.0.x'
+        if: matrix.dotnet.version == '9.0.x'
         run: dotnet test ./Sources -v n --no-restore --no-build -c Release

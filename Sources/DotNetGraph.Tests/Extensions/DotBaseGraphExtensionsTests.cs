@@ -1,6 +1,5 @@
 using DotNetGraph.Core;
 using DotNetGraph.Extensions;
-using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DotNetGraph.Tests.Extensions;
@@ -14,8 +13,8 @@ public class DotBaseGraphExtensionsTests
         var graph = new DotGraph()
             .WithIdentifier("Test");
 
-        graph.Identifier.Value.Should().Be("Test");
-        graph.Identifier.IsHtml.Should().Be(false);
+        Assert.AreEqual("Test", graph.Identifier.Value);
+        Assert.IsFalse(graph.Identifier.IsHtml);
     }
 
     [TestMethod]
@@ -24,8 +23,8 @@ public class DotBaseGraphExtensionsTests
         var graph = new DotGraph()
             .WithIdentifier("<b>Test</b>", true);
 
-        graph.Identifier.Value.Should().Be("<b>Test</b>");
-        graph.Identifier.IsHtml.Should().Be(true);
+        Assert.AreEqual("<b>Test</b>", graph.Identifier.Value);
+        Assert.IsTrue(graph.Identifier.IsHtml);
     }
 
     [TestMethod]
@@ -34,7 +33,7 @@ public class DotBaseGraphExtensionsTests
         var graph = new DotGraph()
             .WithRankDir(DotRankDir.TB);
 
-        graph.RankDir.Value.Should().Be("TB");
+        Assert.AreEqual("TB", graph.RankDir.Value);
     }
 
     [TestMethod]
@@ -45,6 +44,6 @@ public class DotBaseGraphExtensionsTests
         var graph = new DotGraph()
             .Add(node);
 
-        graph.Elements.Should().Contain(node);
+        Assert.Contains(node, graph.Elements);
     }
 }

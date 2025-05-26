@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 using DotNetGraph.Attributes;
@@ -42,7 +41,7 @@ namespace DotNetGraph.Core
             get => GetAttribute<DotEdgeArrowTypeAttribute>("arrowtail");
             set => SetAttribute("arrowtail", value);
         }
-        
+
         public DotPointAttribute Pos
         {
             get => GetAttribute<DotPointAttribute>("pos");

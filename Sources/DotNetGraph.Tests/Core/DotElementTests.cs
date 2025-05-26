@@ -2,7 +2,6 @@ using System;
 using DotNetGraph.Attributes;
 using DotNetGraph.Core;
 using DotNetGraph.Extensions;
-using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DotNetGraph.Tests.Core;
@@ -18,7 +17,7 @@ public class DotElementTests
 
         var hasAttribute = node.HasAttribute("label");
 
-        hasAttribute.Should().BeTrue();
+        Assert.IsTrue(hasAttribute);
     }
 
     [TestMethod]
@@ -28,7 +27,7 @@ public class DotElementTests
 
         var hasAttribute = node.HasAttribute("label");
 
-        hasAttribute.Should().BeFalse();
+        Assert.IsFalse(hasAttribute);
     }
 
     [TestMethod]
@@ -36,9 +35,7 @@ public class DotElementTests
     {
         var node = new DotNode();
 
-        node.Invoking(n => n.GetAttribute("label"))
-            .Should()
-            .Throw<Exception>();
+        Assert.Throws<Exception>(() => node.GetAttribute("label"));
     }
 
     [TestMethod]
@@ -49,7 +46,7 @@ public class DotElementTests
 
         var attribute = node.GetAttributeOrDefault("label");
 
-        attribute.Should().NotBeNull();
+        Assert.IsNotNull(attribute);
     }
 
     [TestMethod]
@@ -59,7 +56,7 @@ public class DotElementTests
 
         var attribute = node.GetAttributeOrDefault("label");
 
-        attribute.Should().BeNull();
+        Assert.IsNull(attribute);
     }
 
     [TestMethod]
@@ -68,9 +65,7 @@ public class DotElementTests
         var node = new DotNode()
             .WithLabel("Test");
 
-        node.Invoking(n => n.GetAttribute<DotColorAttribute>("label"))
-            .Should()
-            .Throw<Exception>();
+        Assert.Throws<Exception>(() => node.GetAttribute<DotColorAttribute>("label"));
     }
 
     [TestMethod]
@@ -79,9 +74,7 @@ public class DotElementTests
         var node = new DotNode()
             .WithLabel("Test");
 
-        node.Invoking(n => n.GetAttributeOrDefault<DotColorAttribute>("label"))
-            .Should()
-            .Throw<Exception>();
+        Assert.Throws<Exception>(() => node.GetAttributeOrDefault<DotColorAttribute>("label"));
     }
 
     [TestMethod]
@@ -91,7 +84,7 @@ public class DotElementTests
 
         var attribute = node.GetAttributeOrDefault<DotLabelAttribute>("label");
 
-        attribute.Should().BeNull();
+        Assert.IsNull(attribute);
     }
 
     [TestMethod]
@@ -102,7 +95,7 @@ public class DotElementTests
 
         node.SetAttribute("label", null);
 
-        node.Label.Should().BeNull();
+        Assert.IsNull(node.Label);
     }
 
     [TestMethod]
@@ -112,8 +105,8 @@ public class DotElementTests
 
         var success = node.TryGetAttribute("label", out var attribute);
 
-        success.Should().BeFalse();
-        attribute.Should().BeNull();
+        Assert.IsFalse(success);
+        Assert.IsNull(attribute);
     }
 
     [TestMethod]
@@ -124,8 +117,8 @@ public class DotElementTests
 
         var success = node.TryGetAttribute<DotLabelAttribute>("label", out var attribute);
 
-        success.Should().BeTrue();
-        attribute.Should().NotBeNull();
+        Assert.IsTrue(success);
+        Assert.IsNotNull(attribute);
     }
 
     [TestMethod]
@@ -135,8 +128,8 @@ public class DotElementTests
 
         var success = node.TryGetAttribute<DotLabelAttribute>("label", out var attribute);
 
-        success.Should().BeFalse();
-        attribute.Should().BeNull();
+        Assert.IsFalse(success);
+        Assert.IsNull(attribute);
     }
 
     [TestMethod]
@@ -145,8 +138,6 @@ public class DotElementTests
         var node = new DotNode()
             .WithLabel("Test");
 
-        node.Invoking(n => node.TryGetAttribute<DotColorAttribute>("label", out _))
-            .Should()
-            .Throw<Exception>();
+        Assert.Throws<Exception>(() => node.TryGetAttribute<DotColorAttribute>("label", out _));
     }
 }

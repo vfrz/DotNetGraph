@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using DotNetGraph.Compilation;
 using DotNetGraph.Core;
 using DotNetGraph.Extensions;
-using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DotNetGraph.Tests.Core;
@@ -22,9 +21,9 @@ public class DotGraphTests
         await graph.CompileAsync(context);
 
         var result = writer.GetStringBuilder().ToString();
-        result.Should().Be("graph Test {\n}\n");
+        Assert.AreEqual("graph Test {\n}\n", result);
     }
-    
+
     [TestMethod]
     public async Task CompileEmptyStrictGraph()
     {
@@ -37,9 +36,9 @@ public class DotGraphTests
         await graph.CompileAsync(context);
 
         var result = writer.GetStringBuilder().ToString();
-        result.Should().Be("strict graph Test {\n}\n");
+        Assert.AreEqual("strict graph Test {\n}\n", result);
     }
-    
+
     [TestMethod]
     public async Task CompileEmptyDirectedGraph()
     {
@@ -52,7 +51,7 @@ public class DotGraphTests
         await graph.CompileAsync(context);
 
         var result = writer.GetStringBuilder().ToString();
-        result.Should().Be("digraph Test {\n}\n");
+        Assert.AreEqual("digraph Test {\n}\n", result);
     }
 
     [TestMethod]
@@ -62,13 +61,13 @@ public class DotGraphTests
             .WithIdentifier("Test")
             .WithRankDir(DotRankDir.RL)
             .Directed();
-        
+
         await using var writer = new StringWriter();
         var context = new CompilationContext(writer, new CompilationOptions());
         await graph.CompileAsync(context);
-        
+
         var result = writer.GetStringBuilder().ToString();
-        result.Should().Be("digraph Test {\n\t\"rankdir\"=\"RL\"\n}\n");
+        Assert.AreEqual("digraph Test {\n\t\"rankdir\"=\"RL\"\n}\n", result);
     }
 
     [TestMethod]
@@ -76,7 +75,7 @@ public class DotGraphTests
     {
         var node = new DotNode()
             .WithIdentifier("TestNode");
-        
+
         var graph = new DotGraph()
             .WithIdentifier("Test")
             .Directed()
@@ -87,7 +86,7 @@ public class DotGraphTests
         await graph.CompileAsync(context);
 
         var result = writer.GetStringBuilder().ToString();
-        result.Should().Be("digraph Test {\n\tTestNode\n}\n");
+        Assert.AreEqual("digraph Test {\n\tTestNode\n}\n", result);
     }
 
     [TestMethod]
@@ -95,7 +94,7 @@ public class DotGraphTests
     {
         var node = new DotNode()
             .WithIdentifier("TestNode");
-        
+
         var graph = new DotGraph()
             .WithIdentifier("Test")
             .Directed()
@@ -103,15 +102,15 @@ public class DotGraphTests
 
         var nodeFromGraph = graph.GetNodeByIdentifier("TestNode");
 
-        nodeFromGraph.Should().Be(node);
+        Assert.AreSame(node, nodeFromGraph);
     }
-    
+
     [TestMethod]
     public void GetNodeByIdentifier_MissingNode()
     {
         var node = new DotNode()
             .WithIdentifier("TestNode");
-        
+
         var graph = new DotGraph()
             .WithIdentifier("Test")
             .Directed()
@@ -119,6 +118,6 @@ public class DotGraphTests
 
         var nodeFromGraph = graph.GetNodeByIdentifier("NotTestNode");
 
-        nodeFromGraph.Should().BeNull();
+        Assert.IsNull(nodeFromGraph);
     }
 }

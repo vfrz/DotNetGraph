@@ -1,6 +1,5 @@
 using DotNetGraph.Core;
 using DotNetGraph.Extensions;
-using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DotNetGraph.Tests.Extensions;
@@ -14,7 +13,7 @@ public class DotSubgraphExtensionsTests
         var subgraph = new DotSubgraph()
             .WithColor("red");
 
-        subgraph.Color.Value.Should().Be("red");
+        Assert.AreEqual("red", subgraph.Color.Value);
     }
 
     [TestMethod]
@@ -23,7 +22,7 @@ public class DotSubgraphExtensionsTests
         var subgraph = new DotSubgraph()
             .WithColor(DotColor.Red);
 
-        subgraph.Color.Value.Should().Be("#FF0000");
+        Assert.AreEqual("#FF0000", subgraph.Color.Value);
     }
 
 
@@ -33,7 +32,7 @@ public class DotSubgraphExtensionsTests
         var subgraph = new DotSubgraph()
             .WithStyle("custom");
 
-        subgraph.Style.Value.Should().Be("custom");
+        Assert.AreEqual("custom", subgraph.Style.Value);
     }
 
     [TestMethod]
@@ -42,6 +41,6 @@ public class DotSubgraphExtensionsTests
         var subgraph = new DotSubgraph()
             .WithStyle(DotSubgraphStyle.Striped);
 
-        subgraph.Style.Value.Should().Be("striped");
+        Assert.AreEqual("striped", subgraph.Style.Value);
     }
 }

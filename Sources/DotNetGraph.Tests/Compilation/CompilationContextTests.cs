@@ -1,7 +1,6 @@
 using System.IO;
 using System.Threading.Tasks;
 using DotNetGraph.Compilation;
-using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DotNetGraph.Tests.Compilation;
@@ -23,9 +22,9 @@ public class CompilationContextTests
         await context.WriteIndentationAsync();
 
         var result = writer.GetStringBuilder().ToString();
-        result.Should().Be("\t\t\t");
+        Assert.AreEqual("\t\t\t", result);
     }
-    
+
     [TestMethod]
     public async Task WriteIndentationAsyncNonIndentedLevel3()
     {
@@ -40,7 +39,7 @@ public class CompilationContextTests
         await context.WriteIndentationAsync();
 
         var result = writer.GetStringBuilder().ToString();
-        result.Should().BeEmpty();
+        Assert.IsTrue(string.IsNullOrEmpty(result));
     }
 
     [TestMethod]
@@ -48,13 +47,13 @@ public class CompilationContextTests
     {
         await using var writer = new StringWriter();
         var context = new CompilationContext(writer, new CompilationOptions());
-        
+
         await context.WriteAsync("Hello, world!");
-        
+
         var result = writer.GetStringBuilder().ToString();
-        result.Should().Be("Hello, world!");
+        Assert.AreEqual("Hello, world!", result);
     }
-    
+
     [TestMethod]
     public async Task WriteLineAsyncIndented()
     {
@@ -63,13 +62,13 @@ public class CompilationContextTests
         {
             Indented = true
         });
-        
+
         await context.WriteLineAsync("Hello, world!");
-        
+
         var result = writer.GetStringBuilder().ToString();
-        result.Should().Be("Hello, world!\n");
+        Assert.AreEqual("Hello, world!\n", result);
     }
-    
+
     [TestMethod]
     public async Task WriteLineAsyncNonIndented()
     {
@@ -78,10 +77,10 @@ public class CompilationContextTests
         {
             Indented = false
         });
-        
+
         await context.WriteLineAsync("Hello, world!");
-        
+
         var result = writer.GetStringBuilder().ToString();
-        result.Should().Be("Hello, world! ");
+        Assert.AreEqual("Hello, world! ", result);
     }
 }

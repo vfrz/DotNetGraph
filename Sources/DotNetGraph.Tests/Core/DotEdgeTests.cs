@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using DotNetGraph.Compilation;
 using DotNetGraph.Core;
 using DotNetGraph.Extensions;
-using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DotNetGraph.Tests.Core;
@@ -24,9 +23,9 @@ public class DotEdgeTests
         await edge.CompileAsync(context);
 
         var result = writer.GetStringBuilder().ToString();
-        result.Should().Be("A -- B\n");
+        Assert.AreEqual("A -- B\n", result);
     }
-    
+
     [TestMethod]
     public async Task CompileEmptyDirectedEdge()
     {
@@ -42,7 +41,7 @@ public class DotEdgeTests
         await edge.CompileAsync(context);
 
         var result = writer.GetStringBuilder().ToString();
-        result.Should().Be("A -> B\n");
+        Assert.AreEqual("A -> B\n", result);
     }
 
     [TestMethod]
@@ -57,11 +56,9 @@ public class DotEdgeTests
             DirectedGraph = true
         };
 
-        await edge.Invoking(e => e.CompileAsync(context))
-            .Should()
-            .ThrowAsync<Exception>();
+        await Assert.ThrowsAsync<Exception>(() => edge.CompileAsync(context));
     }
-    
+
     [TestMethod]
     public async Task CompileWithMissingTo()
     {
@@ -74,9 +71,7 @@ public class DotEdgeTests
             DirectedGraph = true
         };
 
-        await edge.Invoking(e => e.CompileAsync(context))
-            .Should()
-            .ThrowAsync<Exception>();
+        await Assert.ThrowsAsync<Exception>(() => edge.CompileAsync(context));
     }
 
     [TestMethod]
@@ -87,7 +82,7 @@ public class DotEdgeTests
             .To("B")
             .WithLabel("Test")
             .WithStyle(DotEdgeStyle.Bold);
-        
+
         await using var writer = new StringWriter();
         var context = new CompilationContext(writer, new CompilationOptions())
         {
@@ -96,6 +91,6 @@ public class DotEdgeTests
         await edge.CompileAsync(context);
 
         var result = writer.GetStringBuilder().ToString();
-        result.Should().Be("A -> B [\n\t\"label\"=\"Test\"\n\t\"style\"=\"bold\"\n]\n");
+        Assert.AreEqual("A -> B [\n\t\"label\"=\"Test\"\n\t\"style\"=\"bold\"\n]\n", result);
     }
 }

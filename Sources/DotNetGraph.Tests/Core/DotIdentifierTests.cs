@@ -2,7 +2,6 @@ using System.IO;
 using System.Threading.Tasks;
 using DotNetGraph.Compilation;
 using DotNetGraph.Core;
-using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DotNetGraph.Tests.Core;
@@ -20,7 +19,7 @@ public class DotIdentifierTests
         await identifier.CompileAsync(context);
 
         var result = writer.GetStringBuilder().ToString();
-        result.Should().Be("Test");
+        Assert.AreEqual("Test", result);
     }
 
     [TestMethod]
@@ -33,7 +32,7 @@ public class DotIdentifierTests
         await identifier.CompileAsync(context);
 
         var result = writer.GetStringBuilder().ToString();
-        result.Should().Be("\"Hello, world!\"");
+        Assert.AreEqual("\"Hello, world!\"", result);
     }
 
     [DataTestMethod]
@@ -52,9 +51,9 @@ public class DotIdentifierTests
         await identifier.CompileAsync(context);
 
         var result = writer.GetStringBuilder().ToString();
-        result.Should().Be($"\"{identifierValue}\"");
+        Assert.AreEqual($"\"{identifierValue}\"", result);
     }
-    
+
     [TestMethod]
     public async Task CompileHtml()
     {
@@ -65,6 +64,6 @@ public class DotIdentifierTests
         await identifier.CompileAsync(context);
 
         var result = writer.GetStringBuilder().ToString();
-        result.Should().Be("<<b>Test</b>>");
+        Assert.AreEqual("<<b>Test</b>>", result);
     }
 }

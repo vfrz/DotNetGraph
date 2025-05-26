@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using DotNetGraph.Attributes;
@@ -30,7 +29,7 @@ namespace DotNetGraph.Core
             return Attributes.ContainsKey(name);
         }
 
-                public IDotAttribute GetAttribute(string name)
+        public IDotAttribute GetAttribute(string name)
         {
             if (Attributes.TryGetValue(name, out var attribute))
                 return attribute;
@@ -45,7 +44,7 @@ namespace DotNetGraph.Core
             throw new AttributeTypeNotMatchException(name, typeof(T), attribute.GetType());
         }
 
-                public IDotAttribute GetAttributeOrDefault(string name, IDotAttribute defaultValue = default)
+        public IDotAttribute GetAttributeOrDefault(string name, IDotAttribute defaultValue = default)
         {
             if (Attributes.TryGetValue(name, out var attribute))
                 return attribute;

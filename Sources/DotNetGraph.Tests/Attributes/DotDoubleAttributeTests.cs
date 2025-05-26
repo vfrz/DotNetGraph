@@ -2,7 +2,6 @@ using System.IO;
 using System.Threading.Tasks;
 using DotNetGraph.Attributes;
 using DotNetGraph.Compilation;
-using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DotNetGraph.Tests.Attributes;
@@ -20,7 +19,7 @@ public class DotDoubleAttributeTests
         await attribute.CompileAsync(context);
 
         var result = writer.GetStringBuilder().ToString();
-        result.Should().Be("123.46");
+        Assert.AreEqual("123.46", result);
     }
 
     [TestMethod]
@@ -33,13 +32,13 @@ public class DotDoubleAttributeTests
         await attribute.CompileAsync(context);
 
         var result = writer.GetStringBuilder().ToString();
-        result.Should().Be("123.456");
+        Assert.AreEqual("123.456", result);
     }
-    
+
     [TestMethod]
     public void ImplicitConversionFromDouble()
     {
         DotDoubleAttribute attribute = 123.456d;
-        attribute.Value.Should().Be(123.456d);
+        Assert.AreEqual(123.456d, attribute.Value);
     }
 }

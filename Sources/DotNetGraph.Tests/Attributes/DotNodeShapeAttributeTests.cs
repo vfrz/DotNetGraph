@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using DotNetGraph.Attributes;
 using DotNetGraph.Compilation;
 using DotNetGraph.Core;
-using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DotNetGraph.Tests.Attributes;
@@ -21,9 +20,9 @@ public class DotNodeShapeAttributeTests
         await attribute.CompileAsync(context);
 
         var result = writer.GetStringBuilder().ToString();
-        result.Should().Be("\"custom\"");
+        Assert.AreEqual("\"custom\"", result);
     }
-    
+
     [TestMethod]
     public async Task CompileFromEnum()
     {
@@ -34,20 +33,20 @@ public class DotNodeShapeAttributeTests
         await attribute.CompileAsync(context);
 
         var result = writer.GetStringBuilder().ToString();
-        result.Should().Be("\"terminator\"");
+        Assert.AreEqual("\"terminator\"", result);
     }
-    
+
     [TestMethod]
     public void ImplicitConversionFromDotNodeShape()
     {
         DotNodeShapeAttribute attribute = DotNodeShape.Terminator;
-        attribute.Value.Should().Be("terminator");
+        Assert.AreEqual("terminator", attribute.Value);
     }
 
     [TestMethod]
     public void ImplicitConversionFromString()
     {
         DotNodeShapeAttribute attribute = "terminator";
-        attribute.Value.Should().Be("terminator");
+        Assert.AreEqual("terminator", attribute.Value);
     }
 }

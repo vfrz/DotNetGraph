@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using DotNetGraph.Attributes;
 using DotNetGraph.Compilation;
 using DotNetGraph.Core;
-using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DotNetGraph.Tests.Attributes;
@@ -21,7 +20,7 @@ public class DotRankDirAttributeTests
         await attribute.CompileAsync(context);
 
         var result = writer.GetStringBuilder().ToString();
-        result.Should().Be("\"RL\"");
+        Assert.AreEqual("\"RL\"", result);
     }
 
     [TestMethod]
@@ -34,20 +33,20 @@ public class DotRankDirAttributeTests
         await attribute.CompileAsync(context);
 
         var result = writer.GetStringBuilder().ToString();
-        result.Should().Be("\"TB\"");
+        Assert.AreEqual("\"TB\"", result);
     }
 
     [TestMethod]
     public void ImplicitConversionFromDotRankDir()
     {
-        DotRankDirAttribute attribute = DotRankDir.TB;
-        attribute.Value.Should().Be("TB");
+        DotRankDirAttribute attribute = DotRankDir.BT;
+        Assert.AreEqual("BT", attribute.Value);
     }
 
     [TestMethod]
     public void ImplicitConversionFromString()
     {
-        DotRankDirAttribute attribute = "BT";
-        attribute.Value.Should().Be("BT");
+        DotRankDirAttribute attribute = "LR";
+        Assert.AreEqual("LR", attribute.Value);
     }
 }

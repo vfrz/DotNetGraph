@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using DotNetGraph.Attributes;
 using DotNetGraph.Compilation;
 using DotNetGraph.Core;
-using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DotNetGraph.Tests.Attributes;
@@ -21,7 +20,7 @@ public class DotEdgeStyleAttributeTests
         await attribute.CompileAsync(context);
 
         var result = writer.GetStringBuilder().ToString();
-        result.Should().Be("\"custom\"");
+        Assert.AreEqual("\"custom\"", result);
     }
 
     [TestMethod]
@@ -34,20 +33,20 @@ public class DotEdgeStyleAttributeTests
         await attribute.CompileAsync(context);
 
         var result = writer.GetStringBuilder().ToString();
-        result.Should().Be("\"solid\"");
+        Assert.AreEqual("\"solid\"", result);
     }
 
     [TestMethod]
     public void ImplicitConversionFromDotEdgeStyle()
     {
         DotEdgeStyleAttribute attribute = DotEdgeStyle.Solid;
-        attribute.Value.Should().Be("solid");
+        Assert.AreEqual("solid", attribute.Value);
     }
 
     [TestMethod]
     public void ImplicitConversionFromString()
     {
         DotEdgeStyleAttribute attribute = "solid";
-        attribute.Value.Should().Be("solid");
+        Assert.AreEqual("solid", attribute.Value);
     }
 }

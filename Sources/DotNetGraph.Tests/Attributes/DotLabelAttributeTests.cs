@@ -2,7 +2,6 @@ using System.IO;
 using System.Threading.Tasks;
 using DotNetGraph.Attributes;
 using DotNetGraph.Compilation;
-using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DotNetGraph.Tests.Attributes;
@@ -20,7 +19,7 @@ public class DotLabelAttributeTests
         await attribute.CompileAsync(context);
 
         var result = writer.GetStringBuilder().ToString();
-        result.Should().Be("\"Hello,\\n \\\"world\\\"!\"");
+        Assert.AreEqual("\"Hello,\\n \\\"world\\\"!\"", result);
     }
 
     [TestMethod]
@@ -36,9 +35,9 @@ public class DotLabelAttributeTests
         await attribute.CompileAsync(context);
 
         var result = writer.GetStringBuilder().ToString();
-        result.Should().Be("\"Hello,\r\n \"world\"!\"");
+        Assert.AreEqual("\"Hello,\r\n \"world\"!\"", result);
     }
-    
+
     [TestMethod]
     public async Task CompileHtml()
     {
@@ -49,15 +48,14 @@ public class DotLabelAttributeTests
         await attribute.CompileAsync(context);
 
         var result = writer.GetStringBuilder().ToString();
-        result.Should().Be("<<b>Hello, world!</b>>");
+        Assert.AreEqual("<<b>Hello, world!</b>>", result);
     }
 
     [TestMethod]
     public void ImplicitConversionFromString()
     {
         DotLabelAttribute attribute = "Hello, world!";
-
-        attribute.Value.Should().Be("Hello, world!");
-        attribute.IsHtml.Should().Be(false);
+        Assert.AreEqual("Hello, world!", attribute.Value);
+        Assert.IsFalse(attribute.IsHtml);
     }
 }

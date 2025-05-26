@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using DotNetGraph.Compilation;
 using DotNetGraph.Core;
 using DotNetGraph.Extensions;
-using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DotNetGraph.Tests.Core;
@@ -22,6 +21,6 @@ public class DotSubgraphTests
         await subgraph.CompileAsync(context);
 
         var result = writer.GetStringBuilder().ToString();
-        result.Should().Be("subgraph Test {\n}\n");
+        Assert.AreEqual("subgraph Test {\n}\n", result);
     }
 }

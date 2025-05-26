@@ -1,5 +1,4 @@
 using DotNetGraph.Extensions;
-using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DotNetGraph.Tests.Extensions;
@@ -17,6 +16,6 @@ public class StringExtensionsTests
     {
         var result = input.FormatGraphvizEscapedCharacters();
 
-        result.Should().Be(expectedOutput);
+        Assert.AreEqual(expectedOutput, result);
     }
 }

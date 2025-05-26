@@ -1,6 +1,5 @@
 using DotNetGraph.Core;
 using DotNetGraph.Extensions;
-using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DotNetGraph.Tests.Extensions;
@@ -14,8 +13,8 @@ public class DotEdgeExtensionsTests
         var edge = new DotEdge()
             .From("a");
 
-        edge.From.Value.Should().Be("a");
-        edge.From.IsHtml.Should().Be(false);
+        Assert.AreEqual("a", edge.From.Value);
+        Assert.IsFalse(edge.From.IsHtml);
     }
 
     [TestMethod]
@@ -24,8 +23,8 @@ public class DotEdgeExtensionsTests
         var edge = new DotEdge()
             .From("<b>a</b>", true);
 
-        edge.From.Value.Should().Be("<b>a</b>");
-        edge.From.IsHtml.Should().Be(true);
+        Assert.AreEqual("<b>a</b>", edge.From.Value);
+        Assert.IsTrue(edge.From.IsHtml);
     }
 
     [TestMethod]
@@ -37,8 +36,8 @@ public class DotEdgeExtensionsTests
         var edge = new DotEdge()
             .From(node);
 
-        edge.From.Value.Should().Be("a");
-        edge.From.IsHtml.Should().Be(false);
+        Assert.AreEqual("a", edge.From.Value);
+        Assert.IsFalse(edge.From.IsHtml);
     }
 
     [TestMethod]
@@ -50,8 +49,8 @@ public class DotEdgeExtensionsTests
         var edge = new DotEdge()
             .From(node);
 
-        edge.From.Value.Should().Be("<b>a</b>");
-        edge.From.IsHtml.Should().Be(true);
+        Assert.AreEqual("<b>a</b>", edge.From.Value);
+        Assert.IsTrue(edge.From.IsHtml);
     }
 
     [TestMethod]
@@ -60,8 +59,8 @@ public class DotEdgeExtensionsTests
         var edge = new DotEdge()
             .To("a");
 
-        edge.To.Value.Should().Be("a");
-        edge.To.IsHtml.Should().Be(false);
+        Assert.AreEqual("a", edge.To.Value);
+        Assert.IsFalse(edge.To.IsHtml);
     }
 
     [TestMethod]
@@ -70,8 +69,8 @@ public class DotEdgeExtensionsTests
         var edge = new DotEdge()
             .To("<b>a</b>", true);
 
-        edge.To.Value.Should().Be("<b>a</b>");
-        edge.To.IsHtml.Should().Be(true);
+        Assert.AreEqual("<b>a</b>", edge.To.Value);
+        Assert.IsTrue(edge.To.IsHtml);
     }
 
     [TestMethod]
@@ -83,8 +82,8 @@ public class DotEdgeExtensionsTests
         var edge = new DotEdge()
             .To(node);
 
-        edge.To.Value.Should().Be("a");
-        edge.To.IsHtml.Should().Be(false);
+        Assert.AreEqual("a", edge.To.Value);
+        Assert.IsFalse(edge.To.IsHtml);
     }
 
     [TestMethod]
@@ -96,8 +95,8 @@ public class DotEdgeExtensionsTests
         var edge = new DotEdge()
             .To(node);
 
-        edge.To.Value.Should().Be("<b>a</b>");
-        edge.To.IsHtml.Should().Be(true);
+        Assert.AreEqual("<b>a</b>", edge.To.Value);
+        Assert.IsTrue(edge.To.IsHtml);
     }
 
     [TestMethod]
@@ -106,7 +105,7 @@ public class DotEdgeExtensionsTests
         var edge = new DotEdge()
             .WithColor("red");
 
-        edge.Color.Value.Should().Be("red");
+        Assert.AreEqual("red", edge.Color.Value);
     }
 
     [TestMethod]
@@ -115,7 +114,7 @@ public class DotEdgeExtensionsTests
         var edge = new DotEdge()
             .WithColor(DotColor.Red);
 
-        edge.Color.Value.Should().Be("#FF0000");
+        Assert.AreEqual("#FF0000", edge.Color.Value);
     }
 
     [TestMethod]
@@ -124,7 +123,7 @@ public class DotEdgeExtensionsTests
         var edge = new DotEdge()
             .WithStyle("custom");
 
-        edge.Style.Value.Should().Be("custom");
+        Assert.AreEqual("custom", edge.Style.Value);
     }
 
     [TestMethod]
@@ -133,7 +132,7 @@ public class DotEdgeExtensionsTests
         var edge = new DotEdge()
             .WithStyle(DotEdgeStyle.Dashed);
 
-        edge.Style.Value.Should().Be("dashed");
+        Assert.AreEqual("dashed", edge.Style.Value);
     }
 
     [TestMethod]
@@ -142,7 +141,7 @@ public class DotEdgeExtensionsTests
         var edge = new DotEdge()
             .WithPenWidth(123.456);
 
-        edge.PenWidth.Value.Should().Be(123.456);
+        Assert.AreEqual(123.456, edge.PenWidth.Value);
     }
 
     [TestMethod]
@@ -151,7 +150,7 @@ public class DotEdgeExtensionsTests
         var edge = new DotEdge()
             .WithArrowHead("custom");
 
-        edge.ArrowHead.Value.Should().Be("custom");
+        Assert.AreEqual("custom", edge.ArrowHead.Value);
     }
 
     [TestMethod]
@@ -160,7 +159,7 @@ public class DotEdgeExtensionsTests
         var edge = new DotEdge()
             .WithArrowHead(DotEdgeArrowType.Diamond);
 
-        edge.ArrowHead.Value.Should().Be("diamond");
+        Assert.AreEqual("diamond", edge.ArrowHead.Value);
     }
 
     [TestMethod]
@@ -169,7 +168,7 @@ public class DotEdgeExtensionsTests
         var edge = new DotEdge()
             .WithArrowTail("custom");
 
-        edge.ArrowTail.Value.Should().Be("custom");
+        Assert.AreEqual("custom", edge.ArrowTail.Value);
     }
 
     [TestMethod]
@@ -178,7 +177,7 @@ public class DotEdgeExtensionsTests
         var edge = new DotEdge()
             .WithArrowTail(DotEdgeArrowType.Diamond);
 
-        edge.ArrowTail.Value.Should().Be("diamond");
+        Assert.AreEqual("diamond", edge.ArrowTail.Value);
     }
 
     [TestMethod]
@@ -187,7 +186,7 @@ public class DotEdgeExtensionsTests
         var edge = new DotEdge()
             .WithPos("42,69");
 
-        edge.Pos.Value.Should().Be("42,69");
+        Assert.AreEqual("42,69", edge.Pos.Value);
     }
 
     [TestMethod]
@@ -196,7 +195,7 @@ public class DotEdgeExtensionsTests
         var edge = new DotEdge()
             .WithPos(42, 69);
 
-        edge.Pos.Value.Should().Be("42,69");
+        Assert.AreEqual("42,69", edge.Pos.Value);
     }
 
     [TestMethod]
@@ -205,6 +204,6 @@ public class DotEdgeExtensionsTests
         var edge = new DotEdge()
             .WithPos(42, 69, 75);
 
-        edge.Pos.Value.Should().Be("42,69,75");
+        Assert.AreEqual("42,69,75", edge.Pos.Value);
     }
 }

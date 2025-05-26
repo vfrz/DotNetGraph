@@ -1,6 +1,5 @@
 using System;
 using DotNetGraph.Extensions;
-using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DotNetGraph.Tests.Extensions;
@@ -22,7 +21,7 @@ public class EnumExtensionsTests
         Hello,
         World
     }
-    
+
     [TestMethod]
     public void FlagsToStringNoFlag()
     {
@@ -30,9 +29,9 @@ public class EnumExtensionsTests
 
         var result = value.FlagsToString();
 
-        result.Should().BeEmpty();
+        Assert.IsTrue(string.IsNullOrEmpty(result));
     }
-    
+
     [TestMethod]
     public void FlagsToStringOneFlag()
     {
@@ -40,9 +39,9 @@ public class EnumExtensionsTests
 
         var result = value.FlagsToString();
 
-        result.Should().Be("lorem");
+        Assert.AreEqual("lorem", result);
     }
-    
+
     [TestMethod]
     public void FlagsToStringMultipleFlags()
     {
@@ -50,16 +49,14 @@ public class EnumExtensionsTests
 
         var result = value.FlagsToString();
 
-        result.Should().Be("hello,world,ipsum");
+        Assert.AreEqual("hello,world,ipsum", result);
     }
-    
+
     [TestMethod]
     public void FlagsToStringNonFlaggedEnum()
     {
         var value = TestNonFlaggedEnum.Hello;
 
-        value.Invoking(v => v.FlagsToString())
-            .Should()
-            .Throw<Exception>();
+        Assert.Throws<Exception>(() => value.FlagsToString());
     }
 }

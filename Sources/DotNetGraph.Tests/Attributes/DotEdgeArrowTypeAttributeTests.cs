@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using DotNetGraph.Attributes;
 using DotNetGraph.Compilation;
 using DotNetGraph.Core;
-using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DotNetGraph.Tests.Attributes;
@@ -21,9 +20,9 @@ public class DotEdgeArrowTypeAttributeTests
         await attribute.CompileAsync(context);
 
         var result = writer.GetStringBuilder().ToString();
-        result.Should().Be("\"custom\"");
+        Assert.AreEqual("\"custom\"", result);
     }
-    
+
     [TestMethod]
     public async Task CompileFromEnum()
     {
@@ -34,20 +33,20 @@ public class DotEdgeArrowTypeAttributeTests
         await attribute.CompileAsync(context);
 
         var result = writer.GetStringBuilder().ToString();
-        result.Should().Be("\"box\"");
+        Assert.AreEqual("\"box\"", result);
     }
-    
+
     [TestMethod]
     public void ImplicitConversionFromDotEdgeArrowType()
     {
         DotEdgeArrowTypeAttribute attribute = DotEdgeArrowType.Box;
-        attribute.Value.Should().Be("box");
+        Assert.AreEqual("box", attribute.Value);
     }
-    
+
     [TestMethod]
     public void ImplicitConversionFromString()
     {
         DotEdgeArrowTypeAttribute attribute = "box";
-        attribute.Value.Should().Be("box");
+        Assert.AreEqual("box", attribute.Value);
     }
 }

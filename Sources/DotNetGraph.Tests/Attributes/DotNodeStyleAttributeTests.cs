@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using DotNetGraph.Attributes;
 using DotNetGraph.Compilation;
 using DotNetGraph.Core;
-using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DotNetGraph.Tests.Attributes;
@@ -21,9 +20,9 @@ public class DotNodeStyleAttributeTests
         await attribute.CompileAsync(context);
 
         var result = writer.GetStringBuilder().ToString();
-        result.Should().Be("\"custom\"");
+        Assert.AreEqual("\"custom\"", result);
     }
-    
+
     [TestMethod]
     public async Task CompileFromEnum()
     {
@@ -34,20 +33,20 @@ public class DotNodeStyleAttributeTests
         await attribute.CompileAsync(context);
 
         var result = writer.GetStringBuilder().ToString();
-        result.Should().Be("\"bold\"");
+        Assert.AreEqual("\"bold\"", result);
     }
-    
+
     [TestMethod]
     public void ImplicitConversionFromDotNodeStyle()
     {
         DotNodeStyleAttribute attribute = DotNodeStyle.Bold;
-        attribute.Value.Should().Be("bold");
+        Assert.AreEqual("bold", attribute.Value);
     }
 
     [TestMethod]
     public void ImplicitConversionFromString()
     {
         DotNodeStyleAttribute attribute = "bold";
-        attribute.Value.Should().Be("bold");
+        Assert.AreEqual("bold", attribute.Value);
     }
 }

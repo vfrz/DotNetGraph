@@ -1,5 +1,4 @@
 using DotNetGraph.Core;
-using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DotNetGraph.Tests.Core;
@@ -17,26 +16,24 @@ public class DotColorTests
 
         var equal = color1.Equals(color2);
 
-        equal.Should().Be(expectedEqual);
+        Assert.AreEqual(expectedEqual, equal);
     }
 
     [TestMethod]
     public void ToHexStringRgb()
     {
         var color = new DotColor(123, 123, 255);
-
         var hex = color.ToHexString();
 
-        hex.Should().Be("#7B7BFF");
+        Assert.AreEqual("#7B7BFF", hex);
     }
 
     [TestMethod]
     public void ToHexStringRgba()
     {
         var color = new DotColor(123, 123, 255, 123);
-
         var hex = color.ToHexString();
 
-        hex.Should().Be("#7B7BFF7B");
+        Assert.AreEqual("#7B7BFF7B", hex);
     }
 }
